@@ -1,0 +1,10 @@
+{
+  "physics": {
+    "collisionGroups": [
+      {
+        "index": 1,
+        "name": "SkeletonRendererBone"
+      }
+    ]
+  }
+}
