@@ -1,7 +1,7 @@
 
 import { _decorator, Component, Node, EventTouch, math, CameraComponent, physics, PhysicsSystem, geometry, UITransform } from 'cc';
 import { injectComponent } from '../Util/Component';
-import { CCDIKDemo } from './CCDIDDemo';
+import { IKDemo } from './CCDIDDemo';
 const { ccclass, property } = _decorator;
  
 @ccclass('EndFactor')
@@ -62,7 +62,7 @@ export class EndFactor extends Component {
         if (PhysicsSystem.instance.raycastClosest(ray)) {
             const rayCastResult = PhysicsSystem.instance.raycastClosestResult;
 
-            const demo = this.node.scene.getComponentInChildren(CCDIKDemo);
+            const demo = this.node.scene.getComponentInChildren(IKDemo);
             demo?.onResolve(this.endFactorNode, rayCastResult.collider.node);
         }
     }

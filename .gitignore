@@ -24,3 +24,7 @@ node_modules/
 # WebStorm
 #//////////////////////////
 .idea/
+
+extensions/marionette_prototyping_ik/dist/
+
+extensions/marionette_prototyping_ik/\@types/

@@ -1,0 +1,41 @@
+{
+  "ver": "1.0.23",
+  "importer": "image",
+  "imported": true,
+  "uuid": "ca1924ca-1e0c-467f-90c7-fd1bfc3c3e00",
+  "files": [
+    ".jpg",
+    ".json"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "ca1924ca-1e0c-467f-90c7-fd1bfc3c3e00@6c48a",
+      "displayName": "Traveler_Normal",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "ca1924ca-1e0c-467f-90c7-fd1bfc3c3e00"
+      },
+      "ver": "1.0.21",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "hasAlpha": false,
+    "type": "texture",
+    "redirect": "ca1924ca-1e0c-467f-90c7-fd1bfc3c3e00@6c48a",
+    "fixAlphaTransparencyArtifacts": false
+  }
+}

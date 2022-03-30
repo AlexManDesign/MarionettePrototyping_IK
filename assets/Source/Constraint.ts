@@ -1,112 +1,109 @@
 
 import * as cc from 'cc';
 import { getBit, setOrClearBit } from './Util/Bitwise';
-import { Range } from './Util/Math';
+import { clampVec3, mapVec3, Range } from './Util/Math';
 
-const ROTATION_GROUP = 'Rotation';
+export enum ConstraintType {
+    NONE,
+
+    DOF_1,
+
+    Z_Y,
+
+    // #region DOF 3
+
+    X_Y_Z,
+    X_Z_Y,
+    Y_Z_X,
+    Z_Y_X,
+
+    // #endregion
+}
+
+cc.ccenum(ConstraintType);
+
+@cc._decorator.ccclass('NumericConstraint')
+class NumericConstraint {
+    @cc._decorator.property
+    public tag = '';
+
+    @cc._decorator.property(Range)
+    public range: Range = new Range(-180.0, 180.0);
+}
 
 @cc._decorator.ccclass('JointConstraint')
 export class JointConstraint {
     //#region Rotation limits
 
     @cc._decorator.property({
-        group: ROTATION_GROUP,
-        displayName: '禁用 X 轴旋转',
+        type: ConstraintType,
     })
-    get rotationXLocked() {
-        return getBit(this._rotationLock, RotationLockBit.X);
-    }
-
-    set rotationXLocked(value) {
-        this._rotationLock = setOrClearBit(this._rotationLock, RotationLockBit.X, value);
-    }
+    public constraintType = ConstraintType.NONE;
 
     @cc._decorator.property({
-        group: ROTATION_GROUP,
-        displayName: 'X 轴旋转范围',
-        visible: function (this: JointConstraint) {
-            return !this.rotationXLocked;
-        },
+        type: [NumericConstraint],
     })
-    get rotationXRange(): Readonly<Range> {
-        return this._rotationXRange;
-    }
-
-    set rotationXRange(value) {
-        Range.copy(value, this._rotationXRange);
-    }
-
-    @cc._decorator.property({
-        group: ROTATION_GROUP,
-        displayName: '禁用 Y 轴旋转',
-    })
-    get rotationYLocked() {
-        return getBit(this._rotationLock, RotationLockBit.Y);
-    }
-
-    set rotationYLocked(value) {
-        this._rotationLock = setOrClearBit(this._rotationLock, RotationLockBit.Y, value);
-    }
-
-    @cc._decorator.property({
-        group: ROTATION_GROUP,
-        displayName: 'Y 轴旋转范围',
-        visible: function (this: JointConstraint) {
-            return !this.rotationYLocked;
-        },
-    })
-    get rotationYRange(): Readonly<Range> {
-        return this._rotationYRange;
-    }
-
-    set rotationYRange(value) {
-        Range.copy(value, this._rotationYRange);
-    }
-
-    @cc._decorator.property({
-        group: ROTATION_GROUP,
-        displayName: '禁用 Z 轴旋转',
-    })
-    get rotationZLocked() {
-        return getBit(this._rotationLock, RotationLockBit.Z);
-    }
-
-    set rotationZLocked(value) {
-        this._rotationLock = setOrClearBit(this._rotationLock, RotationLockBit.Z, value);
-    }
-
-    @cc._decorator.property({
-        group: ROTATION_GROUP,
-        displayName: 'Z 轴旋转范围',
-        visible: function (this: JointConstraint) {
-            return !this.rotationZLocked;
-        },
-    })
-    get rotationZRange(): Readonly<Range> {
-        return this._rotationZRange;
-    }
-
-    set rotationZRange(value) {
-        Range.copy(value, this._rotationZRange);
-    }
+    public constraints: NumericConstraint[] = Array.from({ length: 3 }, () => new NumericConstraint());
 
     //#endregion
-    
-    @cc._decorator.property
-    private _rotationLock = 0;
-    
-    @cc._decorator.property
-    private _rotationXRange: Range = new Range(0.0, Math.PI * 2);
 
-    @cc._decorator.property
-    private _rotationYRange: Range = new Range(0.0, Math.PI * 2);
+    public apply(rotation: cc.math.Quat, out: cc.math.Quat, debugInfo?: string) {
+        cc.math.Quat.copy(out, rotation);
+        // return out;
 
-    @cc._decorator.property
-    private _rotationZRange: Range = new Range(0.0, Math.PI * 2);
-}
-
-enum RotationLockBit {
-    X,
-    Y,
-    Z,
+        const { constraintType } = this;
+        switch (constraintType) {
+            case ConstraintType.X_Y_Z:
+            case ConstraintType.X_Z_Y:
+            case ConstraintType.Y_Z_X:
+            case ConstraintType.Z_Y_X: {
+                let iX = 0;
+                let iY = 0;
+                let iZ = 0;
+                switch (constraintType) {
+                    case ConstraintType.X_Y_Z: {
+                        iX = 0;
+                        iY = 1;
+                        iZ = 2;
+                        break;
+                    }
+                    case ConstraintType.X_Z_Y: {
+                        iX = 0;
+                        iY = 2;
+                        iZ = 1;
+                        break;
+                    }
+                    case ConstraintType.Y_Z_X: {
+                        iX = 2;
+                        iY = 0;
+                        iZ = 1;
+                        break;
+                    }
+                    case ConstraintType.Z_Y_X: {
+                        iX = 2;
+                        iY = 1;
+                        iZ = 0;
+                        break;
+                    }
+                }
+                const {
+                    [iX]: { range: x },
+                    [iY]: { range: y },
+                    [iZ]: { range: z },
+                } = this.constraints;
+                const eulerAngles = cc.math.Quat.toEuler(new cc.math.Vec3(), rotation) as cc.math.Vec3;
+                const clamped = clampVec3(
+                    eulerAngles,
+                    new cc.math.Vec3(x.min, y.min, z.min),
+                    new cc.math.Vec3(x.max, y.max, z.max),
+                );
+                if (!cc.math.Vec3.strictEquals(eulerAngles, clamped)) {
+                    console.log(`${debugInfo}: ${eulerAngles} into ${clamped}`);
+                }
+                cc.math.Quat.fromEuler(out, clamped.x, clamped.y, clamped.z);
+                break;
+            }
+        }
+        return out;
+    }
 }

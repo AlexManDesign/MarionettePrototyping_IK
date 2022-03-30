@@ -6,5 +6,11 @@
         "name": "SkeletonRendererBone"
       }
     ]
+  },
+  "__version__": "1.0.2",
+  "fbx": {
+    "legacyFbxImporter": {
+      "visible": true
+    }
   }
 }

@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "target": "ES2017",
+        "module": "CommonJS",
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "strict": true,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "jsx": "react",
+        "allowJs": true,
+        "plugins": [{ "name": "typescript-plugin-css-modules" }],
+        "types": [
+            "node",
+            "./@types/editor",
+        ]
+    },
+    "include": [
+        "./src"
+    ],
+    "exclude": [
+        "./mounts"
+    ]
+}
