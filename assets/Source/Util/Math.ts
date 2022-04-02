@@ -37,3 +37,68 @@ export function mapVec3(input: cc.math.Vec3, mapper: (value: number) => number) 
         mapper(input.z),
     );
 }
+
+export enum EulerAngleOrder {
+    XYZ,
+    ZXY,
+}
+
+export function eulerAnglesToQuat(x: number, y: number, z: number, order: EulerAngleOrder) {
+    const qx = cc.math.Quat.fromAxisAngle(
+        new cc.math.Quat(),
+        cc.math.Vec3.UNIT_X,
+        cc.math.toRadian(x),
+    );
+    const qy = cc.math.Quat.fromAxisAngle(
+        new cc.math.Quat(),
+        cc.math.Vec3.UNIT_Y,
+        cc.math.toRadian(y),
+    );
+    const qz = cc.math.Quat.fromAxisAngle(
+        new cc.math.Quat(),
+        cc.math.Vec3.UNIT_Z,
+        cc.math.toRadian(z),
+    );
+    let q0: cc.Quat;
+    let q1: cc.Quat;
+    let q2: cc.Quat;
+    switch (order) {
+        case EulerAngleOrder.XYZ:
+            q0 = qx;
+            q1 = qy;
+            q2 = qz;
+            break;
+        case EulerAngleOrder.ZXY:
+            q0 = qz;
+            q1 = qx;
+            q2 = qy;
+            break;
+    }
+    const result = new cc.math.Quat();
+    cc.Quat.multiply(
+        result,
+        q0,
+        cc.Quat.multiply(
+            result,
+            q1,
+            q2,
+        ),
+    );
+    return result;
+}
+
+export function quatMultiply(out: cc.Quat, q0: cc.Quat, q1: cc.Quat, ...quats: cc.Quat[]) {
+    const nTails = quats.length;
+    if (nTails === 0) {
+        cc.Quat.multiply(out, q0, q1);
+    } else {
+        const iLast = nTails - 1;
+        cc.math.Quat.copy(out, quats[iLast]);
+        for (let i = iLast - 1; i >= 0; --i) {
+            cc.Quat.multiply(out, quats[i], out);
+        }
+        cc.Quat.multiply(out, q1, out);
+        cc.Quat.multiply(out, q0, out);
+    }
+    return out;
+}

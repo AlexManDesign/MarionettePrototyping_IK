@@ -1,12 +1,14 @@
 import * as cc from 'cc';
 import { DEBUG, EDITOR } from 'cc/env';
 import { ConstraintType, JointConstraint } from '../Constraint';
-import { Range } from '../Util/Math';
+import { EulerAngleOrder, eulerAnglesToQuat, quatMultiply, Range } from '../Util/Math';
 // import { rigEditorInterop } from 'db://marionette_prototyping_ik/rig-editor-interop';
-import { Avatar, Vector3 } from '../Demo/Avatar';
+import { Avatar, Vector3, Quaternion } from '../Demo/Avatar';
 import { IKResolver } from './IKResolver';
 import { SkeletonRenderer } from '../Debug/SkeletonRenderer';
 import { LineRenderer } from '../Debug/LineRenderer';
+import HumanTrait from '../Demo/HumanTrait.json';
+import { fromAxes } from './HumanUtil';
 
 enum AlgorithmType {
     FORWARD,
@@ -114,6 +116,21 @@ export class Joint {
         return this._parent ? this._parent.rotation : this._node.worldRotation;
     }
 
+    @cc._decorator.property({
+        visible: false,
+    })
+    public runtimeLocalPosition = new cc.math.Vec3();
+
+    @cc._decorator.property({
+        visible: false,
+    })
+    public runtimeRotation = new cc.math.Quat();
+
+    @cc._decorator.property({
+        visible: false,
+    })
+    public runtimeScale = new cc.math.Vec3();
+
     public reset() {
         const { node, _originalPose: original } = this;
         if (!node) {
@@ -129,9 +146,12 @@ export class Joint {
         if (!node) {
             return;
         }
-        node.setPosition(original.position);
-        node.setRotation(this._initialLocalRotation);
-        node.setScale(original.scale);
+        // node.setPosition(original.position);
+        // node.setRotation(this._initialLocalRotation);
+        // node.setScale(original.scale);
+        // node.setPosition(this._originalPose.position.x, this._originalPose.position.y, -this._originalPose.position.z);
+        node.setRotation(this.runtimeRotation);
+        // node.setScale(this.runtimeScale);
     }
 
     public onAfterSerialized() {
@@ -318,6 +338,9 @@ export class CCDIKResolver extends IKResolver {
         }
         for (const joint of visitJoint(skeletonRoot)) {
             joint.onAfterSerialized();
+        }
+        if (!EDITOR) {
+            this.configureFromUnityAvatar = true;
         }
     }
 
@@ -669,7 +692,7 @@ export class CCDIKResolver extends IKResolver {
             boneName,
             limit,
         } of avatar.humanDescription.human) {
-            const skeletonBone = avatar.humanDescription.skeleton.find((skeletonBone) => skeletonBone.name);
+            const skeletonBone = avatar.humanDescription.skeleton.find((skeletonBone) => skeletonBone.name === boneName);
             if (!skeletonBone) {
                 console.warn(`The skeleton bone(${boneName}) of Human bone ${humanName} is not found in Unity.`);
                 continue;
@@ -679,6 +702,89 @@ export class CCDIKResolver extends IKResolver {
                 console.warn(`The skeleton bone(${boneName}) of Human bone ${humanName} is not found in Creator.`);
                 continue;
             }
+
+            const humanBoneTrait = HumanTrait.bones.find(({ name }) => humanName === name);
+            if (!humanBoneTrait) {
+                console.warn(`Can not find the human trait on skeleton bone(${boneName}) of Human bone ${humanName}`);
+                continue;
+            }
+
+            const avatarBone = avatar.avatarBones.find(({ name }) => name === humanName);
+            if (!avatarBone) {
+                console.warn(`Can not find the avatar bone on skeleton bone(${boneName}) of Human bone ${humanName}`);
+                continue;
+            }
+
+            const getBoneRotation = () => {
+                const convertUnityRotation = (unityRotation: Quaternion) => {
+                    const uEuler = cc.math.Quat.toEuler(new cc.math.Vec3(), unityRotation);
+                    return cc.math.Quat.fromEuler(new cc.math.Quat(), uEuler.x, uEuler.y, uEuler.z);
+                };
+
+                const unityEulerAnglesToCreatorQuat = (unityEulerAngles: Vector3) => {
+                    // return cc.math.Quat.fromEuler(new cc.math.Quat(), unityEulerAngles.x, unityEulerAngles.y, -unityEulerAngles.z);
+                    const result = eulerAnglesToQuat(unityEulerAngles.x, unityEulerAngles.y, unityEulerAngles.z, EulerAngleOrder.ZXY);
+                    const pre = cc.math.Mat3.fromScaling(new cc.math.Mat3(), new cc.math.Vec3(1.0, 1.0, -1.0));
+                    const invPre = cc.math.Mat3.invert(new cc.math.Mat3(), pre);
+                    const r = cc.math.Mat3.fromQuat(new cc.math.Mat3(), result);
+                    const m = new cc.math.Mat3();
+                    cc.math.Mat3.multiply(m, r, invPre);
+                    cc.math.Mat3.multiply(m, pre, m);
+                    cc.math.Quat.fromMat3(result, m);
+                    return result;
+                };
+
+                const localRotation = new cc.math.Quat();
+                const hasAxis = true;
+                if (!hasAxis) {
+                } else {
+                    const preRotation = convertUnityRotation(avatarBone.preRotation);
+                    const postRotation = convertUnityRotation(avatarBone.postRotation);
+                    const limitSign = avatarBone.limitSign;
+                    cc.Quat.normalize(preRotation, preRotation);
+                    cc.Quat.normalize(postRotation, postRotation);
+                    const axisUnProject = (q: cc.math.Quat) => {
+                        return quatMultiply(localRotation, preRotation, q, cc.math.Quat.conjugate(
+                            localRotation,
+                            postRotation,
+                        ));
+                    };
+                    const muscleX = humanBoneTrait.muscleEnabled[0] ? cc.math.lerp(limit.min.x, limit.max.x, 0.5) : 0;
+                    const muscleY = humanBoneTrait.muscleEnabled[1] ? cc.math.lerp(limit.min.y, limit.max.y, 0.5) : 0;
+                    const muscleZ = humanBoneTrait.muscleEnabled[2] ? cc.math.lerp(limit.min.z, limit.max.z, 0.5) : 0;
+                    // const uvw = cc.math.Vec3.multiply(
+                    //     new cc.math.Vec3(), new cc.math.Vec3(muscleX, muscleY, muscleZ), limitSign);
+                    // const q = eulerAnglesToQuat(uvw.x, uvw.y, uvw.z, EulerAngleOrder.XYZ);
+                    // // const q2 = (() => {
+                    // //     const twistAxis = new cc.math.Vec3(0.0, uvw.y, uvw.z);
+                    // //     const twistAngle = cc.math.Vec3.len(twistAxis);
+                    // //     cc.math.Vec3.normalize(twistAxis, twistAxis);
+                    // //     const qTwist = cc.math.Quat.fromAxisAngle(new cc.math.Quat(), twistAxis, twistAngle);
+                    // //     const qSwing = cc.math.Quat.fromAxisAngle(new cc.math.Quat(), cc.Vec3.UNIT_X, uvw.x);
+                    // //     return cc.math.Quat.multiply(
+                    // //         new cc.math.Quat(),
+                    // //         qTwist,
+                    // //         qSwing,
+                    // //     );
+                    // // })();
+                    // axisUnProject(q);
+                    // cc.math.Quat.normalize(localRotation, localRotation);
+                    return fromAxes(
+                        { preRotation, postRotation, sign: cc.Vec3.clone(limitSign), limit: {
+                            min: new cc.math.Vec3(cc.toRadian(limit.min.x), cc.toRadian(limit.min.y), cc.toRadian(limit.min.z)),
+                            max: new cc.math.Vec3(cc.toRadian(limit.max.x), cc.toRadian(limit.max.y), cc.toRadian(limit.max.z)),
+                        } },
+                        new cc.math.Vec3(muscleX, muscleY, muscleZ),
+                    );
+                }
+                // return unityEulerAnglesToCreatorQuat(avatarBone.instanceRotations[0]);
+                return localRotation;
+            };
+
+            cc.Quat.copy(joint.runtimeRotation, getBoneRotation());
+            // positionUnityToCreator(joint.runtimeLocalPosition, skeletonBone.position);
+            // quatUnityToCreator(joint.runtimeRotation, skeletonBone.rotation);
+            // scaleUnityToCreator(joint.runtimeScale, skeletonBone.scale);
 
             const { x: centerX, y: centerY, z: centerZ } = eulerAnglesUnityToCreator(limit.center);
             joint.initialLocalRotation = cc.math.Quat.multiply(
@@ -703,6 +809,28 @@ export class CCDIKResolver extends IKResolver {
                 vector.y,
                 -vector.z,
             );
+        }
+
+        function positionUnityToCreator(c: cc.math.Vec3, u: Vector3) {
+            return cc.math.Vec3.set(c,
+                u.x,
+                u.y,
+                u.z,
+            );
+        }
+
+        function scaleUnityToCreator(c: cc.math.Vec3, u: Vector3) {
+            return cc.math.Vec3.set(c,
+                u.x,
+                u.y,
+                u.z,
+            );
+        }
+
+        function quatUnityToCreator(c: cc.math.Quat, u: Quaternion) {
+            const uEuler = cc.math.Quat.toEuler(new cc.math.Vec3(), u);
+            const cEuler = eulerAnglesUnityToCreator(uEuler);
+            return cc.math.Quat.fromEuler(c, uEuler.x, uEuler.y, uEuler.z);
         }
     }
 }

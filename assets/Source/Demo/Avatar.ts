@@ -4,6 +4,13 @@ export interface Avatar {
     isValid: boolean;
     isHuman: boolean;
     humanDescription: HumanDescription;
+    avatarBones: Array<{
+        name: string;
+        preRotation: Quaternion;
+        postRotation: Quaternion;
+        instanceRotations: Vector3[];
+        limitSign: Vector3;
+    }>;
 }
 
 export interface HumanDescription {
