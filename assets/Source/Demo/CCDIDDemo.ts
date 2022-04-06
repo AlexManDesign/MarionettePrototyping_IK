@@ -1,5 +1,6 @@
 import * as cc from 'cc';
 import { IKResolver } from '../Solvers/IKResolver';
+import { ErrorCode } from '../Solvers/ResolverBase';
 
 @cc._decorator.ccclass('CCDIKDemo')
 export class IKDemo extends cc.Component {
@@ -84,15 +85,15 @@ export class IKDemo extends cc.Component {
             endFactor,
             target,
         );
+        const err = yield* resolveGenerator;
         let next;
         while (!(next = resolveGenerator.next()).done) {
             yield;
         }
-        const err = next.value;
-        if (err) {
-            cc.error(`IK Unreachable.`);
-        } else {
+        if (!err) {
             cc.log(`IK finished.`);
+        } else {
+            cc.error(`IK unreachable: ${ErrorCode[err]}`);
         }
     }
 }
