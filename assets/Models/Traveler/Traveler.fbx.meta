@@ -1,11 +1,11 @@
 {
-  "ver": "2.1.12",
+  "ver": "2.1.13",
   "importer": "fbx",
   "imported": true,
   "uuid": "e2274276-090e-48a0-ae55-825d9eeeb250",
   "files": [
-    "__original-animation-0.cconb",
-    "__original-animation-1.cconb"
+    "__original-animation-1.cconb",
+    "__original-animation-0.cconb"
   ],
   "subMetas": {
     "25912": {

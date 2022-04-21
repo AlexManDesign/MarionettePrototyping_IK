@@ -11,6 +11,9 @@ export interface Avatar {
         instanceRotations: Vector3[];
         limitSign: Vector3;
     }>;
+    muscles: Array<{
+        muscles: number[];
+    }>;
 }
 
 export interface HumanDescription {

@@ -3,1377 +3,919 @@
         {
             "name": "Hips",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                false
+                -1,
+                -1,
+                -1
             ]
         },
         {
             "name": "LeftUpperLeg",
             "muscles": [
-                {
-                    "name": "Left Upper Leg Twist In-Out",
-                    "defaultMin": -60.0,
-                    "defaultMax": 60.0
-                },
-                {
-                    "name": "Left Upper Leg In-Out",
-                    "defaultMin": -60.0,
-                    "defaultMax": 60.0
-                },
-                {
-                    "name": "Left Upper Leg Front-Back",
-                    "defaultMin": -90.0,
-                    "defaultMax": 50.0
-                }
-            ],
-            "muscleEnabled": [
-                true,
-                true,
-                true
+                23,
+                22,
+                21
             ]
         },
         {
             "name": "RightUpperLeg",
             "muscles": [
-                {
-                    "name": "Right Upper Leg Twist In-Out",
-                    "defaultMin": -60.0,
-                    "defaultMax": 60.0
-                },
-                {
-                    "name": "Right Upper Leg In-Out",
-                    "defaultMin": -60.0,
-                    "defaultMax": 60.0
-                },
-                {
-                    "name": "Right Upper Leg Front-Back",
-                    "defaultMin": -90.0,
-                    "defaultMax": 50.0
-                }
-            ],
-            "muscleEnabled": [
-                true,
-                true,
-                true
+                31,
+                30,
+                29
             ]
         },
         {
             "name": "LeftLowerLeg",
             "muscles": [
-                {
-                    "name": "Left Lower Leg Twist In-Out",
-                    "defaultMin": -90.0,
-                    "defaultMax": 90.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Lower Leg Stretch",
-                    "defaultMin": -80.0,
-                    "defaultMax": 80.0
-                }
-            ],
-            "muscleEnabled": [
-                true,
-                false,
-                true
+                25,
+                -1,
+                24
             ]
         },
         {
             "name": "RightLowerLeg",
             "muscles": [
-                {
-                    "name": "Right Lower Leg Twist In-Out",
-                    "defaultMin": -90.0,
-                    "defaultMax": 90.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Lower Leg Stretch",
-                    "defaultMin": -80.0,
-                    "defaultMax": 80.0
-                }
-            ],
-            "muscleEnabled": [
-                true,
-                false,
-                true
+                33,
+                -1,
+                32
             ]
         },
         {
             "name": "LeftFoot",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Foot Twist In-Out",
-                    "defaultMin": -30.0,
-                    "defaultMax": 30.0
-                },
-                {
-                    "name": "Left Foot Up-Down",
-                    "defaultMin": -50.0,
-                    "defaultMax": 50.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                27,
+                26
             ]
         },
         {
             "name": "RightFoot",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Foot Twist In-Out",
-                    "defaultMin": -30.0,
-                    "defaultMax": 30.0
-                },
-                {
-                    "name": "Right Foot Up-Down",
-                    "defaultMin": -50.0,
-                    "defaultMax": 50.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                35,
+                34
             ]
         },
         {
             "name": "Spine",
             "muscles": [
-                {
-                    "name": "Spine Twist Left-Right",
-                    "defaultMin": -40.0,
-                    "defaultMax": 40.0
-                },
-                {
-                    "name": "Spine Left-Right",
-                    "defaultMin": -40.0,
-                    "defaultMax": 40.0
-                },
-                {
-                    "name": "Spine Front-Back",
-                    "defaultMin": -40.0,
-                    "defaultMax": 40.0
-                }
-            ],
-            "muscleEnabled": [
-                true,
-                true,
-                true
+                2,
+                1,
+                0
             ]
         },
         {
             "name": "Chest",
             "muscles": [
-                {
-                    "name": "Chest Twist Left-Right",
-                    "defaultMin": -40.0,
-                    "defaultMax": 40.0
-                },
-                {
-                    "name": "Chest Left-Right",
-                    "defaultMin": -40.0,
-                    "defaultMax": 40.0
-                },
-                {
-                    "name": "Chest Front-Back",
-                    "defaultMin": -40.0,
-                    "defaultMax": 40.0
-                }
-            ],
-            "muscleEnabled": [
-                true,
-                true,
-                true
+                5,
+                4,
+                3
             ]
         },
         {
             "name": "Neck",
             "muscles": [
-                {
-                    "name": "Neck Turn Left-Right",
-                    "defaultMin": -40.0,
-                    "defaultMax": 40.0
-                },
-                {
-                    "name": "Neck Tilt Left-Right",
-                    "defaultMin": -40.0,
-                    "defaultMax": 40.0
-                },
-                {
-                    "name": "Neck Nod Down-Up",
-                    "defaultMin": -40.0,
-                    "defaultMax": 40.0
-                }
-            ],
-            "muscleEnabled": [
-                true,
-                true,
-                true
+                11,
+                10,
+                9
             ]
         },
         {
             "name": "Head",
             "muscles": [
-                {
-                    "name": "Head Turn Left-Right",
-                    "defaultMin": -40.0,
-                    "defaultMax": 40.0
-                },
-                {
-                    "name": "Head Tilt Left-Right",
-                    "defaultMin": -40.0,
-                    "defaultMax": 40.0
-                },
-                {
-                    "name": "Head Nod Down-Up",
-                    "defaultMin": -40.0,
-                    "defaultMax": 40.0
-                }
-            ],
-            "muscleEnabled": [
-                true,
-                true,
-                true
+                14,
+                13,
+                12
             ]
         },
         {
             "name": "LeftShoulder",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Shoulder Front-Back",
-                    "defaultMin": -15.0,
-                    "defaultMax": 15.0
-                },
-                {
-                    "name": "Left Shoulder Down-Up",
-                    "defaultMin": -15.0,
-                    "defaultMax": 30.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                38,
+                37
             ]
         },
         {
             "name": "RightShoulder",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Shoulder Front-Back",
-                    "defaultMin": -15.0,
-                    "defaultMax": 15.0
-                },
-                {
-                    "name": "Right Shoulder Down-Up",
-                    "defaultMin": -15.0,
-                    "defaultMax": 30.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                47,
+                46
             ]
         },
         {
             "name": "LeftUpperArm",
             "muscles": [
-                {
-                    "name": "Left Arm Twist In-Out",
-                    "defaultMin": -90.0,
-                    "defaultMax": 90.0
-                },
-                {
-                    "name": "Left Arm Front-Back",
-                    "defaultMin": -100.0,
-                    "defaultMax": 100.0
-                },
-                {
-                    "name": "Left Arm Down-Up",
-                    "defaultMin": -60.0,
-                    "defaultMax": 100.0
-                }
-            ],
-            "muscleEnabled": [
-                true,
-                true,
-                true
+                41,
+                40,
+                39
             ]
         },
         {
             "name": "RightUpperArm",
             "muscles": [
-                {
-                    "name": "Right Arm Twist In-Out",
-                    "defaultMin": -90.0,
-                    "defaultMax": 90.0
-                },
-                {
-                    "name": "Right Arm Front-Back",
-                    "defaultMin": -100.0,
-                    "defaultMax": 100.0
-                },
-                {
-                    "name": "Right Arm Down-Up",
-                    "defaultMin": -60.0,
-                    "defaultMax": 100.0
-                }
-            ],
-            "muscleEnabled": [
-                true,
-                true,
-                true
+                50,
+                49,
+                48
             ]
         },
         {
             "name": "LeftLowerArm",
             "muscles": [
-                {
-                    "name": "Left Forearm Twist In-Out",
-                    "defaultMin": -90.0,
-                    "defaultMax": 90.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Forearm Stretch",
-                    "defaultMin": -80.0,
-                    "defaultMax": 80.0
-                }
-            ],
-            "muscleEnabled": [
-                true,
-                false,
-                true
+                43,
+                -1,
+                42
             ]
         },
         {
             "name": "RightLowerArm",
             "muscles": [
-                {
-                    "name": "Right Forearm Twist In-Out",
-                    "defaultMin": -90.0,
-                    "defaultMax": 90.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Forearm Stretch",
-                    "defaultMin": -80.0,
-                    "defaultMax": 80.0
-                }
-            ],
-            "muscleEnabled": [
-                true,
-                false,
-                true
+                52,
+                -1,
+                51
             ]
         },
         {
             "name": "LeftHand",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Hand In-Out",
-                    "defaultMin": -40.0,
-                    "defaultMax": 40.0
-                },
-                {
-                    "name": "Left Hand Down-Up",
-                    "defaultMin": -80.0,
-                    "defaultMax": 80.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                45,
+                44
             ]
         },
         {
             "name": "RightHand",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Hand In-Out",
-                    "defaultMin": -40.0,
-                    "defaultMax": 40.0
-                },
-                {
-                    "name": "Right Hand Down-Up",
-                    "defaultMin": -80.0,
-                    "defaultMax": 80.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                54,
+                53
             ]
         },
         {
             "name": "LeftToes",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Toes Up-Down",
-                    "defaultMin": -50.0,
-                    "defaultMax": 50.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                28
             ]
         },
         {
             "name": "RightToes",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Toes Up-Down",
-                    "defaultMin": -50.0,
-                    "defaultMax": 50.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                36
             ]
         },
         {
             "name": "LeftEye",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Eye In-Out",
-                    "defaultMin": -20.0,
-                    "defaultMax": 20.0
-                },
-                {
-                    "name": "Left Eye Down-Up",
-                    "defaultMin": -10.0,
-                    "defaultMax": 15.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                16,
+                15
             ]
         },
         {
             "name": "RightEye",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Eye In-Out",
-                    "defaultMin": -20.0,
-                    "defaultMax": 20.0
-                },
-                {
-                    "name": "Right Eye Down-Up",
-                    "defaultMin": -10.0,
-                    "defaultMax": 15.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                18,
+                17
             ]
         },
         {
             "name": "Jaw",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Jaw Left-Right",
-                    "defaultMin": -10.0,
-                    "defaultMax": 10.0
-                },
-                {
-                    "name": "Jaw Close",
-                    "defaultMin": -10.0,
-                    "defaultMax": 10.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                20,
+                19
             ]
         },
         {
             "name": "Left Thumb Proximal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Thumb Spread",
-                    "defaultMin": -25.0,
-                    "defaultMax": 25.0
-                },
-                {
-                    "name": "Left Thumb 1 Stretched",
-                    "defaultMin": -20.0,
-                    "defaultMax": 20.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                56,
+                55
             ]
         },
         {
             "name": "Left Thumb Intermediate",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Thumb 2 Stretched",
-                    "defaultMin": -40.0,
-                    "defaultMax": 35.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                57
             ]
         },
         {
             "name": "Left Thumb Distal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Thumb 3 Stretched",
-                    "defaultMin": -40.0,
-                    "defaultMax": 35.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                58
             ]
         },
         {
             "name": "Left Index Proximal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Index Spread",
-                    "defaultMin": -20.0,
-                    "defaultMax": 20.0
-                },
-                {
-                    "name": "Left Index 1 Stretched",
-                    "defaultMin": -50.0,
-                    "defaultMax": 50.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                60,
+                59
             ]
         },
         {
             "name": "Left Index Intermediate",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Index 2 Stretched",
-                    "defaultMin": -45.0,
-                    "defaultMax": 45.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                61
             ]
         },
         {
             "name": "Left Index Distal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Index 3 Stretched",
-                    "defaultMin": -45.0,
-                    "defaultMax": 45.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                62
             ]
         },
         {
             "name": "Left Middle Proximal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Middle Spread",
-                    "defaultMin": -7.5,
-                    "defaultMax": 7.5
-                },
-                {
-                    "name": "Left Middle 1 Stretched",
-                    "defaultMin": -50.0,
-                    "defaultMax": 50.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                64,
+                63
             ]
         },
         {
             "name": "Left Middle Intermediate",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Middle 2 Stretched",
-                    "defaultMin": -45.0,
-                    "defaultMax": 45.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                65
             ]
         },
         {
             "name": "Left Middle Distal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Middle 3 Stretched",
-                    "defaultMin": -45.0,
-                    "defaultMax": 45.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                66
             ]
         },
         {
             "name": "Left Ring Proximal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Ring Spread",
-                    "defaultMin": -7.5,
-                    "defaultMax": 7.5
-                },
-                {
-                    "name": "Left Ring 1 Stretched",
-                    "defaultMin": -50.0,
-                    "defaultMax": 50.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                68,
+                67
             ]
         },
         {
             "name": "Left Ring Intermediate",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Ring 2 Stretched",
-                    "defaultMin": -45.0,
-                    "defaultMax": 45.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                69
             ]
         },
         {
             "name": "Left Ring Distal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Ring 3 Stretched",
-                    "defaultMin": -45.0,
-                    "defaultMax": 45.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                70
             ]
         },
         {
             "name": "Left Little Proximal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Little Spread",
-                    "defaultMin": -20.0,
-                    "defaultMax": 20.0
-                },
-                {
-                    "name": "Left Little 1 Stretched",
-                    "defaultMin": -50.0,
-                    "defaultMax": 50.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                72,
+                71
             ]
         },
         {
             "name": "Left Little Intermediate",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Little 2 Stretched",
-                    "defaultMin": -45.0,
-                    "defaultMax": 45.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                73
             ]
         },
         {
             "name": "Left Little Distal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Left Little 3 Stretched",
-                    "defaultMin": -45.0,
-                    "defaultMax": 45.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                74
             ]
         },
         {
             "name": "Right Thumb Proximal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Thumb Spread",
-                    "defaultMin": -25.0,
-                    "defaultMax": 25.0
-                },
-                {
-                    "name": "Right Thumb 1 Stretched",
-                    "defaultMin": -20.0,
-                    "defaultMax": 20.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                76,
+                75
             ]
         },
         {
             "name": "Right Thumb Intermediate",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Thumb 2 Stretched",
-                    "defaultMin": -40.0,
-                    "defaultMax": 35.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                77
             ]
         },
         {
             "name": "Right Thumb Distal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Thumb 3 Stretched",
-                    "defaultMin": -40.0,
-                    "defaultMax": 35.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                78
             ]
         },
         {
             "name": "Right Index Proximal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Index Spread",
-                    "defaultMin": -20.0,
-                    "defaultMax": 20.0
-                },
-                {
-                    "name": "Right Index 1 Stretched",
-                    "defaultMin": -50.0,
-                    "defaultMax": 50.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                80,
+                79
             ]
         },
         {
             "name": "Right Index Intermediate",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Index 2 Stretched",
-                    "defaultMin": -45.0,
-                    "defaultMax": 45.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                81
             ]
         },
         {
             "name": "Right Index Distal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Index 3 Stretched",
-                    "defaultMin": -45.0,
-                    "defaultMax": 45.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                82
             ]
         },
         {
             "name": "Right Middle Proximal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Middle Spread",
-                    "defaultMin": -7.5,
-                    "defaultMax": 7.5
-                },
-                {
-                    "name": "Right Middle 1 Stretched",
-                    "defaultMin": -50.0,
-                    "defaultMax": 50.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                84,
+                83
             ]
         },
         {
             "name": "Right Middle Intermediate",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Middle 2 Stretched",
-                    "defaultMin": -45.0,
-                    "defaultMax": 45.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                85
             ]
         },
         {
             "name": "Right Middle Distal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Middle 3 Stretched",
-                    "defaultMin": -45.0,
-                    "defaultMax": 45.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                86
             ]
         },
         {
             "name": "Right Ring Proximal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Ring Spread",
-                    "defaultMin": -7.5,
-                    "defaultMax": 7.5
-                },
-                {
-                    "name": "Right Ring 1 Stretched",
-                    "defaultMin": -50.0,
-                    "defaultMax": 50.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                88,
+                87
             ]
         },
         {
             "name": "Right Ring Intermediate",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Ring 2 Stretched",
-                    "defaultMin": -45.0,
-                    "defaultMax": 45.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                89
             ]
         },
         {
             "name": "Right Ring Distal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Ring 3 Stretched",
-                    "defaultMin": -45.0,
-                    "defaultMax": 45.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                90
             ]
         },
         {
             "name": "Right Little Proximal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Little Spread",
-                    "defaultMin": -20.0,
-                    "defaultMax": 20.0
-                },
-                {
-                    "name": "Right Little 1 Stretched",
-                    "defaultMin": -50.0,
-                    "defaultMax": 50.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                true,
-                true
+                -1,
+                92,
+                91
             ]
         },
         {
             "name": "Right Little Intermediate",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Little 2 Stretched",
-                    "defaultMin": -45.0,
-                    "defaultMax": 45.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                93
             ]
         },
         {
             "name": "Right Little Distal",
             "muscles": [
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "",
-                    "defaultMin": 0.0,
-                    "defaultMax": 0.0
-                },
-                {
-                    "name": "Right Little 3 Stretched",
-                    "defaultMin": -45.0,
-                    "defaultMax": 45.0
-                }
-            ],
-            "muscleEnabled": [
-                false,
-                false,
-                true
+                -1,
+                -1,
+                94
             ]
         },
         {
             "name": "UpperChest",
             "muscles": [
-                {
-                    "name": "UpperChest Twist Left-Right",
-                    "defaultMin": -20.0,
-                    "defaultMax": 20.0
-                },
-                {
-                    "name": "UpperChest Left-Right",
-                    "defaultMin": -20.0,
-                    "defaultMax": 20.0
-                },
-                {
-                    "name": "UpperChest Front-Back",
-                    "defaultMin": -20.0,
-                    "defaultMax": 20.0
-                }
-            ],
-            "muscleEnabled": [
-                true,
-                true,
-                true
+                8,
+                7,
+                6
             ]
+        }
+    ],
+    "muscles": [
+        {
+            "name": "Spine Front-Back",
+            "defaultMin": -40.0,
+            "defaultMax": 40.0
+        },
+        {
+            "name": "Spine Left-Right",
+            "defaultMin": -40.0,
+            "defaultMax": 40.0
+        },
+        {
+            "name": "Spine Twist Left-Right",
+            "defaultMin": -40.0,
+            "defaultMax": 40.0
+        },
+        {
+            "name": "Chest Front-Back",
+            "defaultMin": -40.0,
+            "defaultMax": 40.0
+        },
+        {
+            "name": "Chest Left-Right",
+            "defaultMin": -40.0,
+            "defaultMax": 40.0
+        },
+        {
+            "name": "Chest Twist Left-Right",
+            "defaultMin": -40.0,
+            "defaultMax": 40.0
+        },
+        {
+            "name": "UpperChest Front-Back",
+            "defaultMin": -20.0,
+            "defaultMax": 20.0
+        },
+        {
+            "name": "UpperChest Left-Right",
+            "defaultMin": -20.0,
+            "defaultMax": 20.0
+        },
+        {
+            "name": "UpperChest Twist Left-Right",
+            "defaultMin": -20.0,
+            "defaultMax": 20.0
+        },
+        {
+            "name": "Neck Nod Down-Up",
+            "defaultMin": -40.0,
+            "defaultMax": 40.0
+        },
+        {
+            "name": "Neck Tilt Left-Right",
+            "defaultMin": -40.0,
+            "defaultMax": 40.0
+        },
+        {
+            "name": "Neck Turn Left-Right",
+            "defaultMin": -40.0,
+            "defaultMax": 40.0
+        },
+        {
+            "name": "Head Nod Down-Up",
+            "defaultMin": -40.0,
+            "defaultMax": 40.0
+        },
+        {
+            "name": "Head Tilt Left-Right",
+            "defaultMin": -40.0,
+            "defaultMax": 40.0
+        },
+        {
+            "name": "Head Turn Left-Right",
+            "defaultMin": -40.0,
+            "defaultMax": 40.0
+        },
+        {
+            "name": "Left Eye Down-Up",
+            "defaultMin": -10.0,
+            "defaultMax": 15.0
+        },
+        {
+            "name": "Left Eye In-Out",
+            "defaultMin": -20.0,
+            "defaultMax": 20.0
+        },
+        {
+            "name": "Right Eye Down-Up",
+            "defaultMin": -10.0,
+            "defaultMax": 15.0
+        },
+        {
+            "name": "Right Eye In-Out",
+            "defaultMin": -20.0,
+            "defaultMax": 20.0
+        },
+        {
+            "name": "Jaw Close",
+            "defaultMin": -10.0,
+            "defaultMax": 10.0
+        },
+        {
+            "name": "Jaw Left-Right",
+            "defaultMin": -10.0,
+            "defaultMax": 10.0
+        },
+        {
+            "name": "Left Upper Leg Front-Back",
+            "defaultMin": -90.0,
+            "defaultMax": 50.0
+        },
+        {
+            "name": "Left Upper Leg In-Out",
+            "defaultMin": -60.0,
+            "defaultMax": 60.0
+        },
+        {
+            "name": "Left Upper Leg Twist In-Out",
+            "defaultMin": -60.0,
+            "defaultMax": 60.0
+        },
+        {
+            "name": "Left Lower Leg Stretch",
+            "defaultMin": -80.0,
+            "defaultMax": 80.0
+        },
+        {
+            "name": "Left Lower Leg Twist In-Out",
+            "defaultMin": -90.0,
+            "defaultMax": 90.0
+        },
+        {
+            "name": "Left Foot Up-Down",
+            "defaultMin": -50.0,
+            "defaultMax": 50.0
+        },
+        {
+            "name": "Left Foot Twist In-Out",
+            "defaultMin": -30.0,
+            "defaultMax": 30.0
+        },
+        {
+            "name": "Left Toes Up-Down",
+            "defaultMin": -50.0,
+            "defaultMax": 50.0
+        },
+        {
+            "name": "Right Upper Leg Front-Back",
+            "defaultMin": -90.0,
+            "defaultMax": 50.0
+        },
+        {
+            "name": "Right Upper Leg In-Out",
+            "defaultMin": -60.0,
+            "defaultMax": 60.0
+        },
+        {
+            "name": "Right Upper Leg Twist In-Out",
+            "defaultMin": -60.0,
+            "defaultMax": 60.0
+        },
+        {
+            "name": "Right Lower Leg Stretch",
+            "defaultMin": -80.0,
+            "defaultMax": 80.0
+        },
+        {
+            "name": "Right Lower Leg Twist In-Out",
+            "defaultMin": -90.0,
+            "defaultMax": 90.0
+        },
+        {
+            "name": "Right Foot Up-Down",
+            "defaultMin": -50.0,
+            "defaultMax": 50.0
+        },
+        {
+            "name": "Right Foot Twist In-Out",
+            "defaultMin": -30.0,
+            "defaultMax": 30.0
+        },
+        {
+            "name": "Right Toes Up-Down",
+            "defaultMin": -50.0,
+            "defaultMax": 50.0
+        },
+        {
+            "name": "Left Shoulder Down-Up",
+            "defaultMin": -15.0,
+            "defaultMax": 30.0
+        },
+        {
+            "name": "Left Shoulder Front-Back",
+            "defaultMin": -15.0,
+            "defaultMax": 15.0
+        },
+        {
+            "name": "Left Arm Down-Up",
+            "defaultMin": -60.0,
+            "defaultMax": 100.0
+        },
+        {
+            "name": "Left Arm Front-Back",
+            "defaultMin": -100.0,
+            "defaultMax": 100.0
+        },
+        {
+            "name": "Left Arm Twist In-Out",
+            "defaultMin": -90.0,
+            "defaultMax": 90.0
+        },
+        {
+            "name": "Left Forearm Stretch",
+            "defaultMin": -80.0,
+            "defaultMax": 80.0
+        },
+        {
+            "name": "Left Forearm Twist In-Out",
+            "defaultMin": -90.0,
+            "defaultMax": 90.0
+        },
+        {
+            "name": "Left Hand Down-Up",
+            "defaultMin": -80.0,
+            "defaultMax": 80.0
+        },
+        {
+            "name": "Left Hand In-Out",
+            "defaultMin": -40.0,
+            "defaultMax": 40.0
+        },
+        {
+            "name": "Right Shoulder Down-Up",
+            "defaultMin": -15.0,
+            "defaultMax": 30.0
+        },
+        {
+            "name": "Right Shoulder Front-Back",
+            "defaultMin": -15.0,
+            "defaultMax": 15.0
+        },
+        {
+            "name": "Right Arm Down-Up",
+            "defaultMin": -60.0,
+            "defaultMax": 100.0
+        },
+        {
+            "name": "Right Arm Front-Back",
+            "defaultMin": -100.0,
+            "defaultMax": 100.0
+        },
+        {
+            "name": "Right Arm Twist In-Out",
+            "defaultMin": -90.0,
+            "defaultMax": 90.0
+        },
+        {
+            "name": "Right Forearm Stretch",
+            "defaultMin": -80.0,
+            "defaultMax": 80.0
+        },
+        {
+            "name": "Right Forearm Twist In-Out",
+            "defaultMin": -90.0,
+            "defaultMax": 90.0
+        },
+        {
+            "name": "Right Hand Down-Up",
+            "defaultMin": -80.0,
+            "defaultMax": 80.0
+        },
+        {
+            "name": "Right Hand In-Out",
+            "defaultMin": -40.0,
+            "defaultMax": 40.0
+        },
+        {
+            "name": "Left Thumb 1 Stretched",
+            "defaultMin": -20.0,
+            "defaultMax": 20.0
+        },
+        {
+            "name": "Left Thumb Spread",
+            "defaultMin": -25.0,
+            "defaultMax": 25.0
+        },
+        {
+            "name": "Left Thumb 2 Stretched",
+            "defaultMin": -40.0,
+            "defaultMax": 35.0
+        },
+        {
+            "name": "Left Thumb 3 Stretched",
+            "defaultMin": -40.0,
+            "defaultMax": 35.0
+        },
+        {
+            "name": "Left Index 1 Stretched",
+            "defaultMin": -50.0,
+            "defaultMax": 50.0
+        },
+        {
+            "name": "Left Index Spread",
+            "defaultMin": -20.0,
+            "defaultMax": 20.0
+        },
+        {
+            "name": "Left Index 2 Stretched",
+            "defaultMin": -45.0,
+            "defaultMax": 45.0
+        },
+        {
+            "name": "Left Index 3 Stretched",
+            "defaultMin": -45.0,
+            "defaultMax": 45.0
+        },
+        {
+            "name": "Left Middle 1 Stretched",
+            "defaultMin": -50.0,
+            "defaultMax": 50.0
+        },
+        {
+            "name": "Left Middle Spread",
+            "defaultMin": -7.5,
+            "defaultMax": 7.5
+        },
+        {
+            "name": "Left Middle 2 Stretched",
+            "defaultMin": -45.0,
+            "defaultMax": 45.0
+        },
+        {
+            "name": "Left Middle 3 Stretched",
+            "defaultMin": -45.0,
+            "defaultMax": 45.0
+        },
+        {
+            "name": "Left Ring 1 Stretched",
+            "defaultMin": -50.0,
+            "defaultMax": 50.0
+        },
+        {
+            "name": "Left Ring Spread",
+            "defaultMin": -7.5,
+            "defaultMax": 7.5
+        },
+        {
+            "name": "Left Ring 2 Stretched",
+            "defaultMin": -45.0,
+            "defaultMax": 45.0
+        },
+        {
+            "name": "Left Ring 3 Stretched",
+            "defaultMin": -45.0,
+            "defaultMax": 45.0
+        },
+        {
+            "name": "Left Little 1 Stretched",
+            "defaultMin": -50.0,
+            "defaultMax": 50.0
+        },
+        {
+            "name": "Left Little Spread",
+            "defaultMin": -20.0,
+            "defaultMax": 20.0
+        },
+        {
+            "name": "Left Little 2 Stretched",
+            "defaultMin": -45.0,
+            "defaultMax": 45.0
+        },
+        {
+            "name": "Left Little 3 Stretched",
+            "defaultMin": -45.0,
+            "defaultMax": 45.0
+        },
+        {
+            "name": "Right Thumb 1 Stretched",
+            "defaultMin": -20.0,
+            "defaultMax": 20.0
+        },
+        {
+            "name": "Right Thumb Spread",
+            "defaultMin": -25.0,
+            "defaultMax": 25.0
+        },
+        {
+            "name": "Right Thumb 2 Stretched",
+            "defaultMin": -40.0,
+            "defaultMax": 35.0
+        },
+        {
+            "name": "Right Thumb 3 Stretched",
+            "defaultMin": -40.0,
+            "defaultMax": 35.0
+        },
+        {
+            "name": "Right Index 1 Stretched",
+            "defaultMin": -50.0,
+            "defaultMax": 50.0
+        },
+        {
+            "name": "Right Index Spread",
+            "defaultMin": -20.0,
+            "defaultMax": 20.0
+        },
+        {
+            "name": "Right Index 2 Stretched",
+            "defaultMin": -45.0,
+            "defaultMax": 45.0
+        },
+        {
+            "name": "Right Index 3 Stretched",
+            "defaultMin": -45.0,
+            "defaultMax": 45.0
+        },
+        {
+            "name": "Right Middle 1 Stretched",
+            "defaultMin": -50.0,
+            "defaultMax": 50.0
+        },
+        {
+            "name": "Right Middle Spread",
+            "defaultMin": -7.5,
+            "defaultMax": 7.5
+        },
+        {
+            "name": "Right Middle 2 Stretched",
+            "defaultMin": -45.0,
+            "defaultMax": 45.0
+        },
+        {
+            "name": "Right Middle 3 Stretched",
+            "defaultMin": -45.0,
+            "defaultMax": 45.0
+        },
+        {
+            "name": "Right Ring 1 Stretched",
+            "defaultMin": -50.0,
+            "defaultMax": 50.0
+        },
+        {
+            "name": "Right Ring Spread",
+            "defaultMin": -7.5,
+            "defaultMax": 7.5
+        },
+        {
+            "name": "Right Ring 2 Stretched",
+            "defaultMin": -45.0,
+            "defaultMax": 45.0
+        },
+        {
+            "name": "Right Ring 3 Stretched",
+            "defaultMin": -45.0,
+            "defaultMax": 45.0
+        },
+        {
+            "name": "Right Little 1 Stretched",
+            "defaultMin": -50.0,
+            "defaultMax": 50.0
+        },
+        {
+            "name": "Right Little Spread",
+            "defaultMin": -20.0,
+            "defaultMax": 20.0
+        },
+        {
+            "name": "Right Little 2 Stretched",
+            "defaultMin": -45.0,
+            "defaultMax": 45.0
+        },
+        {
+            "name": "Right Little 3 Stretched",
+            "defaultMin": -45.0,
+            "defaultMax": 45.0
         }
     ]
 }

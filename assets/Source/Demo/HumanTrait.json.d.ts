@@ -2,12 +2,12 @@
 declare let HumanTrait: {
     bones: Array<{
         name: string;
-        muscles: Array<{
-            name: string;
-            defaultMin: number;
-            defaultMax: number;
-        }>;
-        muscleEnabled: boolean[];
+        muscles: [number, number, number];
+    }>;
+    muscles: Array<{
+        name: string;
+        defaultMin: number;
+        defaultMax: number;
     }>;
 };
 

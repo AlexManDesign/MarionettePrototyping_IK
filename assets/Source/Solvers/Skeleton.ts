@@ -109,6 +109,8 @@ export class Joint {
     })
     public runtimeLocalPosition = new cc.math.Vec3();
 
+    public runtimeLocalPositionEnabled = false;
+
     @cc._decorator.property({
         visible: false,
     })
@@ -137,7 +139,9 @@ export class Joint {
         // node.setPosition(original.position);
         // node.setRotation(this._initialLocalRotation);
         // node.setScale(original.scale);
-        // node.setPosition(this._originalPose.position.x, this._originalPose.position.y, -this._originalPose.position.z);
+        if (this.runtimeLocalPositionEnabled) {
+            node.setPosition(this.runtimeLocalPosition.x, this.runtimeLocalPosition.y, this.runtimeLocalPosition.z);
+        }
         node.setRotation(this.runtimeRotation);
         // node.setScale(this.runtimeScale);
     }

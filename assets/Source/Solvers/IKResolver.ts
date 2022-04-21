@@ -2,13 +2,12 @@ import * as cc from 'cc';
 import { Joint, visitJoint } from './Skeleton';
 import { DEBUG, EDITOR } from 'cc/env';
 import { ConstraintType, JointConstraint } from '../Constraint';
-import { EulerAngleOrder, eulerAnglesToQuat, quatMultiply, Range } from '../Util/Math';
 // import { rigEditorInterop } from 'db://marionette_prototyping_ik/rig-editor-interop';
-import { Avatar, Vector3, Quaternion, HumanLimit } from '../Demo/Avatar';
+import { Avatar } from '../Demo/Avatar';
 import { SkeletonRenderer } from '../Debug/SkeletonRenderer';
 import { LineRenderer } from '../Debug/LineRenderer';
 import HumanTrait from '../Demo/HumanTrait.json';
-import { fromAxes } from './HumanUtil';
+import { calculateHumanBoneRotation, eulerAnglesUnityToCreator, groupMuscles } from './HumanUtil';
 import { CCDIKResolver } from './CCD';
 import { FABRIK } from './FABRIK';
 import { ErrorCode } from './ResolverBase';
@@ -280,6 +279,19 @@ export abstract class IKResolver extends cc.Component {
             return null;
         };
 
+        const muscles = new Array(HumanTrait.muscles.length).fill(0.0);
+        if (avatar.muscles.length > 0) {
+            avatar.muscles[0].muscles.forEach((v, i) => muscles[i] = v);
+        }
+        const setMuscle = (name: string, value: number) => {
+            const muscleIndex = HumanTrait.muscles.findIndex(({ name: muscleName }) => { muscleName === name });
+            if (muscleIndex >= 0) {
+                muscles[muscleIndex] = value;
+            } else {
+                throw new Error(`Muscle ${name} not found.`);
+            }
+        };
+
         for (const {
             humanName,
             boneName,
@@ -308,11 +320,42 @@ export abstract class IKResolver extends cc.Component {
                 continue;
             }
 
-            cc.Quat.copy(joint.runtimeRotation, getBoneRotation(
+            const boneMuscles = humanBoneTrait.muscles.map((muscleIndex: number) => {
+                return muscleIndex < 0 ? 0.0 : muscles[muscleIndex];
+            }) as [number, number, number];
+
+            const localPosition = new cc.Vec3();
+            const localScale = new cc.Vec3();
+            const localRotation = new cc.Quat();
+            cc.Quat.copy(localRotation, skeletonBone.rotation);
+            cc.Quat.copy(localRotation, calculateHumanBoneRotation(
                 avatarBone,
-                humanBoneTrait,
                 limit,
+                boneMuscles,
             ));
+            cc.Vec3.copy(localPosition, skeletonBone.position);
+            cc.Vec3.copy(localScale, skeletonBone.scale);
+            const localTransform = new cc.Mat4();
+            cc.Mat4.fromRTS(
+                localTransform,
+                localRotation,
+                localPosition,
+                localScale,
+            );
+            mat4UnityToCocosCreator(localTransform, cc.Mat4.clone(localTransform));
+            const localPosition_ = new cc.Vec3();
+            const localScale_ = new cc.Vec3();
+            const localRotation_ = new cc.Quat();
+            cc.Mat4.toRTS(
+                localTransform,
+                localRotation_,
+                localPosition_,
+                localScale_,
+            );
+            cc.Quat.copy(joint.runtimeRotation, localRotation_);
+            joint.runtimeLocalPositionEnabled = true;
+            cc.Vec3.copy(joint.runtimeLocalPosition,localPosition_);
+            cc.Vec3.copy(joint.runtimeScale, localScale_);
 
             const { x: centerX, y: centerY, z: centerZ } = eulerAnglesUnityToCreator(limit.center);
             joint.initialLocalRotation = cc.math.Quat.multiply(
@@ -330,88 +373,6 @@ export abstract class IKResolver extends cc.Component {
             joint.constraint.constraints[2].range.min = minX;
             joint.constraint.constraints[2].range.max = maxX;
         }
-
-        function eulerAnglesUnityToCreator(vector: Vector3) {
-            return new cc.math.Vec3(
-                vector.x,
-                vector.y,
-                -vector.z,
-            );
-        }
-
-        function positionUnityToCreator(c: cc.math.Vec3, u: Vector3) {
-            return cc.math.Vec3.set(c,
-                u.x,
-                u.y,
-                u.z,
-            );
-        }
-
-        function scaleUnityToCreator(c: cc.math.Vec3, u: Vector3) {
-            return cc.math.Vec3.set(c,
-                u.x,
-                u.y,
-                u.z,
-            );
-        }
-
-        function quatUnityToCreator(c: cc.math.Quat, u: Quaternion) {
-            const uEuler = cc.math.Quat.toEuler(new cc.math.Vec3(), u);
-            const cEuler = eulerAnglesUnityToCreator(uEuler);
-            return cc.math.Quat.fromEuler(c, uEuler.x, uEuler.y, uEuler.z);
-        }
-
-        function getBoneRotation(
-            avatarBone: Avatar['avatarBones'][0],
-            humanBoneTrait: (typeof HumanTrait.bones)[0],
-            limit: HumanLimit,
-        ) {
-            const convertUnityRotation = (unityRotation: Quaternion) => {
-                const uEuler = cc.math.Quat.toEuler(new cc.math.Vec3(), unityRotation);
-                return cc.math.Quat.fromEuler(new cc.math.Quat(), uEuler.x, uEuler.y, uEuler.z);
-            };
-
-            const unityEulerAnglesToCreatorQuat = (unityEulerAngles: Vector3) => {
-                // return cc.math.Quat.fromEuler(new cc.math.Quat(), unityEulerAngles.x, unityEulerAngles.y, -unityEulerAngles.z);
-                const result = eulerAnglesToQuat(unityEulerAngles.x, unityEulerAngles.y, unityEulerAngles.z, EulerAngleOrder.ZXY);
-                const pre = cc.math.Mat3.fromScaling(new cc.math.Mat3(), new cc.math.Vec3(1.0, 1.0, -1.0));
-                const invPre = cc.math.Mat3.invert(new cc.math.Mat3(), pre);
-                const r = cc.math.Mat3.fromQuat(new cc.math.Mat3(), result);
-                const m = new cc.math.Mat3();
-                cc.math.Mat3.multiply(m, r, invPre);
-                cc.math.Mat3.multiply(m, pre, m);
-                cc.math.Quat.fromMat3(result, m);
-                return result;
-            };
-
-            const localRotation = new cc.math.Quat();
-            const hasAxis = true;
-            if (!hasAxis) {
-            } else {
-                const preRotation = convertUnityRotation(avatarBone.preRotation);
-                const postRotation = convertUnityRotation(avatarBone.postRotation);
-                const limitSign = avatarBone.limitSign;
-                cc.Quat.normalize(preRotation, preRotation);
-                cc.Quat.normalize(postRotation, postRotation);
-                const muscleX = humanBoneTrait.muscleEnabled[0] ? cc.math.lerp(limit.min.x, limit.max.x, 0.5) : 0;
-                const muscleY = humanBoneTrait.muscleEnabled[1] ? cc.math.lerp(limit.min.y, limit.max.y, 0.5) : 0;
-                const muscleZ = humanBoneTrait.muscleEnabled[2] ? cc.math.lerp(limit.min.z, limit.max.z, 0.5) : 0;
-                return fromAxes(
-                    {
-                        preRotation,
-                        postRotation,
-                        sign: cc.Vec3.clone(limitSign),
-                        limit: {
-                            min: new cc.math.Vec3(cc.toRadian(limit.min.x), cc.toRadian(limit.min.y), cc.toRadian(limit.min.z)),
-                            max: new cc.math.Vec3(cc.toRadian(limit.max.x), cc.toRadian(limit.max.y), cc.toRadian(limit.max.z)),
-                        },
-                    },
-                    new cc.math.Vec3(cc.toRadian(muscleX),  cc.toRadian(muscleY), cc.toRadian(muscleZ)),
-                );
-            }
-            // return unityEulerAnglesToCreatorQuat(avatarBone.instanceRotations[0]);
-            return localRotation;
-        }
     }
 }
 
@@ -427,4 +388,18 @@ function pathTo(node: Joint, to: Joint) {
         }
     }
     return result;
+}
+
+function mat4UnityToCocosCreator(output: cc.Mat4, input: cc.Mat4) {
+    const u2c = cc.Mat4.fromScaling(new cc.Mat4(), new cc.Vec3(1.0, 1.0, -1.0));
+    const c2u = u2c;
+    return cc.Mat4.multiply(
+        output,
+        c2u,
+        cc.Mat4.multiply(
+            output,
+            input,
+            u2c,
+        ),
+    );
 }

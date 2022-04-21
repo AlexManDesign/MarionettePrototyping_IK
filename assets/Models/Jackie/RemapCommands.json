@@ -1,0 +1,13 @@
+[
+    {
+        "type": "set-original",
+        "target": "(^|\/)(mixamorig:)",
+        "original": "$1mixamorig1:",
+        "mode": "skeleton"
+    },
+    {
+        "type": "set-translation-remap-mode",
+        "target": "(^|\/)(mixamorig:)",
+        "mode": "skeleton"
+    }
+]

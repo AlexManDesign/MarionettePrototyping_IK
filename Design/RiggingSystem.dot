@@ -1,0 +1,10 @@
+digraph {
+    node [shape=record];
+    rankdir=LR;
+
+    NodeTransform;
+
+    SkeletonBindPose -> NodeTransform;
+    IK -> NodeTransform;
+    Animation -> NodeTransform;
+}
