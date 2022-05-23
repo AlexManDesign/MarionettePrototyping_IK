@@ -31,7 +31,7 @@ export class SkeletonRenderer extends Component {
     public lineMaterial!: Material;
 
     @_decorator.property(Camera)
-    public camera!: Camera;
+    public camera: Camera | null = null;
 
     @_decorator.property({ type: BoneRenderMode })
     mode: BoneRenderMode = BoneRenderMode.octahedral;
@@ -48,6 +48,9 @@ export class SkeletonRenderer extends Component {
 
         input.on(Input.EventType.MOUSE_UP, (event) => {
             const camera = this.camera;
+            if (!camera) {
+                return;
+            }
 
             const touchPosition = camera.screenToWorld(new math.Vec3(
                 event.getLocationX(),

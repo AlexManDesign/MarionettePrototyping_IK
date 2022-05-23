@@ -1,11 +1,11 @@
 {
-  "ver": "2.1.13",
+  "ver": "2.2.0",
   "importer": "fbx",
   "imported": true,
   "uuid": "e2274276-090e-48a0-ae55-825d9eeeb250",
   "files": [
-    "__original-animation-1.cconb",
-    "__original-animation-0.cconb"
+    "__original-animation-0.cconb",
+    "__original-animation-1.cconb"
   ],
   "subMetas": {
     "25912": {
@@ -138,7 +138,7 @@
         "isUuid": true,
         "imageUuidOrDatabaseUri": "e2274276-090e-48a0-ae55-825d9eeeb250@48b02"
       },
-      "ver": "1.0.21",
+      "ver": "1.0.22",
       "imported": true,
       "files": [
         ".json"
@@ -161,7 +161,7 @@
         "isUuid": true,
         "imageUuidOrDatabaseUri": "e2274276-090e-48a0-ae55-825d9eeeb250@1bbb1"
       },
-      "ver": "1.0.21",
+      "ver": "1.0.22",
       "imported": true,
       "files": [
         ".json"
@@ -259,6 +259,9 @@
       "scenes": [
         "e2274276-090e-48a0-ae55-825d9eeeb250@b6d48"
       ]
+    },
+    "fbx": {
+      "smartMaterialEnabled": false
     }
   }
 }

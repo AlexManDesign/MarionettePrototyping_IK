@@ -83,6 +83,10 @@ export class Joint {
         return this._node.worldRotation;
     }
 
+    set rotation(value) {
+        this._node.worldRotation = value;
+    }
+
     get localRotation() {
         return this._node.rotation;
     }

@@ -21,7 +21,7 @@ export enum ResolverType {
 cc.ccenum(ResolverType);
 
 @cc._decorator.ccclass('IKResolver')
-export abstract class IKResolver extends cc.Component {
+export class IKResolver extends cc.Component {
     @cc._decorator.property({
         displayName: '允许的误差',
     })
@@ -148,6 +148,13 @@ export abstract class IKResolver extends cc.Component {
     public fabrik = new FABRIK();
 
     public onLoad() {
+        this.bind();
+        if (!EDITOR) {
+            this.configureFromUnityAvatar = true;
+        }
+    }
+
+    public bind() {
         const { _skeletonRoot: skeletonRoot } = this;
         if (!skeletonRoot) {
             return;
@@ -155,12 +162,9 @@ export abstract class IKResolver extends cc.Component {
         for (const joint of visitJoint(skeletonRoot)) {
             joint.onAfterSerialized();
         }
-        if (!EDITOR) {
-            this.configureFromUnityAvatar = true;
-        }
     }
 
-    public *resolve(endFactor: cc.Node, target: cc.math.Vec3): Generator<void, ErrorCode> {
+    public *resolve(endFactor: cc.Node, target: cc.math.Vec3, debug = true): Generator<void, ErrorCode> {
         const {
             _ikRoot: root,
         } = this;
@@ -204,7 +208,7 @@ export abstract class IKResolver extends cc.Component {
             return ErrorCode.BAD_ARGUMENT;
         }
 
-        if (this.renderer) {
+        if (debug && this.renderer) {
             this.renderer.setJointColor(endFactorJoint.name, cc.Color.BLACK);
             const chainColor = cc.Color.GREEN;
             this.renderer.setBoneColor(endFactorJoint.name, chainColor);
@@ -221,13 +225,13 @@ export abstract class IKResolver extends cc.Component {
             target,
             this.maxError,
             {
-                debugLineMaterial: this.debugLineMaterial,
+                debugLineMaterial: debug ? this.debugLineMaterial : null,
                 node: this.node,
-                renderer: this.renderer,
+                renderer: debug ? this.renderer : null,
             },
         );
 
-        if (this.renderer) {
+        if (debug && this.renderer) {
             this.renderer.resetBoneColor(endFactorJoint.name);
             this.renderer.resetBoneColor(endFactorJoint.name);
             for (const link of links) {

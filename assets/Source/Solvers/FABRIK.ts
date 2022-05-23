@@ -45,6 +45,12 @@ export class FABRIK extends IKResolveMethod {
         const nLinks = chain.length;
         const root = chain[nLinks - 1];
         const linkPositionTable = chain.map((link) => cc.Vec3.clone(link.position));
+        const originalLinkPositionTable = chain.map((link) => {
+            return {
+                position: cc.Vec3.clone(link.position),
+                rotation: cc.Quat.clone(link.rotation),
+            };
+        });
         const linkLengthTable = chain.map((link, linkIndex, chain) => linkIndex === chain.length - 1 ? 0.0 : link.linkLength);
         const iEndFactor = 0;
         const iRoot = nLinks - 1;
@@ -56,24 +62,37 @@ export class FABRIK extends IKResolveMethod {
             //     chain[iLink].position = linkPositionTable[iLink];
             // }
             for (let iLink = nLinks - 1; iLink >= 0; --iLink) {
+                chain[iLink].position = linkPositionTable[iLink];
+                continue;
+            }
+        };
+
+        const applyWithRotationAdjustment = () => {
+            for (let iLink = nLinks - 1; iLink >= 0; --iLink) {
+                const { position, rotation } = originalLinkPositionTable[iLink];
+                chain[iLink].position = position;
+                chain[iLink].rotation = rotation;
+            }
+            for (let iLink = nLinks - 1; iLink >= 0; --iLink) {
                 if (iLink === nLinks - 1) {
-                    chain[iLink].position = linkPositionTable[iLink];
+                    // chain[iLink].position = linkPositionTable[iLink];
                 } else {
-                    const originalWorldRotation = chain[iLink].rotation;
-                    const originalWorldPosition = chain[iLink].position;
-                    const positionWithoutRotation = cc.Vec3.transformQuat(
-                        new cc.Vec3(),
-                        originalWorldPosition,
-                        cc.Quat.invert(new cc.Quat(), originalWorldRotation),
-                    );
-                    const newRot = cc.Quat.rotationTo(new cc.Quat(), originalWorldPosition, linkPositionTable[iLink]);
-                    const newPos = cc.Vec3.transformQuat(
-                        new cc.Vec3(),
-                        positionWithoutRotation,
-                        newRot,
-                    );
-                    chain[iLink].node.worldRotation = newRot;
-                    chain[iLink].position = newPos;
+                    const iParentLink = iLink + 1;
+                    const originalLocalPoint = chain[iParentLink].node.inverseTransformPoint(new cc.Vec3(), chain[iLink].position);
+                    const expectedLocalPoint = chain[iParentLink].node.inverseTransformPoint(new cc.Vec3(), linkPositionTable[iLink]);
+                    const originalDir = originalLocalPoint;
+                    cc.Vec3.normalize(originalDir, originalDir);
+                    const expectedDir = expectedLocalPoint;
+                    cc.Vec3.normalize(expectedDir, expectedDir);
+                    const rotation = cc.Quat.rotationTo(new cc.Quat(), originalDir, expectedDir);
+                    const finalRotation = cc.Quat.multiply(new cc.Quat(), chain[iParentLink].rotation, rotation);
+                    chain[iParentLink].rotation = finalRotation;
+
+                    // const p = chain[iLink].position;
+                    // const eq = cc.Vec3.equals(p, linkPositionTable[iLink], 1e-4);
+                    // if (!eq) {
+                    //     debugger;
+                    // }
                 }
             }
         };
@@ -108,12 +127,19 @@ export class FABRIK extends IKResolveMethod {
         };
 
         for (let iIteration = 0;
-            !isReached() && iIteration < maxIterations;
+            iIteration < maxIterations;
             ++iIteration
         ) {
+            if (isReached()) {
+                applyWithRotationAdjustment();
+                return ErrorCode.NO_ERROR;
+            }
+
             // EndFactor -> Root
             let chainRenderer = createChainRenderer?.();
             cc.Vec3.copy(linkPositionTable[iEndFactor], target);
+            apply();
+            yield;
             for (let iLink = 1; iLink < nLinks; ++iLink) {
                 debugContext?.renderer?.setBoneColor(chain[iLink - 1].name, cc.Color.BLUE);
                 yield;
@@ -131,6 +157,8 @@ export class FABRIK extends IKResolveMethod {
             // Root -> EndFactor
             chainRenderer = createChainRenderer?.();
             cc.Vec3.copy(linkPositionTable[iRoot], rootPosition);
+            apply();
+            yield;
             for (let iLink = nLinks - 2; iLink >= 0; --iLink) {
                 debugContext?.renderer?.setBoneColor(chain[iLink].name, cc.Color.BLUE);
                 yield;
@@ -144,9 +172,11 @@ export class FABRIK extends IKResolveMethod {
                 apply();
             }
             chainRenderer?.destroy();
+
+            applyWithRotationAdjustment();
         }
 
-        apply();
+        applyWithRotationAdjustment();
 
         return ErrorCode.TOO_MANY_ATTEMPTS;
 

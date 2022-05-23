@@ -1,0 +1,12 @@
+{
+  "ver": "1.0.0",
+  "importer": "*",
+  "imported": true,
+  "uuid": "d3f5b583-036c-4f00-930c-17b80c5bc656",
+  "files": [
+    ".bvh",
+    ".json"
+  ],
+  "subMetas": {},
+  "userData": {}
+}

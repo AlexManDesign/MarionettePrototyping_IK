@@ -3,6 +3,9 @@
   "type": "3d",
   "uuid": "c9cf5182-e414-4ff4-93a2-de4d734e120e",
   "creator": {
-    "version": "3.5.0"
+    "version": "3.6.0"
+  },
+  "dependencies": {
+    "parse-bvh": "^1.0.2"
   }
 }

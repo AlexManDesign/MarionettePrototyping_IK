@@ -1,5 +1,5 @@
 {
-  "ver": "2.1.13",
+  "ver": "2.2.0",
   "importer": "fbx",
   "imported": true,
   "uuid": "6c8031d1-1e63-43ce-a333-b12fba07e539",
@@ -334,7 +334,7 @@
         "isUuid": true,
         "imageUuidOrDatabaseUri": "6c8031d1-1e63-43ce-a333-b12fba07e539@adacb"
       },
-      "ver": "1.0.21",
+      "ver": "1.0.22",
       "imported": true,
       "files": [
         ".json"
@@ -357,7 +357,7 @@
         "isUuid": true,
         "imageUuidOrDatabaseUri": "6c8031d1-1e63-43ce-a333-b12fba07e539@612f0"
       },
-      "ver": "1.0.21",
+      "ver": "1.0.22",
       "imported": true,
       "files": [
         ".json"
@@ -380,7 +380,7 @@
         "isUuid": true,
         "imageUuidOrDatabaseUri": "6c8031d1-1e63-43ce-a333-b12fba07e539@1792b"
       },
-      "ver": "1.0.21",
+      "ver": "1.0.22",
       "imported": true,
       "files": [
         ".json"
@@ -403,7 +403,7 @@
         "isUuid": true,
         "imageUuidOrDatabaseUri": "6c8031d1-1e63-43ce-a333-b12fba07e539@d2212"
       },
-      "ver": "1.0.21",
+      "ver": "1.0.22",
       "imported": true,
       "files": [
         ".json"
@@ -510,6 +510,9 @@
         "6c8031d1-1e63-43ce-a333-b12fba07e539@39362"
       ]
     },
-    "disableMeshSplit": false
+    "disableMeshSplit": false,
+    "fbx": {
+      "smartMaterialEnabled": false
+    }
   }
 }
