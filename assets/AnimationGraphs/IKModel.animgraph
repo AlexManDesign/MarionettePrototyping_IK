@@ -1,0 +1,110 @@
+[
+  {
+    "__type__": "cc.animation.AnimationGraph",
+    "_name": "",
+    "_objFlags": 0,
+    "_native": "",
+    "_layers": [
+      {
+        "__id__": 1
+      }
+    ],
+    "_variables": {}
+  },
+  {
+    "__type__": "cc.animation.Layer",
+    "_stateMachine": {
+      "__id__": 2
+    },
+    "name": "",
+    "weight": 1,
+    "mask": null
+  },
+  {
+    "__type__": "cc.animation.StateMachine",
+    "_states": [
+      {
+        "__id__": 3
+      },
+      {
+        "__id__": 4
+      },
+      {
+        "__id__": 5
+      },
+      {
+        "__id__": 6
+      }
+    ],
+    "_transitions": [
+      {
+        "__id__": 8
+      }
+    ],
+    "_entryState": {
+      "__id__": 3
+    },
+    "_exitState": {
+      "__id__": 4
+    },
+    "_anyState": {
+      "__id__": 5
+    }
+  },
+  {
+    "__type__": "cc.animation.State",
+    "__editorExtras__": {
+      "centerX": -245,
+      "centerY": 0,
+      "id": "16534466666570.43996121743667693"
+    },
+    "name": "Entry"
+  },
+  {
+    "__type__": "cc.animation.State",
+    "name": "Exit"
+  },
+  {
+    "__type__": "cc.animation.State",
+    "name": "Any"
+  },
+  {
+    "__type__": "cc.animation.Motion",
+    "__editorExtras__": {
+      "centerX": -47.78125,
+      "centerY": -25.703125,
+      "id": "16534466801070.7082577353664252"
+    },
+    "name": "Grab",
+    "_components": [],
+    "motion": {
+      "__id__": 7
+    },
+    "speed": 1,
+    "speedMultiplier": "",
+    "speedMultiplierEnabled": false
+  },
+  {
+    "__type__": "cc.animation.ClipMotion",
+    "__editorExtras__": {
+      "id": "16534466801060.6424058872231393",
+      "centerX": 0,
+      "centerY": 0,
+      "name": ""
+    },
+    "clip": {
+      "__uuid__": "38dc7a1b-55d1-4101-bc6d-7722ef573b47@1ae6d",
+      "__expectedType__": "cc.AnimationClip"
+    }
+  },
+  {
+    "__type__": "cc.animation.Transition",
+    "from": {
+      "__id__": 3
+    },
+    "to": {
+      "__id__": 6
+    },
+    "conditions": []
+  }
+]

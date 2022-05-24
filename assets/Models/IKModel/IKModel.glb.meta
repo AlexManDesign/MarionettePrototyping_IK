@@ -1,0 +1,135 @@
+{
+  "ver": "2.2.0",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "38dc7a1b-55d1-4101-bc6d-7722ef573b47",
+  "files": [
+    "__original-animation-0.cconb"
+  ],
+  "subMetas": {
+    "e2349": {
+      "importer": "gltf-mesh",
+      "uuid": "38dc7a1b-55d1-4101-bc6d-7722ef573b47@e2349",
+      "displayName": "",
+      "id": "e2349",
+      "name": "Mesh.mesh",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "1ae6d": {
+      "importer": "gltf-animation",
+      "uuid": "38dc7a1b-55d1-4101-bc6d-7722ef573b47@1ae6d",
+      "displayName": "",
+      "id": "1ae6d",
+      "name": "Grab.animation",
+      "userData": {
+        "gltfIndex": 0,
+        "wrapMode": 2,
+        "sample": 30,
+        "span": {
+          "from": 0,
+          "to": 2.0833332538604736
+        },
+        "events": []
+      },
+      "ver": "1.0.16",
+      "imported": true,
+      "files": [
+        ".cconb"
+      ],
+      "subMetas": {}
+    },
+    "63cf2": {
+      "importer": "gltf-skeleton",
+      "uuid": "38dc7a1b-55d1-4101-bc6d-7722ef573b47@63cf2",
+      "displayName": "",
+      "id": "63cf2",
+      "name": "Skeleton.skeleton",
+      "userData": {
+        "gltfIndex": 0,
+        "jointsLength": 4
+      },
+      "ver": "1.0.1",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "b4e6b": {
+      "importer": "gltf-material",
+      "uuid": "38dc7a1b-55d1-4101-bc6d-7722ef573b47@b4e6b",
+      "displayName": "",
+      "id": "b4e6b",
+      "name": "Material.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "5c10a": {
+      "importer": "gltf-scene",
+      "uuid": "38dc7a1b-55d1-4101-bc6d-7722ef573b47@5c10a",
+      "displayName": "",
+      "id": "5c10a",
+      "name": "IKModel.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "legacyFbxImporter": false,
+    "animationImportSettings": [
+      {
+        "name": "Grab",
+        "duration": 2.0833332538604736,
+        "fps": 30,
+        "splits": [
+          {
+            "name": "Grab",
+            "from": 0,
+            "to": 2.0833332538604736,
+            "wrapMode": 2
+          }
+        ]
+      }
+    ],
+    "redirect": "38dc7a1b-55d1-4101-bc6d-7722ef573b47@5c10a",
+    "assetFinder": {
+      "meshes": [
+        "38dc7a1b-55d1-4101-bc6d-7722ef573b47@e2349"
+      ],
+      "skeletons": [
+        "38dc7a1b-55d1-4101-bc6d-7722ef573b47@63cf2"
+      ],
+      "textures": [],
+      "materials": [
+        "38dc7a1b-55d1-4101-bc6d-7722ef573b47@b4e6b"
+      ],
+      "scenes": [
+        "38dc7a1b-55d1-4101-bc6d-7722ef573b47@5c10a"
+      ]
+    }
+  }
+}

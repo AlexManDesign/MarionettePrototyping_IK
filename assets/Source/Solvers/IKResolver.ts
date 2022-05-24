@@ -150,7 +150,9 @@ export class IKResolver extends cc.Component {
     public onLoad() {
         this.bind();
         if (!EDITOR) {
-            this.configureFromUnityAvatar = true;
+            if (this.unityAvatar) {
+                this.configureFromUnityAvatar = true;
+            }
         }
     }
 
@@ -217,7 +219,11 @@ export class IKResolver extends cc.Component {
             }
         }
 
-        yield;
+        const DEBUG_SHOW_CHAIN_AND_PAUSE = false;
+
+        if (DEBUG_SHOW_CHAIN_AND_PAUSE) {
+            yield;
+        }
 
         const solveResult = yield* resolver.solveChain(
             endFactorJoint,

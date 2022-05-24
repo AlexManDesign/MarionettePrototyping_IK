@@ -28,3 +28,5 @@ node_modules/
 extensions/marionette_prototyping_ik/dist/
 
 extensions/marionette_prototyping_ik/\@types/
+
+*.blend1

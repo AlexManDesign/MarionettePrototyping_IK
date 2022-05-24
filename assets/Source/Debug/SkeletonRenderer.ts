@@ -1,4 +1,4 @@
-import { Camera, ccenum, Color, Component, geometry, gfx, Input, input, log, Material, math, Mesh, MeshCollider, MeshRenderer, Node, physics, PhysicsSystem, primitives, renderer, RigidBody, utils, Vec4, _decorator } from "cc";
+import { Camera, ccenum, Color, Component, geometry, gfx, Input, input, log, Material, math, Mesh, MeshCollider, MeshRenderer, Node, physics, PhysicsSystem, primitives, renderer, RigidBody, utils, Vec3, Vec4, _decorator } from "cc";
 import { forceIndexed } from "../Util/Geometry";
 import { createOctahedralBone } from "../Util/OctahedralBone";
 import { LineRenderer } from "./LineRenderer";
@@ -151,6 +151,9 @@ export class SkeletonRenderer extends Component {
         }, this);
 
         for (const child of joint.children) {
+            if (!child.activeInHierarchy) {
+                continue;
+            }
             this._drawBone(child, joint);
             this._drawBoneRecursive(child);
         }
@@ -201,7 +204,7 @@ export class SkeletonRenderer extends Component {
     private _updateBone(child: Node, parent: Node, renderInfo: BoneRenderInfo) {
         const { renderer } = renderInfo;
         const childPosition = child.getWorldPosition();
-        const parentPosition = parent.getWorldPosition();
+        const parentPosition = parent.worldPosition;
         renderer.update(childPosition, parentPosition);
     }
 }
@@ -272,7 +275,7 @@ class LineBoneRenderer extends BoneRenderer {
     constructor(renderRoot: Node, material: Material, lineMaterial: Material) {
         super(renderRoot);
 
-        const jointPositionIndicatorNode = new Node();
+        const jointPositionIndicatorNode = new Node("Position Indicator");
         renderRoot.addChild(jointPositionIndicatorNode);
         const indicatorMeshRenderer = jointPositionIndicatorNode.addComponent(MeshRenderer);
         indicatorMeshRenderer.mesh = utils.createMesh(primitives.sphere(0.007));
@@ -280,7 +283,7 @@ class LineBoneRenderer extends BoneRenderer {
             parent: material,
         });
 
-        const boneConnectionNode = new Node();
+        const boneConnectionNode = new Node("Bone Connection");
         renderRoot.addChild(boneConnectionNode);
         const lineRenderer = new LineRenderer(boneConnectionNode,  lineMaterial);
         lineRenderer.setColor(LineBoneRenderer._defaultBoneColor);
