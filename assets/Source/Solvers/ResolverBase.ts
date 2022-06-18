@@ -10,6 +10,8 @@ export enum ErrorCode {
     TOO_MANY_ATTEMPTS,
     
     FABRIK_FAR_FROM_ROOT,
+
+    TWO_BONE_FAR_FROM_ROOT,
 }
 
 @cc._decorator.ccclass('IKResolveMethod')
