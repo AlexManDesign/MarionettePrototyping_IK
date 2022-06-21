@@ -14,20 +14,32 @@ export class IKRunner extends Component {
     target!: Node;
 
     start() {
-        const { resolver, endFactor, target } = this;
-        this._task = (function*() {
-            yield* resolver.resolve(
-                endFactor,
-                target.worldPosition,
-            );
-        })();
     }
 
     public step () {
+        if (!this._task) {
+            const { resolver, endFactor, target } = this;
+            this._task = (function*(this: IKRunner) {
+                yield* resolver.resolve(
+                    endFactor,
+                    target.worldPosition,
+                );
+            }).call(this);
+        }
         this._task.next();
     }
 
-    private declare _task: Generator;
+    public reset () {
+        if (this._task) {
+            for (const _ of this._task) {
+                ;
+            }
+            this._task = null;
+        }
+        this.resolver.revert();
+    }
+
+    private _task: Generator | null = null;
 }
 
 

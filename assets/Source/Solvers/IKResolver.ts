@@ -11,11 +11,14 @@ import { calculateHumanBoneRotation, eulerAnglesUnityToCreator, groupMuscles } f
 import { CCDIKResolver } from './CCD';
 import { FABRIK } from './FABRIK';
 import { ErrorCode } from './ResolverBase';
+import { TwoBoneIK } from './TwoBoneIK';
 
 export enum ResolverType {
     CCD,
 
     FABRIK,
+
+    TWO_BONE_IK,
 }
 
 cc.ccenum(ResolverType);
@@ -147,6 +150,13 @@ export class IKResolver extends cc.Component {
     })
     public fabrik = new FABRIK();
 
+    @cc._decorator.property({
+        visible: function(this: IKResolver) {
+            return this.resolverType === ResolverType.TWO_BONE_IK;
+        },
+    })
+    public twoBoneIK = new TwoBoneIK();
+
     public onLoad() {
         this.bind();
         if (!EDITOR) {
@@ -173,7 +183,9 @@ export class IKResolver extends cc.Component {
 
         const resolver = this.resolverType === ResolverType.CCD
             ? this.ccd
-            : this.fabrik;
+            : this.resolverType === ResolverType.FABRIK
+                ? this.fabrik
+                : this.twoBoneIK;
 
         if (!root) {
             cc.error(`The skeleton is empty.`);
@@ -211,12 +223,12 @@ export class IKResolver extends cc.Component {
         }
 
         if (debug && this.renderer) {
-            this.renderer.setJointColor(endFactorJoint.name, cc.Color.BLACK);
-            const chainColor = cc.Color.GREEN;
-            this.renderer.setBoneColor(endFactorJoint.name, chainColor);
-            for (const link of links) {
-                this.renderer.setBoneColor(link.name, chainColor);
-            }
+            // this.renderer.setJointColor(endFactorJoint.name, cc.Color.BLACK);
+            // const chainColor = cc.Color.GREEN;
+            // this.renderer.setBoneColor(endFactorJoint.name, chainColor);
+            // for (const link of links) {
+            //     this.renderer.setBoneColor(link.name, chainColor);
+            // }
         }
 
         const DEBUG_SHOW_CHAIN_AND_PAUSE = false;
@@ -237,13 +249,13 @@ export class IKResolver extends cc.Component {
             },
         );
 
-        if (debug && this.renderer) {
-            this.renderer.resetBoneColor(endFactorJoint.name);
-            this.renderer.resetBoneColor(endFactorJoint.name);
-            for (const link of links) {
-                this.renderer.resetBoneColor(link.name);
-            }
-        }
+        // if (debug && this.renderer) {
+        //     this.renderer.resetBoneColor(endFactorJoint.name);
+        //     this.renderer.resetBoneColor(endFactorJoint.name);
+        //     for (const link of links) {
+        //         this.renderer.resetBoneColor(link.name);
+        //     }
+        // }
 
         return solveResult;
     }

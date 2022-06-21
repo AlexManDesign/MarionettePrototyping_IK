@@ -166,7 +166,8 @@ class IKPreviewerManager {
             return;
         }
     
-        const endFactorSpecifiers = rootNode.getComponents(EndFactorSpecifier);
+        const endFactorSpecifiers = rootNode.getComponents(EndFactorSpecifier)
+            .filter((specifier) => specifier.enabled);
     
         this._previewer = new IKPreviewer(rootNode, ikResolver, endFactorSpecifiers);
     }
