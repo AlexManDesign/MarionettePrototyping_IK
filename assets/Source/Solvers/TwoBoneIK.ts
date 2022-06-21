@@ -1,4 +1,4 @@
-import { clamp, Color, gfx, Material, math, MeshRenderer, Node, NodeSpace, primitives, Quat, toRadian, utils, Vec3 } from "cc";
+import { clamp, Color, gfx, Material, math, MeshRenderer, Node, NodeSpace, primitives, Quat, toDegree, toRadian, utils, Vec3 } from "cc";
 import { DottedLineRenderer, LineRenderer, TriangleRenderer } from "../Debug/LineRenderer";
 import { IKResolveMethod, ResolveContext, ErrorCode } from "./ResolverBase";
 import { Joint } from "./Skeleton";
@@ -54,6 +54,7 @@ export class TwoBoneIK extends IKResolveMethod {
 
         if (DEBUG) {
             setupDebugTools();
+            printAngles();
             yield;
         }
 
@@ -63,14 +64,12 @@ export class TwoBoneIK extends IKResolveMethod {
         const rotate = (from: Vec3, to: Vec3, joint: Joint) => {
             if (DEBUG && DEBUG_SMOOTH_ROTATION) {
                 rotateToSmooth(from, to, joint, () => {
-                    debugLineRenderer?.clear();
                     drawTriangleABC();
                     drawTriangleABCNormal();
                 });
             } else {
                 const q = Quat.rotationTo(new Quat(), from, to);
-                // joint.node.rotate(q, NodeSpace.WORLD);
-                joint.rotation = Quat.multiply(new Quat(), joint.rotation, q);
+                joint.node.rotate(q, NodeSpace.WORLD);
                 if (DEBUG) {
                     drawTriangleABC();
                     drawTriangleABCNormal();
@@ -88,6 +87,7 @@ export class TwoBoneIK extends IKResolveMethod {
             vAB2,
             a,
         );
+        printAngles();
         if (DEBUG) {
             yield;
         }
@@ -96,24 +96,43 @@ export class TwoBoneIK extends IKResolveMethod {
         const vB2C2 = Vec3.negate(new Vec3(), vAB2).normalize();
         Vec3.transformQuat(vB2C2, vB2C2, Quat.fromAxisAngle(new Quat(), axisCAB, angleABC_2));
         // Rotate ABC so C overlap with C`
-        const vBC = Vec3.subtract(new Vec3(), c.position, b.position);
+        const vBC = Vec3.subtract(new Vec3(), c.position, b.position).normalize();
         rotate(
             vBC,
             vB2C2,
             b,
         );
+        printAngles();
         if (DEBUG) {
             yield;
         }
 
         // Rotation CA -> TA
+        const vAC2 = Vec3.subtract(new Vec3(), c.position, pA).normalize();
+        const vAT = Vec3.subtract(new Vec3(), t, pA).normalize();
+        // const axis = Vec3.cross(new Vec3(), vAC2, vAT).normalize();
+        // const an = Vec3.angle(vAC2, vAT);
+        // debugLineRenderer?.addLine(pA, Vec3.add(new Vec3(), pA, axis), Color.BLACK);
+        // debugLineRenderer?.commit();
+        // console.log(`${toDegree(an)}`);
+        // yield;
+        // const q = Quat.fromAxisAngle(new Quat(), axis, an);
+        // const q = Quat.rotationTo(new Quat(), vAC2, vAT);
+        // // a.rotation = Quat.multiply(new Quat(), a.rotation, q);
+        // a.node.rotate(q, Node.NodeSpace.WORLD);
+        // if (DEBUG) {
+        //     drawTriangleABC();
+        //     drawTriangleABCNormal();
+        // }
         rotate(
-            Vec3.subtract(new Vec3(), c.position, pA).normalize(),
-            Vec3.subtract(new Vec3(), t, pA).normalize(),
+            vAC2,
+            vAT,
             a,
         );
 
         if (DEBUG) {
+            printAngles();
+            console.log(`${c.position} -> ${t}`);
             yield;
         }
         
@@ -135,17 +154,13 @@ export class TwoBoneIK extends IKResolveMethod {
 
             drawDestinationTriangle();
             drawTrianglePlane();
-    
-            debugLineRenderer.addLine(
-                pA,
-                pC,
-                Color.WHITE,
-            );
+
             debugLineRenderer.addLine(
                 pA,
                 t,
-                Color.WHITE,
+                Color.MAGENTA,
             );
+            debugLineRenderer.commit();
             drawTriangleABC();
             drawTriangleABCNormal();
         }
@@ -267,6 +282,15 @@ export class TwoBoneIK extends IKResolveMethod {
             );
             debugTriangleRenderer?.commit();
         }
+
+        function printAngles() {
+            console.log(
+                `∠BAC：${toDegree(Vec3.angle(Vec3.subtract(new Vec3(), b.position, a.position), Vec3.subtract(new Vec3(), c.position, a.position)))} -> ${toDegree(angleBAC_2)}\n` +
+                `∠ABC：${toDegree(Vec3.angle(Vec3.subtract(new Vec3(), c.position, b.position), Vec3.subtract(new Vec3(), a.position, b.position)))} -> ${toDegree(angleABC_2)}\n` +
+                `dAB: ${Vec3.distance(a.position, b.position)} -> ${dAB}\n` +
+                `dBC: ${Vec3.distance(b.position, c.position)} -> ${dBC}`
+            );
+        }
     }
 }
 
@@ -275,22 +299,23 @@ function rotateToSmooth(from: Vec3, to: Vec3, joint: Joint, callback: () => void
     const angle = Vec3.angle(from, to);
     const ANGLE_SPEED = toRadian(30);
     const FPS = 30.0;
+
     const deltaTime = 1.0 / FPS;
     const anglePerFrame = angle / ANGLE_SPEED / FPS;
-    const nFrames = angle / anglePerFrame;
-    const nSteps = Math.floor(nFrames);
-    const remainder = angle - anglePerFrame * nSteps;
+    const frames = angle / anglePerFrame;
+    const integralFrames = Math.floor(frames);
+    const remainder = angle - anglePerFrame * integralFrames;
     const q = Quat.fromAxisAngle(
         new Quat(),
         axis,
-        angle / nSteps,
+        anglePerFrame,
     );
     let i = 0;
     let h = setInterval(() => {
         joint.node.rotate(q, Node.NodeSpace.WORLD);
         callback();
         ++i;
-        if (i >= nSteps) {
+        if (i >= integralFrames) {
             clearInterval(h);
         }
     }, deltaTime * 1000.0);
@@ -302,5 +327,5 @@ function rotateToSmooth(from: Vec3, to: Vec3, joint: Joint, callback: () => void
         );
         joint.node.rotate(q, Node.NodeSpace.WORLD);
         callback();
-    }, remainder / anglePerFrame * deltaTime);
+    }, remainder / anglePerFrame * deltaTime * 1000.0);
 }
