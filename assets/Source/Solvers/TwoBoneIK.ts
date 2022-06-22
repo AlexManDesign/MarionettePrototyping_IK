@@ -3,7 +3,7 @@ import { DottedLineRenderer, LineRenderer, TriangleRenderer } from "../Debug/Lin
 import { IKResolveMethod, ResolveContext, ErrorCode } from "./ResolverBase";
 import { Joint } from "./Skeleton";
 
-const DEBUG: boolean = true;
+const DEBUG: boolean = false;
 
 const DEBUG_SMOOTH_ROTATION: boolean = false;
 
@@ -15,9 +15,18 @@ export class TwoBoneIK extends IKResolveMethod {
             return ErrorCode.BAD_ARGUMENT;
         }
 
-        const a = chain[chain.length - 1];
-        const b = chain[chain.length - 2];
+        const a = chain[1];
+        const b = chain[0];
         const c = endFactor;
+        
+        return yield* this._solveTwoBone(a, b, c, target, context);
+    }
+
+    private *_solveTwoBone(a: Joint, b: Joint, c: Joint, target: math.Vec3, context: ResolveContext): Generator<void, number, unknown> {
+        // https://theorangeduck.com/page/simple-two-joint
+
+        console.debug(`Solving ${a.name}/${b.name}/${c.name}`);
+
         const pA = a.position;
         const pB = b.position;
         const pC = c.position;
@@ -87,8 +96,8 @@ export class TwoBoneIK extends IKResolveMethod {
             vAB2,
             a,
         );
-        printAngles();
         if (DEBUG) {
+            printAngles();
             yield;
         }
 
@@ -102,8 +111,8 @@ export class TwoBoneIK extends IKResolveMethod {
             vB2C2,
             b,
         );
-        printAngles();
         if (DEBUG) {
+            printAngles();
             yield;
         }
 
@@ -153,7 +162,7 @@ export class TwoBoneIK extends IKResolveMethod {
             debugTriangleRenderer2 = new DottedLineRenderer(lineRendererACNode, context.debugLineMaterial);
 
             drawDestinationTriangle();
-            drawTrianglePlane();
+            // drawTrianglePlane();
 
             debugLineRenderer.addLine(
                 pA,

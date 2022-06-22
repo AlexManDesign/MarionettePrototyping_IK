@@ -164,7 +164,6 @@ export class Joint {
 
     @cc._decorator.property({
         visible: false,
-        type: cc.Node,
     })
     private _node: cc.Node = null!;
 

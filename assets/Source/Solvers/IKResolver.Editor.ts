@@ -25,6 +25,11 @@ declare namespace cce {
 
     namespace Node {
         function change(uuid: string, node: Node): void;
+        function query(uuid: string): Node | null;
+    }
+
+    namespace Animation {
+        const curEditRootNodeUuid: string;
     }
 }
 
@@ -155,9 +160,16 @@ class IKPreviewerManager {
         if (this._previewer) {
             return;
         }
+
+        const currentEditingNodeUUID = cce.Animation.curEditRootNodeUuid;
+        if (!currentEditingNodeUUID) {
+            console.error(`I'don't know why I can't obtain current editing node.`);
+            return;
+        }
     
-        const rootNode = find('YBot');
+        const rootNode = cce.Node.query(currentEditingNodeUUID);
         if (!rootNode) {
+            console.error(`I'don't know why I can't obtain current editing node.`);
             return;
         }
     
