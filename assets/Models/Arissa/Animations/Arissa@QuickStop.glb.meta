@@ -1,0 +1,81 @@
+{
+  "ver": "2.3.0",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "af2c9b3c-cf3e-4052-af3c-530fed5f45c3",
+  "files": [
+    "__original-animation-0.cconb"
+  ],
+  "subMetas": {
+    "5de22": {
+      "importer": "gltf-animation",
+      "uuid": "af2c9b3c-cf3e-4052-af3c-530fed5f45c3@5de22",
+      "displayName": "",
+      "id": "5de22",
+      "name": "QuickStop.animation",
+      "userData": {
+        "gltfIndex": 0,
+        "wrapMode": 2,
+        "sample": 30,
+        "span": {
+          "from": 0,
+          "to": 2.3333332538604736
+        },
+        "events": []
+      },
+      "ver": "1.0.16",
+      "imported": true,
+      "files": [
+        ".cconb"
+      ],
+      "subMetas": {}
+    },
+    "d333c": {
+      "importer": "gltf-scene",
+      "uuid": "af2c9b3c-cf3e-4052-af3c-530fed5f45c3@d333c",
+      "displayName": "",
+      "id": "d333c",
+      "name": "Arissa@QuickStop.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "legacyFbxImporter": false,
+    "allowMeshDataAccess": true,
+    "animationImportSettings": [
+      {
+        "name": "Transition",
+        "duration": 2.3333332538604736,
+        "fps": 30,
+        "splits": [
+          {
+            "name": "QuickStop",
+            "from": 0,
+            "to": 2.3333332538604736,
+            "wrapMode": 2
+          }
+        ]
+      }
+    ],
+    "redirect": "af2c9b3c-cf3e-4052-af3c-530fed5f45c3@d333c",
+    "assetFinder": {
+      "meshes": [],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": [
+        "af2c9b3c-cf3e-4052-af3c-530fed5f45c3@d333c"
+      ]
+    },
+    "promoteSingleRootNode": true
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "ver": "2.3.0",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "71808537-7662-48ab-9643-0fa2c23f260b",
+  "files": [
+    "__original-animation-0.cconb"
+  ],
+  "subMetas": {
+    "8a7b9": {
+      "importer": "gltf-animation",
+      "uuid": "71808537-7662-48ab-9643-0fa2c23f260b@8a7b9",
+      "displayName": "",
+      "id": "8a7b9",
+      "name": "Transition.animation",
+      "userData": {
+        "gltfIndex": 0,
+        "wrapMode": 2,
+        "sample": 30,
+        "span": {
+          "from": 0,
+          "to": 2.3333332538604736
+        },
+        "events": []
+      },
+      "ver": "1.0.16",
+      "imported": true,
+      "files": [
+        ".cconb"
+      ],
+      "subMetas": {}
+    },
+    "b2069": {
+      "importer": "gltf-scene",
+      "uuid": "71808537-7662-48ab-9643-0fa2c23f260b@b2069",
+      "displayName": "",
+      "id": "b2069",
+      "name": "Arissa@Transition.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "legacyFbxImporter": false,
+    "allowMeshDataAccess": true,
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "animationImportSettings": [
+      {
+        "name": "Mixamo|Transition",
+        "duration": 2.3333332538604736,
+        "fps": 30,
+        "splits": [
+          {
+            "name": "Transition",
+            "from": 0,
+            "to": 2.3333332538604736,
+            "wrapMode": 2
+          }
+        ]
+      }
+    ],
+    "redirect": "71808537-7662-48ab-9643-0fa2c23f260b@b2069",
+    "assetFinder": {
+      "meshes": [],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": [
+        "71808537-7662-48ab-9643-0fa2c23f260b@b2069"
+      ]
+    }
+  }
+}

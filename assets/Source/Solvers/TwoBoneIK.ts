@@ -1,4 +1,4 @@
-import { clamp, Color, gfx, Material, math, MeshRenderer, Node, NodeSpace, primitives, Quat, toDegree, toRadian, utils, Vec3 } from "cc";
+import { approx, clamp, Color, gfx, Material, math, MeshRenderer, Node, NodeSpace, primitives, Quat, toDegree, toRadian, utils, Vec3 } from "cc";
 import { DottedLineRenderer, LineRenderer, TriangleRenderer } from "../Debug/LineRenderer";
 import { IKResolveMethod, ResolveContext, ErrorCode } from "./ResolverBase";
 import { Joint } from "./Skeleton";
@@ -25,7 +25,7 @@ export class TwoBoneIK extends IKResolveMethod {
     private *_solveTwoBone(a: Joint, b: Joint, c: Joint, target: math.Vec3, context: ResolveContext): Generator<void, number, unknown> {
         // https://theorangeduck.com/page/simple-two-joint
 
-        console.debug(`Solving ${a.name}/${b.name}/${c.name}`);
+        // console.debug(`Solving ${a.name}/${b.name}/${c.name}`);
 
         const pA = a.position;
         const pB = b.position;
@@ -35,7 +35,10 @@ export class TwoBoneIK extends IKResolveMethod {
         const dBC = Vec3.distance(pB, pC);
         const dAT = Vec3.distance(pA, t);
         if (dAT > dAB + dBC) {
-            return ErrorCode.TWO_BONE_FAR_FROM_ROOT;
+            const vAT = Vec3.subtract(new Vec3(), t, pA).normalize();
+            Vec3.multiplyScalar(t, vAT, dAB + dBC - 0.001);
+            console.debug(`Too far`);
+            // return ErrorCode.TWO_BONE_FAR_FROM_ROOT;
         }
 
         const angleBAC_2 = Math.acos(clamp(
@@ -48,6 +51,14 @@ export class TwoBoneIK extends IKResolveMethod {
             -1.0,
             1.0,
         ));
+
+        const angleCAB = Vec3.angle(
+            Vec3.subtract(new Vec3(), pC, pA).normalize(),
+            Vec3.subtract(new Vec3(), pB, pA).normalize(),
+        );
+        if (approx(angleCAB, 0.0, 1e-5)) {
+            console.log('a, b, c are lie in same line.');
+        }
 
         const axisCAB = Vec3.cross(
             new Vec3(),
