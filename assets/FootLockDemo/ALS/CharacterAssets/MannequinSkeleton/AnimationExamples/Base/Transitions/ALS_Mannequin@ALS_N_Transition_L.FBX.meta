@@ -1,0 +1,92 @@
+{
+  "ver": "2.3.0",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "835cabc5-3a51-44dc-992e-7d831498c6cd",
+  "files": [
+    "__original-animation-0.cconb"
+  ],
+  "subMetas": {
+    "38799": {
+      "importer": "gltf-scene",
+      "uuid": "835cabc5-3a51-44dc-992e-7d831498c6cd@38799",
+      "displayName": "",
+      "id": "38799",
+      "name": "ALS_Mannequin@ALS_N_Transition_L.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "eff5a": {
+      "importer": "gltf-animation",
+      "uuid": "835cabc5-3a51-44dc-992e-7d831498c6cd@eff5a",
+      "displayName": "",
+      "id": "eff5a",
+      "name": "ALS_N_Transition_L.animation",
+      "userData": {
+        "gltfIndex": 0,
+        "wrapMode": 1,
+        "sample": 30,
+        "span": {
+          "from": 0,
+          "to": 2.3333332538604736
+        },
+        "events": [],
+        "embeddedPlayers": [],
+        "editorExtras": {
+          "embeddedPlayerGroups": []
+        },
+        "extraTracks": [
+          "[\n  {\n    \"__type__\": \"cc.animation.RealTrack\",\n    \"_binding\": {\n      \"__type__\": \"cc.animation.TrackBinding\",\n      \"path\": {\n        \"__id__\": 1\n      }\n    },\n    \"_channel\": {\n      \"__id__\": 3\n    }\n  },\n  {\n    \"__type__\": \"cc.animation.TrackPath\",\n    \"_paths\": [\n      {\n        \"__id__\": 2\n      },\n      \"LeftFootLock\"\n    ]\n  },\n  {\n    \"__type__\": \"cc.animation.ComponentPath\",\n    \"component\": \"GlobalNamedCurveRegistry\"\n  },\n  {\n    \"__type__\": \"cc.animation.Channel\",\n    \"_curve\": {\n      \"__id__\": 4\n    }\n  },\n  {\n    \"__type__\": \"cc.RealCurve\",\n    \"_times\": [\n      0,\n      0.3333333432674408,\n      0.7333333492279053,\n      0.7666666507720947,\n      2.3333332538604736\n    ],\n    \"_values\": [\n      {\n        \"__type__\": \"cc.RealKeyframeValue\",\n        \"interpolationMode\": 0,\n        \"tangentWeightMode\": 0,\n        \"value\": 1,\n        \"rightTangent\": 0,\n        \"rightTangentWeight\": 1,\n        \"leftTangent\": 0,\n        \"leftTangentWeight\": 1,\n        \"easingMethod\": 0,\n        \"__editorExtras__\": {\n          \"tangentMode\": 0\n        }\n      },\n      {\n        \"__type__\": \"cc.RealKeyframeValue\",\n        \"interpolationMode\": 0,\n        \"tangentWeightMode\": 0,\n        \"value\": 1,\n        \"rightTangent\": 0,\n        \"rightTangentWeight\": 1,\n        \"leftTangent\": 0,\n        \"leftTangentWeight\": 1,\n        \"easingMethod\": 0,\n        \"__editorExtras__\": {\n          \"tangentMode\": 0\n        }\n      },\n      {\n        \"__type__\": \"cc.RealKeyframeValue\",\n        \"interpolationMode\": 0,\n        \"tangentWeightMode\": 0,\n        \"value\": 0,\n        \"rightTangent\": 0,\n        \"rightTangentWeight\": 1,\n        \"leftTangent\": 0,\n        \"leftTangentWeight\": 1,\n        \"easingMethod\": 0,\n        \"__editorExtras__\": {\n          \"tangentMode\": 0\n        }\n      },\n      {\n        \"__type__\": \"cc.RealKeyframeValue\",\n        \"interpolationMode\": 0,\n        \"tangentWeightMode\": 0,\n        \"value\": 1,\n        \"rightTangent\": 0,\n        \"rightTangentWeight\": 1,\n        \"leftTangent\": 0,\n        \"leftTangentWeight\": 1,\n        \"easingMethod\": 0,\n        \"__editorExtras__\": {\n          \"tangentMode\": 0\n        }\n      },\n      {\n        \"__type__\": \"cc.RealKeyframeValue\",\n        \"interpolationMode\": 0,\n        \"tangentWeightMode\": 0,\n        \"value\": 1,\n        \"rightTangent\": 0,\n        \"rightTangentWeight\": 1,\n        \"leftTangent\": 0,\n        \"leftTangentWeight\": 1,\n        \"easingMethod\": 0,\n        \"__editorExtras__\": {\n          \"tangentMode\": 0\n        }\n      }\n    ],\n    \"preExtrapolation\": 1,\n    \"postExtrapolation\": 1\n  }\n]",
+          "[\n  {\n    \"__type__\": \"cc.animation.RealTrack\",\n    \"_binding\": {\n      \"__type__\": \"cc.animation.TrackBinding\",\n      \"path\": {\n        \"__id__\": 1\n      }\n    },\n    \"_channel\": {\n      \"__id__\": 3\n    }\n  },\n  {\n    \"__type__\": \"cc.animation.TrackPath\",\n    \"_paths\": [\n      {\n        \"__id__\": 2\n      },\n      \"RightFootLock\"\n    ]\n  },\n  {\n    \"__type__\": \"cc.animation.ComponentPath\",\n    \"component\": \"GlobalNamedCurveRegistry\"\n  },\n  {\n    \"__type__\": \"cc.animation.Channel\",\n    \"_curve\": {\n      \"__id__\": 4\n    }\n  },\n  {\n    \"__type__\": \"cc.RealCurve\",\n    \"_times\": [\n      0,\n      0.8333333134651184,\n      1.2999999523162842,\n      1.3333333730697632,\n      2.3333332538604736\n    ],\n    \"_values\": [\n      {\n        \"__type__\": \"cc.RealKeyframeValue\",\n        \"interpolationMode\": 0,\n        \"tangentWeightMode\": 0,\n        \"value\": 1,\n        \"rightTangent\": 0,\n        \"rightTangentWeight\": 1,\n        \"leftTangent\": 0,\n        \"leftTangentWeight\": 1,\n        \"easingMethod\": 0,\n        \"__editorExtras__\": {\n          \"tangentMode\": 0\n        }\n      },\n      {\n        \"__type__\": \"cc.RealKeyframeValue\",\n        \"interpolationMode\": 0,\n        \"tangentWeightMode\": 0,\n        \"value\": 1,\n        \"rightTangent\": 0,\n        \"rightTangentWeight\": 1,\n        \"leftTangent\": 0,\n        \"leftTangentWeight\": 1,\n        \"easingMethod\": 0,\n        \"__editorExtras__\": {\n          \"tangentMode\": 0\n        }\n      },\n      {\n        \"__type__\": \"cc.RealKeyframeValue\",\n        \"interpolationMode\": 0,\n        \"tangentWeightMode\": 0,\n        \"value\": 0,\n        \"rightTangent\": 0,\n        \"rightTangentWeight\": 1,\n        \"leftTangent\": 0,\n        \"leftTangentWeight\": 1,\n        \"easingMethod\": 0,\n        \"__editorExtras__\": {\n          \"tangentMode\": 0\n        }\n      },\n      {\n        \"__type__\": \"cc.RealKeyframeValue\",\n        \"interpolationMode\": 0,\n        \"tangentWeightMode\": 0,\n        \"value\": 1,\n        \"rightTangent\": 0,\n        \"rightTangentWeight\": 1,\n        \"leftTangent\": 0,\n        \"leftTangentWeight\": 1,\n        \"easingMethod\": 0,\n        \"__editorExtras__\": {\n          \"tangentMode\": 0\n        }\n      },\n      {\n        \"__type__\": \"cc.RealKeyframeValue\",\n        \"interpolationMode\": 0,\n        \"tangentWeightMode\": 0,\n        \"value\": 1,\n        \"rightTangent\": 0,\n        \"rightTangentWeight\": 1,\n        \"leftTangent\": 0,\n        \"leftTangentWeight\": 1,\n        \"easingMethod\": 0,\n        \"__editorExtras__\": {\n          \"tangentMode\": 0\n        }\n      }\n    ],\n    \"preExtrapolation\": 1,\n    \"postExtrapolation\": 1\n  }\n]"
+        ],
+        "speed": 1
+      },
+      "ver": "1.0.16",
+      "imported": true,
+      "files": [
+        ".cconb"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "legacyFbxImporter": false,
+    "allowMeshDataAccess": true,
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "animationImportSettings": [
+      {
+        "name": "Unreal Take",
+        "duration": 2.3333332538604736,
+        "fps": 30,
+        "splits": [
+          {
+            "name": "ALS_N_Transition_L",
+            "from": 0,
+            "to": 2.3333332538604736,
+            "wrapMode": 1
+          }
+        ]
+      }
+    ],
+    "redirect": "835cabc5-3a51-44dc-992e-7d831498c6cd@38799",
+    "assetFinder": {
+      "meshes": [],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": [
+        "835cabc5-3a51-44dc-992e-7d831498c6cd@38799"
+      ]
+    }
+  }
+}
