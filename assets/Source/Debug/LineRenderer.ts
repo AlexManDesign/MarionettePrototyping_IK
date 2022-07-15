@@ -162,7 +162,7 @@ export class TriangleRenderer {
         this._vertices = new Float32Array(0);
         const material = new Material();
         material.reset({
-            effectName: 'standard',
+            effectName: 'builtin-standard',
             states: {
                 rasterizerState: {
                     cullMode: gfx.CullMode.NONE,

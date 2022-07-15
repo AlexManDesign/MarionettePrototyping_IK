@@ -200,7 +200,7 @@ export class TwoBoneIK extends IKResolveMethod {
             meshRenderer.mesh = utils.MeshUtils.createMesh(primitives.plane());
             const material = new Material();
             material.reset({
-                effectName: 'standard',
+                effectName: 'builtin-standard',
                 states: {
                     rasterizerState: {
                         cullMode: gfx.CullMode.NONE,

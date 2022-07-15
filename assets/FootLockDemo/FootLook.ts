@@ -1,9 +1,11 @@
-import { _decorator, Component, Node, Vec3, Quat, animation, MeshRenderer, primitives, utils } from 'cc';
+import { _decorator, Component, Node, Vec3, Quat, animation, MeshRenderer, primitives, utils, Material, gfx, Color } from 'cc';
 import { Joint } from '../Source/Solvers/Skeleton';
 import { TwoBoneIK } from '../Source/Solvers/TwoBoneIK';
-const { ccclass, property } = _decorator;
+import { FootLockDemo } from './FootLockDemo';
+const { ccclass, property, executionOrder } = _decorator;
 
 @ccclass('FootLook')
+@executionOrder(-99999)
 export class FootLook extends Component {
     @property(Node)
     public foot!: Node;
@@ -20,37 +22,54 @@ export class FootLook extends Component {
     }
 
     public xlock() {
-        console.log(this._lastFootPos);
+        console.log(this._lockingPosition);
 
-        Vec3.copy(this._lastFootPos, this._lastActualFootPos);
+        Vec3.copy(this._lockingPosition, this._lastActualFootPos);
     }
 
     start() {
-        const lastPosIndicator = createIndicator();
+        const lastPosIndicator = createIndicator(Color.YELLOW);
         this.node.scene.addChild(lastPosIndicator);
         this._lastPosIndicator = lastPosIndicator;
 
-        const actualFootIndicator = createIndicator();
+        const actualFootIndicator = createIndicator(Color.RED);
         this.node.scene.addChild(actualFootIndicator);
         this._actualFootIndicator = actualFootIndicator;
 
-        const lastCharacterPosIndicator = createIndicator();
+        const lastCharacterPosIndicator = createIndicator(Color.GRAY);
         this.node.scene.addChild(lastCharacterPosIndicator);
         this._lastCharacterPosIndicator = lastCharacterPosIndicator;
 
         Vec3.copy(this._lastCharacterPos, this.node.getWorldPosition());
-        Vec3.copy(this._lastFootPos, this.foot.worldPosition);
+        Vec3.copy(this._lockingPosition, this.foot.worldPosition);
     }
 
     update () {
-        this._lastPosIndicator.setWorldPosition(this._lastFootPos);
+        this._updateBeforeAnimation();
     }
 
     lateUpdate(deltaTime: number) {
-        const characterPosition = this.node.getWorldPosition();
-        const characterPositionDiff = Vec3.subtract(new Vec3(), characterPosition, this._lastCharacterPos);
-        Vec3.copy(this._lastCharacterPos, characterPosition);
-        this._lastCharacterPosIndicator.setWorldPosition(characterPosition);
+        this._updatePostAnimation();
+    }
+
+    private _lastCharacterPos = new Vec3();
+    private _lockingPosition = new Vec3();
+    private _lastActualFootPos = new Vec3();
+    private _forceLock = true;
+    private declare _lastCharacterPosIndicator: Node;
+    private declare _lastPosIndicator: Node;
+    private declare _actualFootIndicator: Node;
+    private _currentLockStrength = 1.0;
+
+    private _updateBeforeAnimation() {
+        this._lastPosIndicator.setWorldPosition(this._lockingPosition);
+        this._actualFootIndicator.setWorldPosition(this.foot.worldPosition);
+        console.log(`${this.foot.worldPosition}`);
+
+        // const characterPosition = this.node.getWorldPosition();
+        // const characterPositionDiff = Vec3.subtract(new Vec3(), characterPosition, this._lastCharacterPos);
+        // Vec3.copy(this._lastCharacterPos, characterPosition);
+        // this._lastCharacterPosIndicator.setWorldPosition(characterPosition);
 
         Vec3.copy(this._lastActualFootPos, this.foot.worldPosition);
 
@@ -58,53 +77,61 @@ export class FootLook extends Component {
             return;
         }
 
-        this._actualFootIndicator.setWorldPosition(this.foot.worldPosition);
+        const lockingPosition = this._lockingPosition;
 
         let lockStrength = 1.0;
+        if (this.node.getComponent(FootLockDemo)!.moving) {
+            lockStrength = 0.9;
+        } else
         if (this._forceLock) {
             lockStrength = 1.0;
+            // Vec3.copy(lockingPosition, this.foot.worldPosition);
         } else {
             const animationController = this.node.getComponent(animation.AnimationController)!;
-            lockStrength = animationController.getNamedCurveValue(this.lockCurveName);
+            const lockReduction = animationController.getNamedCurveValue(this.lockCurveName) - 1.0;
+            lockStrength = 1.0 + lockReduction;
         }
 
-        if (lockStrength > this._lastLockStrength) {
-            Vec3.copy(this._lastFootPos, this.foot.worldPosition);
-        }
-        this._lastLockStrength = lockStrength;
-
-        if (lockStrength >= 0.999) {
-            // Vec3.copy(this._lastFootPos, this.foot.worldPosition);
+        if (lockStrength < this._currentLockStrength || lockStrength >= 0.999) {
+            this._currentLockStrength = lockStrength;
         }
 
-        if (lockStrength > 0.0) {
-            // const inputFootPosition = this._lastFootPos;
-            // const targetFootPosition = Vec3.add(new Vec3(), inputFootPosition, characterPositionDiff);
-            // Vec3.copy(this._lastFootPos, targetFootPosition);
+        const currentLockStrength = this._currentLockStrength;
+        if (currentLockStrength >= 0.999) {
+            Vec3.copy(lockingPosition, this.foot.worldPosition);
         }
-
-        solveTwoBoneIK(
-            this.foot,
-            this._lastFootPos,
-            lockStrength,
-        );
     }
 
-    private _lastCharacterPos = new Vec3();
-    private _lastFootPos = new Vec3();
-    private _lastActualFootPos = new Vec3();
-    private _forceLock = true;
-    private declare _lastCharacterPosIndicator: Node;
-    private declare _lastPosIndicator: Node;
-    private declare _actualFootIndicator: Node;
-    private _lastLockStrength = 0.0;
+    private _updatePostAnimation() {
+        const {
+            foot,
+            _lockingPosition: lockingPosition,
+            _currentLockStrength: currentLockStrength,
+        } = this;
+        solveTwoBoneIK(
+            foot,
+            lockingPosition,
+            currentLockStrength,
+        );
+    }
 }
 
-function createIndicator() {
+function createIndicator(color = Color.WHITE) {
     const lastPosIndicator = new Node();
     const meshRenderer = lastPosIndicator.addComponent(MeshRenderer);
     const indicatorScale = 0.1;
     meshRenderer.mesh = utils.MeshUtils.createMesh(primitives.box());
+    const material = new Material();
+    material.reset({
+        effectName: 'builtin-standard',
+        states: {
+            rasterizerState: {
+                cullMode: gfx.CullMode.NONE,
+            },
+        },
+    });
+    material.setProperty('albedo', color);
+    meshRenderer.material = material;
     lastPosIndicator.scale = new Vec3(indicatorScale, indicatorScale, indicatorScale);
     return lastPosIndicator;
 }

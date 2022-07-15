@@ -219,7 +219,7 @@
     "motion": {
       "__id__": 17
     },
-    "speed": 1.75,
+    "speed": 0.2,
     "speedMultiplier": "",
     "speedMultiplierEnabled": false
   },
@@ -252,7 +252,8 @@
         "__id__": 19
       }
     ],
-    "duration": 0.1
+    "duration": 0,
+    "destinationStart": 0
   },
   {
     "__type__": "cc.animation.TriggerCondition",
@@ -277,7 +278,7 @@
       "__id__": 14
     },
     "conditions": [],
-    "duration": 0.2,
+    "duration": 0,
     "relativeDuration": false,
     "exitConditionEnabled": true,
     "destinationStart": 0,

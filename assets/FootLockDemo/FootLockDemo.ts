@@ -8,6 +8,10 @@ export class FootLockDemo extends Component {
         [KeyCode.KEY_E]: false,
     };
 
+    get moving() {
+        return this._moving;
+    }
+
     start() {
         const setKey = (event: EventKeyboard, pressed: boolean) => {
             switch (event.keyCode) {
@@ -26,7 +30,7 @@ export class FootLockDemo extends Component {
     update (deltaTime: number) {
         const moveLeftRightAxis = (this._keyPressed[KeyCode.KEY_Q] ? -1 : 0) + (this._keyPressed[KeyCode.KEY_E] ? 1 : 0);
         if (moveLeftRightAxis) {
-            const moveLeftRightDistance = moveLeftRightAxis * 1.0 * deltaTime;
+            const moveLeftRightDistance = moveLeftRightAxis * 0.5 * deltaTime;
             const v = Vec3.transformQuat(new Vec3(), Vec3.UNIT_X, this.node.worldRotation);
             Vec3.scaleAndAdd(v, this.node.worldPosition, v, moveLeftRightDistance);
             this.node.worldPosition = v;
