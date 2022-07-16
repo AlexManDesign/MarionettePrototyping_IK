@@ -501,7 +501,7 @@
     "node": {
       "__id__": 8
     },
-    "_enabled": false,
+    "_enabled": true,
     "__prefab": null,
     "foot": null,
     "lockCurveName": "RightFootLock",

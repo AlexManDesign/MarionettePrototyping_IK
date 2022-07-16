@@ -3,9 +3,11 @@ import { DottedLineRenderer, LineRenderer, TriangleRenderer } from "../Debug/Lin
 import { IKResolveMethod, ResolveContext, ErrorCode } from "./ResolverBase";
 import { Joint } from "./Skeleton";
 
-const DEBUG: boolean = false;
+const DEBUG: boolean = true;
 
-const DEBUG_SMOOTH_ROTATION: boolean = false;
+const DEBUG_SMOOTH_ROTATION: boolean = true;
+
+const USE_NEW = true;
 
 export class TwoBoneIK extends IKResolveMethod {
     protected *solveChain(endFactor: Joint, chain: Joint[], target: math.Vec3, maxError: number, context: ResolveContext): Generator<void, number, unknown> {
@@ -23,6 +25,17 @@ export class TwoBoneIK extends IKResolveMethod {
     }
 
     private *_solveTwoBone(a: Joint, b: Joint, c: Joint, target: math.Vec3, context: ResolveContext): Generator<void, number, unknown> {
+        if (USE_NEW) {
+            solveTwoBoneIK(
+                a.node,
+                b.node,
+                c.node,
+                target,
+                context,
+            );
+            return ErrorCode.NO_ERROR;
+        }
+
         // https://theorangeduck.com/page/simple-two-joint
 
         // console.debug(`Solving ${a.name}/${b.name}/${c.name}`);
@@ -56,15 +69,19 @@ export class TwoBoneIK extends IKResolveMethod {
             Vec3.subtract(new Vec3(), pC, pA).normalize(),
             Vec3.subtract(new Vec3(), pB, pA).normalize(),
         );
-        if (approx(angleCAB, 0.0, 1e-5)) {
-            console.log('a, b, c are lie in same line.');
-        }
 
         const axisCAB = Vec3.cross(
             new Vec3(),
             Vec3.subtract(new Vec3(), pC, pA).normalize(),
             Vec3.subtract(new Vec3(), pB, pA).normalize(),
-        ).normalize();
+        );
+        const lenAxisCAB = axisCAB.length();
+        if (approx(lenAxisCAB, 0.0, 1e-3)) {
+            console.log('a, b, c are lie in same line.');
+            debugger;
+        } else {
+            axisCAB.normalize();
+        }
 
         let debugLineRenderer: DottedLineRenderer | null = null;
         let debugTriangleRenderer: TriangleRenderer | null = null;
@@ -312,6 +329,153 @@ export class TwoBoneIK extends IKResolveMethod {
             );
         }
     }
+}
+
+export function solveTwoBoneIK(
+    a: Node,
+    b: Node,
+    c: Node,
+    target: Vec3,
+    context: ResolveContext,
+) {
+    const sanityChecker = new TwoBoneIKSanityChecker(a.worldPosition, b.worldPosition, c.worldPosition);
+
+    const bSolved = new Vec3();
+    const cSolved = new Vec3();
+    solveTwoBoneIKPositions(
+        a.worldPosition,
+        b.worldPosition,
+        c.worldPosition,
+        target,
+        bSolved,
+        cSolved,
+    );
+
+    const qA = Quat.rotationTo(
+        new Quat(),
+        Vec3.subtract(new Vec3(), b.worldPosition, a.worldPosition).normalize(),
+        Vec3.subtract(new Vec3(), bSolved, a.worldPosition).normalize(),
+    );
+    a.rotate(
+        qA,
+        NodeSpace.WORLD,
+    );
+
+    const qB = Quat.rotationTo(
+        new Quat(),
+        Vec3.subtract(new Vec3(), c.worldPosition, b.worldPosition).normalize(),
+        Vec3.subtract(new Vec3(), cSolved, b.worldPosition).normalize(),
+    );
+    b.rotate(
+        qB,
+        NodeSpace.WORLD,
+    );
+
+    c.worldPosition = cSolved;
+
+    sanityChecker.check(a.worldPosition, b.worldPosition, c.worldPosition);
+}
+
+function solveTwoBoneIKPositions(
+    a: Readonly<Vec3>,
+    b: Readonly<Vec3>,
+    c: Readonly<Vec3>,
+    target: Readonly<Vec3>,
+    bSolved: Vec3,
+    cSolved: Vec3,
+) {
+    const sanityChecker = new TwoBoneIKSanityChecker(a, b, c);
+    const sanityCheck = () => sanityChecker.check(a, bSolved, cSolved);
+
+    const dAB = Vec3.distance(a, b);
+    const dBC = Vec3.distance(b, c);
+    const dAT = Vec3.distance(a, target);
+
+    const dirAT = Vec3.subtract(new Vec3(), target, a);
+    dirAT.normalize();
+
+    const chainLength = dAB + dBC;
+    if (dAT >= chainLength) {
+        // Target is too far
+        Vec3.scaleAndAdd(bSolved, a, dirAT, dAB);
+        Vec3.scaleAndAdd(cSolved, a, dirAT, chainLength);
+        sanityCheck();
+        return;
+    }
+
+    // Now we should have a solution with target reached.
+    // And then solve the middle joint B as Ḃ.
+    Vec3.copy(cSolved, target);
+    // Calculate ∠BAC's cosine.
+    const cosḂAT = clamp(
+        (dAB * dAB + dAT * dAT - dBC * dBC) / (2 * dAB * dAT),
+        -1.0,
+        1.0,
+    );
+    // Then use basic trigonometry(instead of rotation) to solve Ḃ.
+    // Let D the intersect point of the height line passing Ḃ.
+    const dirHeightLine = Vec3.multiplyScalar(
+        new Vec3(),
+        dirAT,
+        Vec3.dot(dirAT, Vec3.subtract(new Vec3(), b, a)),
+    );
+    Vec3.subtract(
+        dirHeightLine,
+        Vec3.subtract(new Vec3(), b, a),
+        dirHeightLine,
+    );
+    dirHeightLine.normalize();
+    const dAD = dAB * cosḂAT;
+    const hSqr = dAB * dAB - dAD * dAD;
+    if (hSqr < 0) {
+        'Shall handle this case';
+        debugger;
+    }
+    const h = Math.sqrt(hSqr);
+    Vec3.scaleAndAdd(
+        bSolved,
+        a,
+        dirAT,
+        dAD,
+    );
+    Vec3.scaleAndAdd(
+        bSolved,
+        bSolved,
+        dirHeightLine,
+        h,
+    );
+    if (DEBUG) {
+        sanityCheck();
+    }
+}
+
+class TwoBoneIKSanityChecker {
+    constructor(private _a: Readonly<Vec3>, _b: Readonly<Vec3>, _c: Readonly<Vec3>) {
+        this._dAB = Vec3.distance(_a, _b);
+        this._dBC = Vec3.distance(_b, _c);
+    }
+
+    public check(_a: Readonly<Vec3>, _b: Readonly<Vec3>, _c: Readonly<Vec3>) {
+        const CHECK_EPSILON = 1e-3;
+        const dAB = Vec3.distance(_a, _b);
+        const dBC = Vec3.distance(_b, _c);
+        if (!approx(Vec3.distance(_a, this._a), 0.0, CHECK_EPSILON)) {
+            debugger;
+            return false;
+        }
+        if (!approx(dAB, this._dAB, CHECK_EPSILON)) {
+            debugger;
+            return false;
+        }
+        if (!approx(dBC, this._dBC, CHECK_EPSILON)) {
+            debugger;
+            return false;
+        }
+        return true;
+    }
+
+    private declare _dAB: number;
+    private declare _dBC: number;
 }
 
 function rotateToSmooth(from: Vec3, to: Vec3, joint: Joint, callback: () => void) {

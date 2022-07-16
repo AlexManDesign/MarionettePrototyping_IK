@@ -1,6 +1,6 @@
 import { _decorator, Component, Node, Vec3, Quat, animation, MeshRenderer, primitives, utils, Material, gfx, Color } from 'cc';
 import { Joint } from '../Source/Solvers/Skeleton';
-import { TwoBoneIK } from '../Source/Solvers/TwoBoneIK';
+import { solveTwoBoneIK, TwoBoneIK } from '../Source/Solvers/TwoBoneIK';
 import { FootLockDemo } from './FootLockDemo';
 const { ccclass, property, executionOrder } = _decorator;
 
@@ -62,6 +62,7 @@ export class FootLook extends Component {
     private _currentLockStrength = 1.0;
 
     private _updateBeforeAnimation() {
+        console.log('-------');
         this._lastPosIndicator.setWorldPosition(this._lockingPosition);
         this._actualFootIndicator.setWorldPosition(this.foot.worldPosition);
         console.log(`${this.foot.worldPosition}`);
@@ -108,11 +109,13 @@ export class FootLook extends Component {
             _lockingPosition: lockingPosition,
             _currentLockStrength: currentLockStrength,
         } = this;
-        solveTwoBoneIK(
+        solveTwoBoneIKAlpha(
             foot,
             lockingPosition,
             currentLockStrength,
         );
+        const d = Vec3.distance(lockingPosition, foot.worldPosition);
+        console.debug(d);
     }
 }
 
@@ -152,7 +155,7 @@ function cloneNodeWorldTransform(node: Node) {
     return nodeCopy;
 }
 
-function solveTwoBoneIK(endFactorNode: Node, target: Vec3, alpha: number) {
+function solveTwoBoneIKAlpha(endFactorNode: Node, target: Vec3, alpha: number) {
     // TODO:
     target = Vec3.clone(target);
 
@@ -174,20 +177,31 @@ function solveTwoBoneIK(endFactorNode: Node, target: Vec3, alpha: number) {
     endFactor.parent = middle;
     middle.parent = root;
 
-    const solver = new TwoBoneIK();
-    const g = solver.solveChain(
-        endFactor,
-        [middle, root],
+    solveTwoBoneIK(
+        rootNodeCopy,
+        middleNodeCopy,
+        endFactorNodeCopy,
         target,
-        1e-2,
         {
             node: new Node(),
             debugLineMaterial: null,
             renderer: null,
-        },
+        }
     );
-    for (const _ of g) {
-    }
+    // const solver = new TwoBoneIK();
+    // const g = solver.solveChain(
+    //     endFactor,
+    //     [middle, root],
+    //     target,
+    //     1e-2,
+    //     {
+    //         node: new Node(),
+    //         debugLineMaterial: null,
+    //         renderer: null,
+    //     },
+    // );
+    // for (const _ of g) {
+    // }
 
     for (const [original, target] of [
         [endFactorNode, endFactorNodeCopy],
