@@ -8,6 +8,9 @@ export class GlobalNamedCurveRegistry extends Component {
 
     @property
     RightFootLock = 0.0;
+
+    @property
+    FeetPosition = 0.0;
 }
 
 

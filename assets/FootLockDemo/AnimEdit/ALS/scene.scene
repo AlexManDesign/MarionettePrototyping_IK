@@ -301,6 +301,26 @@
       {
         "__uuid__": "835cabc5-3a51-44dc-992e-7d831498c6cd@eff5a",
         "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "c7ca9df7-c768-4f7e-9496-66eb6dbcf538@23b0f",
+        "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "2d4fe490-250c-4c34-8ef3-87099e90ed86@1fc01",
+        "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "5be08f3c-3a36-40ee-a8bc-1c4d619e84ef@3abb8",
+        "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "be570046-f121-4ca0-a04b-6979c1b79ebe@90ec0",
+        "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "2f5d2e0f-bbf8-454f-9c56-94ca4dbd4615@30492",
+        "__expectedType__": "cc.AnimationClip"
       }
     ],
     "_defaultClip": {
@@ -325,6 +345,7 @@
     "__prefab": null,
     "LeftFootLock": 0,
     "RightFootLock": 0,
+    "FeetPosition": 0,
     "_id": "d2YLKygOlJkbwkfGr3bEw7"
   },
   {

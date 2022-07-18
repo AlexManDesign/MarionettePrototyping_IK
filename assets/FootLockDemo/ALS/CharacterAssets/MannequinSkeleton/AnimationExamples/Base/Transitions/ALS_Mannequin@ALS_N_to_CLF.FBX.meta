@@ -2,24 +2,24 @@
   "ver": "2.3.0",
   "importer": "fbx",
   "imported": true,
-  "uuid": "5be08f3c-3a36-40ee-a8bc-1c4d619e84ef",
+  "uuid": "45fc989b-d5ac-41be-9078-43aa3d411ec3",
   "files": [
     "__original-animation-0.cconb"
   ],
   "subMetas": {
-    "3abb8": {
+    "d9aa7": {
       "importer": "gltf-animation",
-      "uuid": "5be08f3c-3a36-40ee-a8bc-1c4d619e84ef@3abb8",
+      "uuid": "45fc989b-d5ac-41be-9078-43aa3d411ec3@d9aa7",
       "displayName": "",
-      "id": "3abb8",
-      "name": "ALS_N_Walk_RF.animation",
+      "id": "d9aa7",
+      "name": "ALS_N_to_CLF.animation",
       "userData": {
         "gltfIndex": 0,
-        "wrapMode": 2,
+        "wrapMode": 1,
         "sample": 30,
         "span": {
           "from": 0,
-          "to": 1.1333333253860474
+          "to": 1
         },
         "events": []
       },
@@ -30,12 +30,12 @@
       ],
       "subMetas": {}
     },
-    "df68c": {
+    "bfa16": {
       "importer": "gltf-scene",
-      "uuid": "5be08f3c-3a36-40ee-a8bc-1c4d619e84ef@df68c",
+      "uuid": "45fc989b-d5ac-41be-9078-43aa3d411ec3@bfa16",
       "displayName": "",
-      "id": "df68c",
-      "name": "ALS_Mannequin@ALS_N_Walk_RF.prefab",
+      "id": "bfa16",
+      "name": "ALS_Mannequin@ALS_N_to_CLF.prefab",
       "userData": {
         "gltfIndex": 0
       },
@@ -57,26 +57,26 @@
     "animationImportSettings": [
       {
         "name": "Unreal Take",
-        "duration": 1.1333333253860474,
+        "duration": 1,
         "fps": 30,
         "splits": [
           {
-            "name": "ALS_N_Walk_RF",
+            "name": "ALS_N_to_CLF",
             "from": 0,
-            "to": 1.1333333253860474,
-            "wrapMode": 2
+            "to": 1,
+            "wrapMode": 1
           }
         ]
       }
     ],
-    "redirect": "5be08f3c-3a36-40ee-a8bc-1c4d619e84ef@df68c",
+    "redirect": "45fc989b-d5ac-41be-9078-43aa3d411ec3@bfa16",
     "assetFinder": {
       "meshes": [],
       "skeletons": [],
       "textures": [],
       "materials": [],
       "scenes": [
-        "5be08f3c-3a36-40ee-a8bc-1c4d619e84ef@df68c"
+        "45fc989b-d5ac-41be-9078-43aa3d411ec3@bfa16"
       ]
     }
   }

@@ -55,7 +55,7 @@ if (EDITOR) {
     (async () => {
         await waitUtilGizmoValid();
 
-        console.log(cce.gizmos);
+        // console.log(cce.gizmos);
 
         class IKResolverGizmo extends cce.gizmos.Gizmo {
 

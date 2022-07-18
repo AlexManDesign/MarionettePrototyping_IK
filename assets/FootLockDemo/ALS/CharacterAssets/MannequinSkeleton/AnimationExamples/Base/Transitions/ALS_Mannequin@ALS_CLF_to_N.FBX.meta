@@ -2,40 +2,17 @@
   "ver": "2.3.0",
   "importer": "fbx",
   "imported": true,
-  "uuid": "2d4fe490-250c-4c34-8ef3-87099e90ed86",
+  "uuid": "e0213b1e-c286-4ab2-afcb-a4d2e2ab17ad",
   "files": [
     "__original-animation-0.cconb"
   ],
   "subMetas": {
-    "1fc01": {
-      "importer": "gltf-animation",
-      "uuid": "2d4fe490-250c-4c34-8ef3-87099e90ed86@1fc01",
-      "displayName": "",
-      "id": "1fc01",
-      "name": "ALS_N_Walk_LF.animation",
-      "userData": {
-        "gltfIndex": 0,
-        "wrapMode": 2,
-        "sample": 30,
-        "span": {
-          "from": 0,
-          "to": 1.1333333253860474
-        },
-        "events": []
-      },
-      "ver": "1.0.16",
-      "imported": true,
-      "files": [
-        ".cconb"
-      ],
-      "subMetas": {}
-    },
-    "266b6": {
+    "76115": {
       "importer": "gltf-scene",
-      "uuid": "2d4fe490-250c-4c34-8ef3-87099e90ed86@266b6",
+      "uuid": "e0213b1e-c286-4ab2-afcb-a4d2e2ab17ad@76115",
       "displayName": "",
-      "id": "266b6",
-      "name": "ALS_Mannequin@ALS_N_Walk_LF.prefab",
+      "id": "76115",
+      "name": "ALS_Mannequin@ALS_CLF_to_N.prefab",
       "userData": {
         "gltfIndex": 0
       },
@@ -43,6 +20,29 @@
       "imported": true,
       "files": [
         ".json"
+      ],
+      "subMetas": {}
+    },
+    "a691a": {
+      "importer": "gltf-animation",
+      "uuid": "e0213b1e-c286-4ab2-afcb-a4d2e2ab17ad@a691a",
+      "displayName": "",
+      "id": "a691a",
+      "name": "ALS_CLF_to_N.animation",
+      "userData": {
+        "gltfIndex": 0,
+        "wrapMode": 1,
+        "sample": 30,
+        "span": {
+          "from": 0,
+          "to": 1
+        },
+        "events": []
+      },
+      "ver": "1.0.16",
+      "imported": true,
+      "files": [
+        ".cconb"
       ],
       "subMetas": {}
     }
@@ -57,26 +57,26 @@
     "animationImportSettings": [
       {
         "name": "Unreal Take",
-        "duration": 1.1333333253860474,
+        "duration": 1,
         "fps": 30,
         "splits": [
           {
-            "name": "ALS_N_Walk_LF",
+            "name": "ALS_CLF_to_N",
             "from": 0,
-            "to": 1.1333333253860474,
-            "wrapMode": 2
+            "to": 1,
+            "wrapMode": 1
           }
         ]
       }
     ],
-    "redirect": "2d4fe490-250c-4c34-8ef3-87099e90ed86@266b6",
+    "redirect": "e0213b1e-c286-4ab2-afcb-a4d2e2ab17ad@76115",
     "assetFinder": {
       "meshes": [],
       "skeletons": [],
       "textures": [],
       "materials": [],
       "scenes": [
-        "2d4fe490-250c-4c34-8ef3-87099e90ed86@266b6"
+        "e0213b1e-c286-4ab2-afcb-a4d2e2ab17ad@76115"
       ]
     }
   }

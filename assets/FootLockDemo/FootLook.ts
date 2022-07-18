@@ -62,10 +62,10 @@ export class FootLook extends Component {
     private _currentLockStrength = 1.0;
 
     private _updateBeforeAnimation() {
-        console.log('-------');
+        // console.log('-------');
         this._lastPosIndicator.setWorldPosition(this._lockingPosition);
         this._actualFootIndicator.setWorldPosition(this.foot.worldPosition);
-        console.log(`${this.foot.worldPosition}`);
+        // console.log(`${this.foot.worldPosition}`);
 
         // const characterPosition = this.node.getWorldPosition();
         // const characterPositionDiff = Vec3.subtract(new Vec3(), characterPosition, this._lastCharacterPos);
@@ -105,7 +105,7 @@ export class FootLook extends Component {
             currentLockStrength,
         );
         const d = Vec3.distance(lockingPosition, foot.worldPosition);
-        console.debug(d);
+        // console.debug(d);
     }
 }
 
