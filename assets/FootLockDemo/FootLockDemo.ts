@@ -43,6 +43,7 @@ export class FootLockDemo extends Component {
                 this._moving = false;
             }
         }
+        this.node.getComponent(animation.AnimationController)?.setValue('VelocityX', -moveLeftRightAxis);
     }
 
     private _moving = false;

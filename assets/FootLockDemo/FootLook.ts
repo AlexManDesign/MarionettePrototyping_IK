@@ -80,18 +80,8 @@ export class FootLook extends Component {
 
         const lockingPosition = this._lockingPosition;
 
-        let lockStrength = 1.0;
-        if (this.node.getComponent(FootLockDemo)!.moving) {
-            lockStrength = 0.9;
-        } else
-        if (this._forceLock) {
-            lockStrength = 1.0;
-            // Vec3.copy(lockingPosition, this.foot.worldPosition);
-        } else {
-            const animationController = this.node.getComponent(animation.AnimationController)!;
-            const lockReduction = animationController.getNamedCurveValue(this.lockCurveName) - 1.0;
-            lockStrength = 1.0 + lockReduction;
-        }
+        const animationController = this.node.getComponent(animation.AnimationController)!;
+        const lockStrength = animationController.getNamedCurveValue(this.lockCurveName);
 
         if (lockStrength < this._currentLockStrength || lockStrength >= 0.999) {
             this._currentLockStrength = lockStrength;
