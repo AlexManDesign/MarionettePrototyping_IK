@@ -47,8 +47,8 @@
     "__editorExtras__": {
       "viewport": {
         "scale": 1,
-        "top": -223.1147826086957,
-        "left": 84.58009060330892
+        "top": -95.11478260869569,
+        "left": 125.58009060330892
       }
     },
     "_states": [
@@ -1070,9 +1070,9 @@
     "__type__": "cc.animation.StateMachine",
     "__editorExtras__": {
       "viewport": {
-        "scale": 1.04,
-        "top": 98.76429074076052,
-        "left": -48.037091423886636
+        "scale": 1.02,
+        "top": 12.245060558406252,
+        "left": -94.19093757773283
       }
     },
     "_states": [
@@ -1210,7 +1210,7 @@
     "motion": {
       "__id__": 93
     },
-    "speed": 1,
+    "speed": 1.5,
     "speedMultiplier": "",
     "speedMultiplierEnabled": false
   },
@@ -1239,7 +1239,7 @@
     "motion": {
       "__id__": 95
     },
-    "speed": 1,
+    "speed": 1.5,
     "speedMultiplier": "",
     "speedMultiplierEnabled": false
   },
@@ -1316,7 +1316,7 @@
       }
     ],
     "duration": 0.2,
-    "destinationStart": 0.4
+    "destinationStart": 0.172
   },
   {
     "__type__": "cc.animation.TriggerCondition",
@@ -1352,7 +1352,7 @@
       }
     ],
     "duration": 0.2,
-    "destinationStart": 0.4
+    "destinationStart": 0.172
   },
   {
     "__type__": "cc.animation.TriggerCondition",

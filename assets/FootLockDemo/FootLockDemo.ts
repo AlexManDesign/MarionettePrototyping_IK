@@ -12,7 +12,11 @@ export class FootLockDemo extends Component {
         [KeyCode.KEY_D]: false,
     };
 
+    private _counter = 0;
+    private _steps = 66;
+
     start() {
+        // globalThis.slomo = 0.1;
         const setKey = (event: EventKeyboard, pressed: boolean) => {
             if (event.keyCode in this._keyPressed) {
                 this._keyPressed[event.keyCode as KeyType] = pressed;
@@ -24,6 +28,9 @@ export class FootLockDemo extends Component {
                         this.node.getComponent(animation.AnimationController)?.setValue('CLF', this._clf);
                     }
                     break;
+                case KeyCode.SPACE:
+                    this._counter = this._steps;
+                    break;
             }
         };
 
@@ -34,11 +41,15 @@ export class FootLockDemo extends Component {
     private _lastDebugVelocity = 0.0;
 
     update (deltaTime: number) {
-        const moveLeftRightAxis = (this._keyPressed[KeyCode.KEY_Q] ? -1 : 0) + (this._keyPressed[KeyCode.KEY_E] ? 1 : 0);
+        let moveLeftRightAxis = (this._keyPressed[KeyCode.KEY_Q] ? -1 : 0) + (this._keyPressed[KeyCode.KEY_E] ? 1 : 0);
+        if (this._counter) {
+            moveLeftRightAxis = -1;
+            --this._counter;
+        }
         const targetVelocityX = this._targetVelocityX = moveLeftRightAxis * 1.0;
         const velocityDelta = targetVelocityX - this._currentVelocityX;
         if (velocityDelta !== 0) {
-            const acceleration = 6.0;
+            const acceleration = 5.0;
             const velocityDeltaAbs = Math.abs(velocityDelta);
             const stepDelta = Math.min(acceleration * deltaTime, velocityDeltaAbs);
             this._currentVelocityX += stepDelta * Math.sign(velocityDelta);

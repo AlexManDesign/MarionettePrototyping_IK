@@ -13,6 +13,9 @@ export class FootLook extends Component {
     @property
     public lockCurveName = '';
 
+    @property
+    public debug = true;
+
     get forceLock() {
         return this._forceLock;
     }
@@ -28,17 +31,19 @@ export class FootLook extends Component {
     }
 
     start() {
-        const lastPosIndicator = createIndicator(Color.YELLOW);
-        this.node.scene.addChild(lastPosIndicator);
-        this._lastPosIndicator = lastPosIndicator;
-
-        const actualFootIndicator = createIndicator(Color.RED);
-        this.node.scene.addChild(actualFootIndicator);
-        this._actualFootIndicator = actualFootIndicator;
-
-        const lastCharacterPosIndicator = createIndicator(Color.GRAY);
-        this.node.scene.addChild(lastCharacterPosIndicator);
-        this._lastCharacterPosIndicator = lastCharacterPosIndicator;
+        if (this.debug) {
+            const lastPosIndicator = createIndicator(Color.YELLOW);
+            this.node.scene.addChild(lastPosIndicator);
+            this._lastPosIndicator = lastPosIndicator;
+    
+            const actualFootIndicator = createIndicator(Color.RED);
+            this.node.scene.addChild(actualFootIndicator);
+            this._actualFootIndicator = actualFootIndicator;
+    
+            const lastCharacterPosIndicator = createIndicator(Color.GRAY);
+            this.node.scene.addChild(lastCharacterPosIndicator);
+            this._lastCharacterPosIndicator = lastCharacterPosIndicator;
+        }
 
         Vec3.copy(this._lastCharacterPos, this.node.getWorldPosition());
         Vec3.copy(this._lockingPosition, this.foot.worldPosition);
@@ -56,15 +61,15 @@ export class FootLook extends Component {
     private _lockingPosition = new Vec3();
     private _lastActualFootPos = new Vec3();
     private _forceLock = true;
-    private declare _lastCharacterPosIndicator: Node;
-    private declare _lastPosIndicator: Node;
-    private declare _actualFootIndicator: Node;
+    private declare _lastCharacterPosIndicator: Node | null;
+    private declare _lastPosIndicator: Node | null;
+    private declare _actualFootIndicator: Node | null;
     private _currentLockStrength = 1.0;
 
     private _updateBeforeAnimation() {
         // console.log('-------');
-        this._lastPosIndicator.setWorldPosition(this._lockingPosition);
-        this._actualFootIndicator.setWorldPosition(this.foot.worldPosition);
+        this._lastPosIndicator?.setWorldPosition(this._lockingPosition);
+        this._actualFootIndicator?.setWorldPosition(this.foot.worldPosition);
         // console.log(`${this.foot.worldPosition}`);
 
         // const characterPosition = this.node.getWorldPosition();
