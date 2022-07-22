@@ -37,8 +37,8 @@ export class PauseWhenEnter extends animation.StateMachineComponent {
      * @param controller The animation controller it within.
      */
     public onStateMachineEnter (controller: animation.AnimationController) {
-        debugger;
-        game.pause();
+        // debugger;
+        // game.pause();
     }
 
     /**

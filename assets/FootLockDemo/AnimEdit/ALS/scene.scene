@@ -321,6 +321,18 @@
       {
         "__uuid__": "2f5d2e0f-bbf8-454f-9c56-94ca4dbd4615@30492",
         "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "f3fd502b-bfc8-483e-bc22-2b07b4ddafdb@8059d",
+        "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "7529f2e6-b5b0-4948-9691-9e9fc4a811fc@ad398",
+        "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "de2e2ad8-53e3-4374-91c4-6e843539c72b@2d351",
+        "__expectedType__": "cc.AnimationClip"
       }
     ],
     "_defaultClip": {
@@ -535,7 +547,9 @@
     "_diffuseMapLDR": null,
     "_enabled": true,
     "_useHDR": true,
-    "_editableMaterial": null
+    "_editableMaterial": null,
+    "_reflectionHDR": null,
+    "_reflectionLDR": null
   },
   {
     "__type__": "cc.FogInfo",

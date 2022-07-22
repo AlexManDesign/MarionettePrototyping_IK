@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Vec3, Quat, animation, MeshRenderer, primitives, utils, Material, gfx, Color } from 'cc';
+import { _decorator, Component, Node, Vec3, Quat, animation, MeshRenderer, primitives, utils, Material, gfx, Color, clamp01 } from 'cc';
 import { Joint } from '../Source/Solvers/Skeleton';
 import { solveTwoBoneIK, TwoBoneIK } from '../Source/Solvers/TwoBoneIK';
 import { FootLockDemo } from './FootLockDemo';
@@ -81,7 +81,8 @@ export class FootLook extends Component {
         const lockingPosition = this._lockingPosition;
 
         const animationController = this.node.getComponent(animation.AnimationController)!;
-        const lockStrength = animationController.getNamedCurveValue(this.lockCurveName);
+        const lockStrengthUnclamped = animationController.getNamedCurveValue(this.lockCurveName);
+        const lockStrength = clamp01(lockStrengthUnclamped);
 
         if (lockStrength < this._currentLockStrength || lockStrength >= 0.999) {
             this._currentLockStrength = lockStrength;

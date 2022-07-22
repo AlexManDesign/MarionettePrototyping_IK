@@ -47,8 +47,8 @@
     "__editorExtras__": {
       "viewport": {
         "scale": 1,
-        "top": -168,
-        "left": 159
+        "top": -223.1147826086957,
+        "left": 84.58009060330892
       }
     },
     "_states": [
@@ -195,8 +195,8 @@
       "autoThreshold": false,
       "viewport": {
         "scale": 1,
-        "top": -65,
-        "left": 127
+        "top": -57,
+        "left": 191
       }
     },
     "name": "Locomotion Cycles",
@@ -225,13 +225,13 @@
   {
     "__type__": "cc.animation.ClipMotion",
     "__editorExtras__": {
-      "id": "16581340226500.8576343678154992",
-      "centerX": -253,
-      "centerY": -242,
+      "id": "16584852724100.0778268513591931",
+      "centerX": -200,
+      "centerY": -3.296875,
       "name": ""
     },
     "clip": {
-      "__uuid__": "2d4fe490-250c-4c34-8ef3-87099e90ed86@1fc01",
+      "__uuid__": "7529f2e6-b5b0-4948-9691-9e9fc4a811fc@ad398",
       "__expectedType__": "cc.AnimationClip"
     }
   },
@@ -245,13 +245,13 @@
   {
     "__type__": "cc.animation.ClipMotion",
     "__editorExtras__": {
-      "id": "16581408322930.9958812749304293",
-      "centerX": -406,
-      "centerY": -44,
+      "id": "16584852713210.3799774820077584",
+      "centerX": -205,
+      "centerY": -99.296875,
       "name": ""
     },
     "clip": {
-      "__uuid__": "c7ca9df7-c768-4f7e-9496-66eb6dbcf538@23b0f",
+      "__uuid__": "f3fd502b-bfc8-483e-bc22-2b07b4ddafdb@8059d",
       "__expectedType__": "cc.AnimationClip"
     }
   },
@@ -265,13 +265,13 @@
   {
     "__type__": "cc.animation.ClipMotion",
     "__editorExtras__": {
-      "id": "16581340667370.5970917305424208",
-      "centerX": -252,
-      "centerY": 144,
+      "id": "16584852739970.27652846808249176",
+      "centerX": -179,
+      "centerY": 171.703125,
       "name": ""
     },
     "clip": {
-      "__uuid__": "5be08f3c-3a36-40ee-a8bc-1c4d619e84ef@3abb8",
+      "__uuid__": "de2e2ad8-53e3-4374-91c4-6e843539c72b@2d351",
       "__expectedType__": "cc.AnimationClip"
     }
   },
@@ -392,9 +392,9 @@
     "__type__": "cc.animation.StateMachine",
     "__editorExtras__": {
       "viewport": {
-        "scale": 1,
-        "top": -59,
-        "left": -33
+        "scale": 1.3000000000000003,
+        "top": 4.774057275251195,
+        "left": 6.841155392419466
       }
     },
     "_states": [
@@ -489,9 +489,9 @@
       "centerX": 1,
       "centerY": -133.5,
       "id": "16583040653370.8187341054497375",
-      "name": "ALS_N_Pose.fbx(#LeftFootLock:1)"
+      "name": "ALS_N_Pose.fbx#ModifyCurve(#LeftFootLock:1)"
     },
-    "name": "ALS_N_Pose.fbx(#LeftFootLock:1)",
+    "name": "ALS_N_Pose.fbx#ModifyCurve(#LeftFootLock:1)",
     "_components": [
       {
         "__id__": 30
@@ -526,9 +526,9 @@
       "centerX": -4,
       "centerY": -42.5,
       "id": "16583040771090.7940655841429882",
-      "name": "ALS_N_Pose.fbx(#RightFootLock:1)"
+      "name": "ALS_N_Pose.fbx#ModifyCurve(#RightFootLock:1)"
     },
-    "name": "ALS_N_Pose.fbx(#RightFootLock:1)",
+    "name": "ALS_N_Pose.fbx#ModifyCurve(#RightFootLock:1)",
     "_components": [
       {
         "__id__": 33
@@ -1071,8 +1071,8 @@
     "__editorExtras__": {
       "viewport": {
         "scale": 1.04,
-        "top": 71.76429074076052,
-        "left": -74.03709142388664
+        "top": 98.76429074076052,
+        "left": -48.037091423886636
       }
     },
     "_states": [
@@ -1315,8 +1315,8 @@
         "__id__": 101
       }
     ],
-    "duration": 0.3,
-    "destinationStart": 0
+    "duration": 0.2,
+    "destinationStart": 0.4
   },
   {
     "__type__": "cc.animation.TriggerCondition",
@@ -1331,7 +1331,7 @@
       "__id__": 88
     },
     "conditions": [],
-    "duration": 0,
+    "duration": 0.2,
     "relativeDuration": false,
     "exitConditionEnabled": true,
     "destinationStart": 0,
@@ -1351,8 +1351,8 @@
         "__id__": 104
       }
     ],
-    "duration": 0.3,
-    "destinationStart": 0
+    "duration": 0.2,
+    "destinationStart": 0.4
   },
   {
     "__type__": "cc.animation.TriggerCondition",
@@ -1367,7 +1367,7 @@
       "__id__": 88
     },
     "conditions": [],
-    "duration": 0,
+    "duration": 0.2,
     "relativeDuration": false,
     "exitConditionEnabled": true,
     "destinationStart": 0,

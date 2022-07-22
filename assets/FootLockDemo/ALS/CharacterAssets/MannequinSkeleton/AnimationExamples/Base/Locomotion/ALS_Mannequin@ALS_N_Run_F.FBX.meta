@@ -1,0 +1,91 @@
+{
+  "ver": "2.3.0",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "f3fd502b-bfc8-483e-bc22-2b07b4ddafdb",
+  "files": [
+    "__original-animation-0.cconb"
+  ],
+  "subMetas": {
+    "8059d": {
+      "importer": "gltf-animation",
+      "uuid": "f3fd502b-bfc8-483e-bc22-2b07b4ddafdb@8059d",
+      "displayName": "",
+      "id": "8059d",
+      "name": "ALS_N_Run_F.animation",
+      "userData": {
+        "gltfIndex": 0,
+        "wrapMode": 2,
+        "sample": 30,
+        "span": {
+          "from": 0,
+          "to": 0.8333333134651184
+        },
+        "events": [],
+        "embeddedPlayers": [],
+        "editorExtras": {
+          "embeddedPlayerGroups": []
+        },
+        "extraTracks": [
+          "[\n  {\n    \"__type__\": \"cc.animation.RealTrack\",\n    \"_binding\": {\n      \"__type__\": \"cc.animation.TrackBinding\",\n      \"path\": {\n        \"__id__\": 1\n      }\n    },\n    \"_channel\": {\n      \"__id__\": 3\n    }\n  },\n  {\n    \"__type__\": \"cc.animation.TrackPath\",\n    \"_paths\": [\n      {\n        \"__id__\": 2\n      },\n      \"FeetPosition\"\n    ]\n  },\n  {\n    \"__type__\": \"cc.animation.ComponentPath\",\n    \"component\": \"GlobalNamedCurveRegistry\"\n  },\n  {\n    \"__type__\": \"cc.animation.Channel\",\n    \"_curve\": {\n      \"__id__\": 4\n    }\n  },\n  {\n    \"__type__\": \"cc.RealCurve\",\n    \"_times\": [\n      0,\n      0.06666666666666667,\n      0.2,\n      0.4666666666666667,\n      0.6\n    ],\n    \"_values\": [\n      {\n        \"__type__\": \"cc.RealKeyframeValue\",\n        \"interpolationMode\": 1,\n        \"tangentWeightMode\": 0,\n        \"value\": -0.2,\n        \"rightTangent\": 0,\n        \"rightTangentWeight\": 1,\n        \"leftTangent\": 0,\n        \"leftTangentWeight\": 1,\n        \"easingMethod\": 0,\n        \"__editorExtras__\": {\n          \"tangentMode\": 0\n        }\n      },\n      {\n        \"__type__\": \"cc.RealKeyframeValue\",\n        \"interpolationMode\": 1,\n        \"tangentWeightMode\": 0,\n        \"value\": -1,\n        \"rightTangent\": 0,\n        \"rightTangentWeight\": 1,\n        \"leftTangent\": 0,\n        \"leftTangentWeight\": 1,\n        \"easingMethod\": 0,\n        \"__editorExtras__\": {\n          \"tangentMode\": 0\n        }\n      },\n      {\n        \"__type__\": \"cc.RealKeyframeValue\",\n        \"interpolationMode\": 1,\n        \"tangentWeightMode\": 0,\n        \"value\": 0.2,\n        \"rightTangent\": 0,\n        \"rightTangentWeight\": 1,\n        \"leftTangent\": 0,\n        \"leftTangentWeight\": 1,\n        \"easingMethod\": 0,\n        \"__editorExtras__\": {\n          \"tangentMode\": 0\n        }\n      },\n      {\n        \"__type__\": \"cc.RealKeyframeValue\",\n        \"interpolationMode\": 1,\n        \"tangentWeightMode\": 0,\n        \"value\": 1,\n        \"rightTangent\": 0,\n        \"rightTangentWeight\": 1,\n        \"leftTangent\": 0,\n        \"leftTangentWeight\": 1,\n        \"easingMethod\": 0,\n        \"__editorExtras__\": {\n          \"tangentMode\": 0\n        }\n      },\n      {\n        \"__type__\": \"cc.RealKeyframeValue\",\n        \"interpolationMode\": 1,\n        \"tangentWeightMode\": 0,\n        \"value\": -0.2,\n        \"rightTangent\": 0,\n        \"rightTangentWeight\": 1,\n        \"leftTangent\": 0,\n        \"leftTangentWeight\": 1,\n        \"easingMethod\": 0,\n        \"__editorExtras__\": {\n          \"tangentMode\": 0\n        }\n      }\n    ],\n    \"preExtrapolation\": 1,\n    \"postExtrapolation\": 1\n  }\n]"
+        ],
+        "speed": 1
+      },
+      "ver": "1.0.16",
+      "imported": true,
+      "files": [
+        ".cconb"
+      ],
+      "subMetas": {}
+    },
+    "072c9": {
+      "importer": "gltf-scene",
+      "uuid": "f3fd502b-bfc8-483e-bc22-2b07b4ddafdb@072c9",
+      "displayName": "",
+      "id": "072c9",
+      "name": "ALS_Mannequin@ALS_N_Run_F.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "legacyFbxImporter": false,
+    "allowMeshDataAccess": true,
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "animationImportSettings": [
+      {
+        "name": "Unreal Take",
+        "duration": 0.8333333134651184,
+        "fps": 30,
+        "splits": [
+          {
+            "name": "ALS_N_Run_F",
+            "from": 0,
+            "to": 0.8333333134651184,
+            "wrapMode": 2
+          }
+        ]
+      }
+    ],
+    "redirect": "f3fd502b-bfc8-483e-bc22-2b07b4ddafdb@072c9",
+    "assetFinder": {
+      "meshes": [],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": [
+        "f3fd502b-bfc8-483e-bc22-2b07b4ddafdb@072c9"
+      ]
+    }
+  }
+}
