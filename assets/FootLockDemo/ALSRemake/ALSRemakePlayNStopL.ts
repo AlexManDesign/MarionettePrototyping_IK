@@ -3,7 +3,7 @@ const { ccclass, property } = _decorator;
 
 @ccclass("ALSRemakePlayNStopL")
 export class ALSRemakePlayNStopL extends animation.StateMachineComponent {
-    public onMotionStateEnter (controller: animation.AnimationController, motionStateStatus: Readonly<animation.MotionStateStatus>): void {
+    public onFunctorStateEnter (controller: animation.AnimationController): void {
         controller.setValue('PlayNStopL', true);
     }
 }

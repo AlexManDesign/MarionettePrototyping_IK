@@ -451,7 +451,7 @@
     "_enabled": true,
     "__prefab": null,
     "graph": {
-      "__uuid__": "1061eeaa-45df-45e2-beca-2331bfa55cd2",
+      "__uuid__": "cf624740-5268-4195-a735-fdeeb047635e",
       "__expectedType__": "cc.animation.AnimationGraph"
     },
     "_id": "4eq+KBObRIhpNWsuGPye1B"
@@ -470,6 +470,7 @@
     },
     "_enabled": true,
     "__prefab": null,
+    "stopCase": 2,
     "_id": "4artEztVFHv4YvagcnSlgB"
   },
   {
@@ -488,6 +489,7 @@
     "__prefab": null,
     "foot": null,
     "lockCurveName": "LeftFootLock",
+    "debug": false,
     "_id": "e9fJj62TBD07EiE1d7373E"
   },
   {
@@ -506,6 +508,7 @@
     "__prefab": null,
     "foot": null,
     "lockCurveName": "RightFootLock",
+    "debug": false,
     "_id": "42lqGWsxRIVJbbE3DO0RgP"
   },
   {

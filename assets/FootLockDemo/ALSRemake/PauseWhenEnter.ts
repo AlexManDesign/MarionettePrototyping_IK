@@ -49,4 +49,7 @@ export class PauseWhenEnter extends animation.StateMachineComponent {
         // Can be overrode
     }
     
+    onFunctorStateEnter(controller: animation.AnimationController): void {
+        // game.pause();
+    }
 }

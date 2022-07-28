@@ -1,7 +1,32 @@
-import { _decorator, Component, Node, input, Input, KeyCode, EventKeyboard, Vec3, animation, toRadian, Quat } from 'cc';
+import { _decorator, Component, Node, input, Input, KeyCode, EventKeyboard, Vec3, animation, toRadian, Quat, ccenum } from 'cc';
 const { ccclass, property } = _decorator;
 
 type KeyType = KeyCode.KEY_Q | KeyCode.KEY_E | KeyCode.KEY_A | KeyCode.KEY_D;
+
+enum StopCase {
+    LOCK_LEFT_FOOT,
+    LOCK_RIGHT_FOOT,
+    PLANT_LEFT_FOOT,
+    PLANT_RIGHT_FOOT,
+}
+
+function getStopCaseFrames(stopCase: StopCase) {
+    switch (stopCase) {
+        default:
+            return 0;
+        case StopCase.LOCK_LEFT_FOOT:
+            return 15;
+        case StopCase.LOCK_RIGHT_FOOT:
+            return 0;
+        case StopCase.PLANT_LEFT_FOOT:
+            return 20;
+        case StopCase.PLANT_RIGHT_FOOT:
+            return 10;
+    }
+}
+
+
+ccenum(StopCase);
 
 @ccclass('FootLockDemo')
 export class FootLockDemo extends Component {
@@ -13,7 +38,9 @@ export class FootLockDemo extends Component {
     };
 
     private _counter = 0;
-    private _steps = 66;
+
+    @property({ type: StopCase })
+    stopCase = StopCase.LOCK_LEFT_FOOT;
 
     start() {
         // globalThis.slomo = 0.1;
@@ -29,7 +56,7 @@ export class FootLockDemo extends Component {
                     }
                     break;
                 case KeyCode.SPACE:
-                    this._counter = this._steps;
+                    this._counter = getStopCaseFrames(this.stopCase);
                     break;
             }
         };

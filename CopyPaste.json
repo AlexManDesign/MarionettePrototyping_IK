@@ -1,0 +1,84 @@
+[
+    {
+        "type": "Stash",
+        "stashName": "LocomotionCycles"
+    }
+    ,
+    {
+        "type": "UseStash",
+        "stashName": "LocomotionCycles"
+    }
+    ,
+{
+    "duration": 0.3
+}
+,
+{
+    "name": "LockLeftFoot",
+    "duration": 0.3
+}
+,
+{
+    "name": "LockRightFoot",
+    "duration": 0.3
+}
+,
+{
+    "type": "ModifierCurve",
+    "alpha": 1.0,
+    "items": [{
+        "curveName": "LeftFootLock",
+        "value": 1
+    }, {
+        "curveName": "RightFootLock",
+        "value": 1
+    }]
+}
+,
+{
+    "type": "ModifierCurve",
+    "alpha": 1.0,
+    "items": [{
+        "curveName": "LeftFootLock",
+        "value": 1
+    }]
+}
+,
+{
+    "type": "ModifierCurve",
+    "alpha": 1.0,
+    "items": [{
+        "curveName": "RightFootLock",
+        "value": 1
+    }]
+}
+,
+{
+    "type": "SingleFrameClip",
+    "clip": "ALS_N_Walk_F",
+    "time": "0.133"
+}
+,
+{
+    "type": "SingleFrameClip",
+    "clip": "ALS_N_Walk_LF",
+    "time": "0.133"
+}
+,
+{
+    "type": "SingleFrameClip",
+    "clip": "ALS_N_Walk_RF",
+    "time": "0.133"
+}
+,
+{
+    "type": "BlendBones",
+    "weights": [1.0],
+    "bones": ["foot_l", "thigh_l"]
+}
+,
+{
+    "type": "DirectBlend",
+    "weights": [0.0, 0.0, 0.0]
+}
+]
