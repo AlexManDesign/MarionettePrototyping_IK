@@ -17,11 +17,11 @@ function getStopCaseFrames(stopCase: StopCase) {
         case StopCase.LOCK_LEFT_FOOT:
             return 15;
         case StopCase.LOCK_RIGHT_FOOT:
-            return 0;
+            return 15;
         case StopCase.PLANT_LEFT_FOOT:
             return 20;
         case StopCase.PLANT_RIGHT_FOOT:
-            return 10;
+            return 45;
     }
 }
 
@@ -84,7 +84,7 @@ export class FootLockDemo extends Component {
         }
 
         if (this._lastDebugVelocity !== this._currentVelocityX) {
-            console.log(`Velocity changed: ${this._currentVelocityX}`);
+            // console.log(`Velocity changed: ${this._currentVelocityX}`);
             this._lastDebugVelocity = this._currentVelocityX;
         }
 

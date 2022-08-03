@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, animation, log } from "cc";
+import { _decorator, Component, Node, animation, log, game } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("PrintEvent")
@@ -31,15 +31,16 @@ export class PrintEvent extends animation.StateMachineComponent {
     }
 
     private _printEvent(controller: animation.AnimationController, event: string) {
-        const now = new Date();
+        const now = Date.now();
         const last = lastDateMap.get(controller);
-        const pastMs = last ? (last.getTime() - now.getTime()) : 0;
+        const pastMs = typeof last === 'undefined' ? 0 : (now - last);
         lastDateMap.set(controller, now);
+        const nowDate = new Date(now);
         log(
-            `[${now.getHours()}:${now.getMinutes()}:` + 
-            `${now.getSeconds()} ${now.getMilliseconds()}, ${(pastMs / 100).toFixed(2)}s passed]` +
+            `[` + 
+            `${nowDate.getSeconds()}, Δ${(pastMs / 1000).toFixed(2)}s]` +
             `${this.name} ${event}`);
     }
 }
 
-const lastDateMap = new WeakMap<animation.AnimationController, Date>();
+const lastDateMap = new WeakMap<animation.AnimationController, number>();
