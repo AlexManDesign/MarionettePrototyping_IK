@@ -1,0 +1,83 @@
+{
+  "ver": "2.3.0",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "90b7326d-680c-4023-9e88-ad77b69ae9ce",
+  "files": [
+    "__original-animation-0.cconb"
+  ],
+  "subMetas": {
+    "0801c": {
+      "importer": "gltf-animation",
+      "uuid": "90b7326d-680c-4023-9e88-ad77b69ae9ce@0801c",
+      "displayName": "",
+      "id": "0801c",
+      "name": "ALS_N_RunPose_R.animation",
+      "userData": {
+        "gltfIndex": 0,
+        "wrapMode": 2,
+        "sample": 30,
+        "span": {
+          "from": 0,
+          "to": 0.03333333507180214
+        },
+        "events": []
+      },
+      "ver": "1.0.16",
+      "imported": true,
+      "files": [
+        ".cconb"
+      ],
+      "subMetas": {}
+    },
+    "2463b": {
+      "importer": "gltf-scene",
+      "uuid": "90b7326d-680c-4023-9e88-ad77b69ae9ce@2463b",
+      "displayName": "",
+      "id": "2463b",
+      "name": "ALS_Mannequin@ALS_N_RunPose_R.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "legacyFbxImporter": false,
+    "allowMeshDataAccess": true,
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "animationImportSettings": [
+      {
+        "name": "Unreal Take",
+        "duration": 0.03333333507180214,
+        "fps": 30,
+        "splits": [
+          {
+            "name": "ALS_N_RunPose_R",
+            "from": 0,
+            "to": 0.03333333507180214,
+            "wrapMode": 2
+          }
+        ]
+      }
+    ],
+    "redirect": "90b7326d-680c-4023-9e88-ad77b69ae9ce@2463b",
+    "assetFinder": {
+      "meshes": [],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": [
+        "90b7326d-680c-4023-9e88-ad77b69ae9ce@2463b"
+      ]
+    }
+  }
+}
