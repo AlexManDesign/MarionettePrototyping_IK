@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, animation, find, RichText } from 'cc';
+import Table from '../Source/Utils/Table/Table';
 const { ccclass, property } = _decorator;
 
 @ccclass('PrintNamedCurves')
@@ -9,11 +10,15 @@ export class PrintNamedCurves extends Component {
 
     update(deltaTime: number) {
         const animationController = this.node.getComponent(animation.AnimationController);
-        const richText = find('Canvas/RichText')?.getComponent(RichText);
+        const richText = find('Canvas/NamedCurves')?.getComponent(RichText);
         if (animationController && richText) {
-            richText.string = `${[...animationController.getNamedCurvesNames()].map((curveName) => {
-                return `${curveName} | ${animationController.getNamedCurveValue(curveName).toFixed(4)}`;
-            }).join('\n')}`;
+            const table = new Table({
+                head: ['Name', 'Value'],
+            });
+            table.push(...[...animationController.getNamedCurvesNames()].map((curveName) => {
+                return [curveName, `${animationController.getNamedCurveValue(curveName).toFixed(4)}`];
+            }));
+            richText.string = table.toString();
         }
     }
 }

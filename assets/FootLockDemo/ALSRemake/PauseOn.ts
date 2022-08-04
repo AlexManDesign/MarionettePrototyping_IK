@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, animation, game } from "cc";
+import { GlobalPauseSwitch } from "./Utilities/GlobalPauseSwitch";
 const { ccclass, property } = _decorator;
 
 @ccclass("PauseOn")
@@ -34,16 +35,14 @@ export class PauseOn extends animation.StateMachineComponent {
     }
 
     private _onEnter() {
-        if (this.enter && globalPauseSwitch) {
+        if (this.enter && GlobalPauseSwitch.pauseEnabled) {
             game.pause();
         }
     }
 
     private _onExit() {
-        if (this.exit && globalPauseSwitch) {
+        if (this.exit && GlobalPauseSwitch.pauseEnabled) {
             game.pause();
         }
     }
 }
-
-const globalPauseSwitch = true;

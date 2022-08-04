@@ -19,9 +19,9 @@ function getStopCaseFrames(stopCase: StopCase) {
         case StopCase.LOCK_RIGHT_FOOT:
             return 15;
         case StopCase.PLANT_LEFT_FOOT:
-            return 20;
+            return 25;
         case StopCase.PLANT_RIGHT_FOOT:
-            return 45;
+            return 25;
     }
 }
 
@@ -42,6 +42,9 @@ export class FootLockDemo extends Component {
     @property({ type: StopCase })
     stopCase = StopCase.LOCK_LEFT_FOOT;
 
+    @property
+    actualMovement = true;
+
     start() {
         // globalThis.slomo = 0.1;
         const setKey = (event: EventKeyboard, pressed: boolean) => {
@@ -55,8 +58,8 @@ export class FootLockDemo extends Component {
                         this.node.getComponent(animation.AnimationController)?.setValue('CLF', this._clf);
                     }
                     break;
-                case KeyCode.SPACE:
-                    this._counter = getStopCaseFrames(this.stopCase);
+                case KeyCode.KEY_X:
+                    this._counter = getStopCaseFrames(this.stopCase) * (1.0 / 60.0);
                     break;
             }
         };
@@ -68,10 +71,11 @@ export class FootLockDemo extends Component {
     private _lastDebugVelocity = 0.0;
 
     update (deltaTime: number) {
-        let moveLeftRightAxis = (this._keyPressed[KeyCode.KEY_Q] ? -1 : 0) + (this._keyPressed[KeyCode.KEY_E] ? 1 : 0);
-        if (this._counter) {
+        deltaTime *= (globalThis.slomo ?? 1.0);
+        let moveLeftRightAxis = (this._keyPressed[KeyCode.KEY_A] ? -1 : 0) + (this._keyPressed[KeyCode.KEY_D] ? 1 : 0);
+        if (this._counter > 0.0) {
             moveLeftRightAxis = -1;
-            --this._counter;
+            this._counter -= deltaTime;
         }
         const targetVelocityX = this._targetVelocityX = moveLeftRightAxis * 1.0;
         const velocityDelta = targetVelocityX - this._currentVelocityX;
@@ -84,15 +88,17 @@ export class FootLockDemo extends Component {
         }
 
         if (this._lastDebugVelocity !== this._currentVelocityX) {
-            // console.log(`Velocity changed: ${this._currentVelocityX}`);
+            console.log(`Velocity changed: ${this._currentVelocityX}`);
             this._lastDebugVelocity = this._currentVelocityX;
         }
 
         if (this._currentVelocityX && deltaTime) {
-            const moveLeftRightDistance = targetVelocityX * deltaTime;
-            const v = Vec3.transformQuat(new Vec3(), Vec3.UNIT_X, this.node.worldRotation);
-            Vec3.scaleAndAdd(v, this.node.worldPosition, v, moveLeftRightDistance);
-            this.node.worldPosition = v;
+            if (this.actualMovement) {
+                const moveLeftRightDistance = targetVelocityX * deltaTime;
+                const v = Vec3.transformQuat(new Vec3(), Vec3.UNIT_X, this.node.worldRotation);
+                Vec3.scaleAndAdd(v, this.node.worldPosition, v, moveLeftRightDistance);
+                this.node.worldPosition = v;
+            }
             this.node.getComponent(animation.AnimationController)?.setValue('Walk', true);
             this._moving = true;
         } else {
@@ -102,9 +108,17 @@ export class FootLockDemo extends Component {
                 this._moving = false;
             }
         }
+        const hasStride = [...(this.node.getComponent(animation.AnimationController)?.getVariables() ?? [])].some(([k, v]) => {
+            return k === 'Stride';
+        });
+        if (targetVelocityX !== 0 && hasStride) {
+            const stride = (0.2 + Math.abs(this._currentVelocityX) * 0.8);
+            // const stride = Math.sign(this._currentVelocityX) * (0.2 + Math.abs(this._currentVelocityX) * 0.8);
+            this.node.getComponent(animation.AnimationController)?.setValue('Stride', stride);
+        }
         this.node.getComponent(animation.AnimationController)?.setValue('VelocityX', this._currentVelocityX);
 
-        const rotateAxis = (this._keyPressed[KeyCode.KEY_A] ? -1 : 0) + (this._keyPressed[KeyCode.KEY_D] ? 1 : 0);
+        const rotateAxis = (this._keyPressed[KeyCode.KEY_Q] ? -1 : 0) + (this._keyPressed[KeyCode.KEY_E] ? 1 : 0);
         if (rotateAxis) {
             const rotateDelta = rotateAxis * toRadian(180.0) * deltaTime;
             const q = Quat.fromAxisAngle(new Quat(), Vec3.UNIT_Y, rotateDelta);
@@ -124,5 +138,3 @@ export class FootLockDemo extends Component {
     private _currentVelocityX = 0.0;
     private _targetVelocityX = 0.0;
 }
-
-
