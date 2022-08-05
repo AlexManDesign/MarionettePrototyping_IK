@@ -14,14 +14,14 @@ function getStopCaseFrames(stopCase: StopCase) {
     switch (stopCase) {
         default:
             return 0;
-        case StopCase.LOCK_LEFT_FOOT:
-            return 15;
         case StopCase.LOCK_RIGHT_FOOT:
-            return 15;
+            return 30;
         case StopCase.PLANT_LEFT_FOOT:
-            return 25;
+            return 50;
+        case StopCase.LOCK_LEFT_FOOT:
+            return 55;
         case StopCase.PLANT_RIGHT_FOOT:
-            return 25;
+            return 65;
     }
 }
 
@@ -92,6 +92,10 @@ export class FootLockDemo extends Component {
             this._lastDebugVelocity = this._currentVelocityX;
         }
 
+        const animationController = this.node.getComponent(animation.AnimationController);
+
+        const shouldMove = !!targetVelocityX;
+
         if (this._currentVelocityX && deltaTime) {
             if (this.actualMovement) {
                 const moveLeftRightDistance = targetVelocityX * deltaTime;
@@ -99,24 +103,27 @@ export class FootLockDemo extends Component {
                 Vec3.scaleAndAdd(v, this.node.worldPosition, v, moveLeftRightDistance);
                 this.node.worldPosition = v;
             }
-            this.node.getComponent(animation.AnimationController)?.setValue('Walk', true);
+            animationController?.setValue('Walk', true);
             this._moving = true;
         } else {
-            this.node.getComponent(animation.AnimationController)?.setValue('Walk', false);
+            animationController?.setValue('Walk', false);
             if (this._moving) {
-                // this.node.getComponent(animation.AnimationController)?.setValue('QuickStop', true);
+                // animationController?.setValue('QuickStop', true);
                 this._moving = false;
             }
         }
-        const hasStride = [...(this.node.getComponent(animation.AnimationController)?.getVariables() ?? [])].some(([k, v]) => {
+        const hasStride = [...(animationController?.getVariables() ?? [])].some(([k, v]) => {
             return k === 'Stride';
         });
         if (targetVelocityX !== 0 && hasStride) {
             const stride = (0.2 + Math.abs(this._currentVelocityX) * 0.8);
             // const stride = Math.sign(this._currentVelocityX) * (0.2 + Math.abs(this._currentVelocityX) * 0.8);
-            this.node.getComponent(animation.AnimationController)?.setValue('Stride', stride);
+            animationController?.setValue('Stride', stride);
         }
-        this.node.getComponent(animation.AnimationController)?.setValue('VelocityX', this._currentVelocityX);
+        if (shouldMove) {
+            animationController?.setValue('VelocityX', this._currentVelocityX);
+        }
+        animationController?.setValue('ShouldMove', shouldMove);
 
         const rotateAxis = (this._keyPressed[KeyCode.KEY_Q] ? -1 : 0) + (this._keyPressed[KeyCode.KEY_E] ? 1 : 0);
         if (rotateAxis) {

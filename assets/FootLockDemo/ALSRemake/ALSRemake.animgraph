@@ -9,39 +9,42 @@
         "__id__": 1
       },
       {
-        "__id__": 211
+        "__id__": 209
       }
     ],
     "_variables": {
       "QuickStop": {
-        "__id__": 234
+        "__id__": 232
       },
       "VelocityX": {
-        "__id__": 235
+        "__id__": 233
       },
       "CLF": {
-        "__id__": 236
+        "__id__": 234
       },
       "#FeetPosition": {
-        "__id__": 237
+        "__id__": 235
       },
       "PlayNStopL": {
-        "__id__": 238
+        "__id__": 236
       },
       "PlayNStopR": {
-        "__id__": 239
+        "__id__": 237
       },
       "Always": {
-        "__id__": 240
+        "__id__": 238
       },
       "Stride": {
-        "__id__": 241
+        "__id__": 239
       },
       "VelocityY": {
-        "__id__": 242
+        "__id__": 240
       },
       "WalkRun": {
-        "__id__": 243
+        "__id__": 241
+      },
+      "ShouldMove": {
+        "__id__": 242
       }
     }
   },
@@ -58,9 +61,9 @@
     "__type__": "cc.animation.StateMachine",
     "__editorExtras__": {
       "viewport": {
-        "scale": 0.7399999999999998,
-        "top": -209.83207538040318,
-        "left": 46.32175330575342
+        "scale": 0.8599999999999999,
+        "top": -320.181524630824,
+        "left": -32.55962157180224
       }
     },
     "_states": [
@@ -121,16 +124,16 @@
         "__id__": 198
       },
       {
+        "__id__": 201
+      },
+      {
         "__id__": 202
       },
       {
         "__id__": 203
       },
       {
-        "__id__": 204
-      },
-      {
-        "__id__": 207
+        "__id__": 206
       }
     ],
     "_entryState": {
@@ -332,9 +335,9 @@
       "centerX": -195,
       "centerY": -122.5,
       "id": "16590758395420.7304597176227379",
-      "name": "Directional"
+      "name": "Directional#FreeformCartesian"
     },
-    "name": "Directional",
+    "name": "Directional#FreeformCartesian",
     "_components": [],
     "motion": {
       "__id__": 18
@@ -348,15 +351,15 @@
     "__editorExtras__": {
       "id": "16596830659740.3165653333509364",
       "centerX": 0,
-      "centerY": 0,
+      "centerY": -1,
       "name": "",
       "viewport": {
         "scale": 1,
-        "top": -15,
-        "left": -110
+        "top": -31,
+        "left": 5
       }
     },
-    "name": "Directional",
+    "name": "Directional#FreeformCartesian",
     "algorithm": 0,
     "_items": [
       {
@@ -392,7 +395,7 @@
       "centerY": 3,
       "name": ""
     },
-    "name": "LF",
+    "name": "LF#FreeformCartesian",
     "algorithm": 0,
     "_items": [
       {
@@ -486,7 +489,7 @@
       "centerY": -1,
       "name": ""
     },
-    "name": "RF",
+    "name": "RF#FreeformCartesian",
     "algorithm": 0,
     "_items": [
       {
@@ -1873,8 +1876,8 @@
     "__editorExtras__": {
       "viewport": {
         "scale": 0.8199999999999998,
-        "top": 65.19987885763076,
-        "left": -74.50631147492061
+        "top": 87.19987885763076,
+        "left": -220.5063114749206
       }
     },
     "_states": [
@@ -1982,7 +1985,7 @@
     "__type__": "cc.animation.EmptyState",
     "__editorExtras__": {
       "centerX": -189,
-      "centerY": -162.5,
+      "centerY": -163.71951219512195,
       "id": "16593448014530.045114707957617295",
       "name": "#{     \"type\": \"SingleFrameClip\",     \"clip\": \"ALS_N_Walk_LF\",     \"time\": 0.8}"
     },
@@ -2091,9 +2094,9 @@
       "centerX": 93,
       "centerY": -160.5,
       "id": "16593448518600.9665142647672251",
-      "name": "#{     \"type\": \"DirectBlend\",     \"weights\": [1.0, 0.0, 0.0] }"
+      "name": "#{     \"type\": \"DirectBlend\",     \"weights\": [0.0, 1.0, 0.0] }"
     },
-    "name": "#{     \"type\": \"DirectBlend\",     \"weights\": [1.0, 0.0, 0.0] }"
+    "name": "#{     \"type\": \"DirectBlend\",     \"weights\": [0.0, 1.0, 0.0] }"
   },
   {
     "__type__": "cc.animation.EmptyState",
@@ -2665,24 +2668,16 @@
     "relativeDestinationStart": false
   },
   {
-    "__type__": "cc.animation.BinaryCondition",
-    "operator": 1,
-    "lhs": {
+    "__type__": "cc.animation.UnaryCondition",
+    "operator": 0,
+    "operand": {
       "__id__": 200
-    },
-    "rhs": {
-      "__id__": 201
     }
   },
   {
-    "__type__": "cc.animation.BindableNumber",
-    "variable": "VelocityX",
-    "value": 0
-  },
-  {
-    "__type__": "cc.animation.BindableNumber",
-    "variable": "",
-    "value": 0
+    "__type__": "cc.animation.BindableBoolean",
+    "variable": "ShouldMove",
+    "value": false
   },
   {
     "__type__": "cc.animation.Transition",
@@ -2714,7 +2709,7 @@
     },
     "conditions": [
       {
-        "__id__": 205
+        "__id__": 204
       }
     ],
     "duration": 0.3,
@@ -2725,7 +2720,7 @@
     "__type__": "cc.animation.UnaryCondition",
     "operator": 0,
     "operand": {
-      "__id__": 206
+      "__id__": 205
     }
   },
   {
@@ -2743,7 +2738,7 @@
     },
     "conditions": [
       {
-        "__id__": 208
+        "__id__": 207
       }
     ],
     "duration": 0,
@@ -2751,29 +2746,21 @@
     "relativeDestinationStart": false
   },
   {
-    "__type__": "cc.animation.BinaryCondition",
-    "operator": 0,
-    "lhs": {
-      "__id__": 209
-    },
-    "rhs": {
-      "__id__": 210
+    "__type__": "cc.animation.UnaryCondition",
+    "operator": 1,
+    "operand": {
+      "__id__": 208
     }
   },
   {
-    "__type__": "cc.animation.BindableNumber",
-    "variable": "VelocityX",
-    "value": 0
-  },
-  {
-    "__type__": "cc.animation.BindableNumber",
-    "variable": "",
-    "value": 0
+    "__type__": "cc.animation.BindableBoolean",
+    "variable": "ShouldMove",
+    "value": false
   },
   {
     "__type__": "cc.animation.Layer",
     "_stateMachine": {
-      "__id__": 212
+      "__id__": 210
     },
     "name": "Transition+",
     "weight": 1,
@@ -2790,6 +2777,12 @@
     },
     "_states": [
       {
+        "__id__": 211
+      },
+      {
+        "__id__": 212
+      },
+      {
         "__id__": 213
       },
       {
@@ -2799,49 +2792,43 @@
         "__id__": 215
       },
       {
-        "__id__": 216
-      },
-      {
-        "__id__": 217
+        "__id__": 218
       },
       {
         "__id__": 220
-      },
-      {
-        "__id__": 222
       }
     ],
     "_transitions": [
       {
+        "__id__": 222
+      },
+      {
         "__id__": 224
+      },
+      {
+        "__id__": 225
       },
       {
         "__id__": 226
       },
       {
-        "__id__": 227
-      },
-      {
         "__id__": 228
       },
       {
-        "__id__": 230
+        "__id__": 229
       },
       {
         "__id__": 231
-      },
-      {
-        "__id__": 233
       }
     ],
     "_entryState": {
-      "__id__": 213
+      "__id__": 211
     },
     "_exitState": {
-      "__id__": 214
+      "__id__": 212
     },
     "_anyState": {
-      "__id__": 215
+      "__id__": 213
     }
   },
   {
@@ -2885,11 +2872,11 @@
     "name": "ALS_N_Transition_L",
     "_components": [
       {
-        "__id__": 218
+        "__id__": 216
       }
     ],
     "motion": {
-      "__id__": 219
+      "__id__": 217
     },
     "speed": 1.75,
     "speedMultiplier": "",
@@ -2921,7 +2908,7 @@
     "name": "ALS_N_Stop_L_Down",
     "_components": [],
     "motion": {
-      "__id__": 221
+      "__id__": 219
     },
     "speed": 1.5,
     "speedMultiplier": "",
@@ -2950,7 +2937,7 @@
     "name": "ALS_N_Stop_R_Down",
     "_components": [],
     "motion": {
-      "__id__": 223
+      "__id__": 221
     },
     "speed": 1.5,
     "speedMultiplier": "",
@@ -2972,14 +2959,14 @@
   {
     "__type__": "cc.animation.EmptyStateTransition",
     "from": {
-      "__id__": 216
+      "__id__": 214
     },
     "to": {
-      "__id__": 217
+      "__id__": 215
     },
     "conditions": [
       {
-        "__id__": 225
+        "__id__": 223
       }
     ],
     "duration": 0.1,
@@ -2993,20 +2980,20 @@
   {
     "__type__": "cc.animation.Transition",
     "from": {
-      "__id__": 213
+      "__id__": 211
     },
     "to": {
-      "__id__": 216
+      "__id__": 214
     },
     "conditions": []
   },
   {
     "__type__": "cc.animation.AnimationTransition",
     "from": {
-      "__id__": 217
+      "__id__": 215
     },
     "to": {
-      "__id__": 216
+      "__id__": 214
     },
     "conditions": [],
     "duration": 0.2,
@@ -3020,14 +3007,14 @@
   {
     "__type__": "cc.animation.EmptyStateTransition",
     "from": {
-      "__id__": 216
+      "__id__": 214
     },
     "to": {
-      "__id__": 220
+      "__id__": 218
     },
     "conditions": [
       {
-        "__id__": 229
+        "__id__": 227
       }
     ],
     "duration": 0.2,
@@ -3041,10 +3028,10 @@
   {
     "__type__": "cc.animation.AnimationTransition",
     "from": {
-      "__id__": 220
+      "__id__": 218
     },
     "to": {
-      "__id__": 216
+      "__id__": 214
     },
     "conditions": [],
     "duration": 0.2,
@@ -3058,14 +3045,14 @@
   {
     "__type__": "cc.animation.EmptyStateTransition",
     "from": {
-      "__id__": 216
+      "__id__": 214
     },
     "to": {
-      "__id__": 222
+      "__id__": 220
     },
     "conditions": [
       {
-        "__id__": 232
+        "__id__": 230
       }
     ],
     "duration": 0.2,
@@ -3079,10 +3066,10 @@
   {
     "__type__": "cc.animation.AnimationTransition",
     "from": {
-      "__id__": 222
+      "__id__": 220
     },
     "to": {
-      "__id__": 216
+      "__id__": 214
     },
     "conditions": [],
     "duration": 0.2,
@@ -3139,5 +3126,10 @@
     "__type__": "cc.animation.PlainVariable",
     "_type": 0,
     "_value": 0
+  },
+  {
+    "__type__": "cc.animation.PlainVariable",
+    "_type": 1,
+    "_value": false
   }
 ]
