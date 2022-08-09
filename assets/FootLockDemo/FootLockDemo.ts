@@ -71,6 +71,27 @@ export class FootLockDemo extends Component {
     private _lastDebugVelocity = 0.0;
 
     update (deltaTime: number) {
+        // if (true) {
+        //     const thigh = this.node.scene.getChildByPath('ALS_Mannequin_T_Pose/root/pelvis/thigh_r')!;
+        //     const calf = this.node.scene.getChildByPath('ALS_Mannequin_T_Pose/root/pelvis/thigh_r/calf_r')!;
+        //     const foot = this.node.scene.getChildByPath('ALS_Mannequin_T_Pose/root/pelvis/thigh_r/calf_r/foot_r')!;
+        //     console.log(
+        //         'Thigh: ',
+        //         thigh.position,
+        //         thigh.rotation,
+        //     );
+        //     console.log(
+        //         'Calf: ',
+        //         calf.position,
+        //         calf.rotation,
+        //     );
+        //     console.log(
+        //         'Foot: ',
+        //         foot.position,
+        //         foot.rotation,
+        //     );
+        // }
+
         deltaTime *= (globalThis.slomo ?? 1.0);
         let moveLeftRightAxis = (this._keyPressed[KeyCode.KEY_A] ? -1 : 0) + (this._keyPressed[KeyCode.KEY_D] ? 1 : 0);
         if (this._counter > 0.0) {
