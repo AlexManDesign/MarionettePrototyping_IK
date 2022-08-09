@@ -30,3 +30,7 @@ extensions/marionette_prototyping_ik/dist/
 extensions/marionette_prototyping_ik/\@types/
 
 *.blend1
+
+assets/Temp/
+
+assets/Temp.meta
