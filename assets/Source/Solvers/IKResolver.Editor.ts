@@ -33,7 +33,7 @@ declare namespace cce {
     }
 }
 
-@_decorator.ccclass
+@_decorator.ccclass('ResolveModifier')
 @_decorator.executeInEditMode
 class ResolveModifier extends Component {
     public declare ikResolver: IKResolver;

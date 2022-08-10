@@ -338,7 +338,7 @@ export function solveTwoBoneIK(
     target: Vec3,
     context: ResolveContext,
 ) {
-    const sanityChecker = new TwoBoneIKSanityChecker(a.worldPosition, b.worldPosition, c.worldPosition);
+    const sanityChecker = new TwoBoneIKNodeSanityChecker(a, b, c);
 
     const bSolved = new Vec3();
     const cSolved = new Vec3();
@@ -373,7 +373,7 @@ export function solveTwoBoneIK(
 
     c.worldPosition = cSolved;
 
-    sanityChecker.check(a.worldPosition, b.worldPosition, c.worldPosition);
+    sanityChecker.check();
 }
 
 function solveTwoBoneIKPositions(
@@ -384,7 +384,7 @@ function solveTwoBoneIKPositions(
     bSolved: Vec3,
     cSolved: Vec3,
 ) {
-    const sanityChecker = new TwoBoneIKSanityChecker(a, b, c);
+    const sanityChecker = new TwoBoneIKPositionSanityChecker(a, b, c);
     const sanityCheck = () => sanityChecker.check(a, bSolved, cSolved);
 
     const dAB = Vec3.distance(a, b);
@@ -449,7 +449,54 @@ function solveTwoBoneIKPositions(
     }
 }
 
-class TwoBoneIKSanityChecker {
+class TwoBoneIKNodeSanityChecker {
+    constructor(private _a: Node, private _b: Node, private _c: Node) {
+        const pA = _a.worldPosition;
+        const pB = _b.worldPosition;
+        const pC = _c.worldPosition;
+        this._pA = Vec3.clone(pA);
+        this._dAB = Vec3.distance(pA, pB);
+        this._dBC = Vec3.distance(pB, pC);
+        this._rC = Quat.clone(_c.rotation);
+    }
+
+    public check() {
+        const { _a, _b, _c } = this;
+        const pA = _a.worldPosition;
+        const pB = _b.worldPosition;
+        const pC = _c.worldPosition;
+        const CHECK_EPSILON = 1e-3;
+        const dAB = Vec3.distance(pA, pB);
+        const dBC = Vec3.distance(pB, pC);
+        // Root's world position shall not change
+        if (!Vec3.equals(pA, this._pA, CHECK_EPSILON)) {
+            debugger;
+            return false;
+        }
+        // Joint length shall not change
+        if (!approx(dAB, this._dAB, CHECK_EPSILON)) {
+            debugger;
+            return false;
+        }
+        if (!approx(dBC, this._dBC, CHECK_EPSILON)) {
+            debugger;
+            return false;
+        }
+        // End factor's rotation shall not change
+        if (!Quat.equals(_c.rotation, this._rC, CHECK_EPSILON)) {
+            debugger;
+            return false;
+        }
+        return true;
+    }
+
+    private _pA: Vec3;
+    private _dAB: number;
+    private _dBC: number;
+    private _rC: Quat;
+}
+
+class TwoBoneIKPositionSanityChecker {
     constructor(private _a: Readonly<Vec3>, _b: Readonly<Vec3>, _c: Readonly<Vec3>) {
         this._dAB = Vec3.distance(_a, _b);
         this._dBC = Vec3.distance(_b, _c);
