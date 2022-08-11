@@ -336,16 +336,19 @@ export function solveTwoBoneIK(
     b: Node,
     c: Node,
     target: Vec3,
-    context: ResolveContext,
 ) {
     const sanityChecker = new TwoBoneIKNodeSanityChecker(a, b, c);
+
+    const pA = Vec3.clone(a.worldPosition);
+    const pB = Vec3.clone(b.worldPosition);
+    const pC = Vec3.clone(c.worldPosition);
 
     const bSolved = new Vec3();
     const cSolved = new Vec3();
     solveTwoBoneIKPositions(
-        a.worldPosition,
-        b.worldPosition,
-        c.worldPosition,
+        pA,
+        pB,
+        pC,
         target,
         bSolved,
         cSolved,
@@ -353,13 +356,14 @@ export function solveTwoBoneIK(
 
     const qA = Quat.rotationTo(
         new Quat(),
-        Vec3.subtract(new Vec3(), b.worldPosition, a.worldPosition).normalize(),
-        Vec3.subtract(new Vec3(), bSolved, a.worldPosition).normalize(),
+        Vec3.subtract(new Vec3(), pB, pA).normalize(),
+        Vec3.subtract(new Vec3(), bSolved, pA).normalize(),
     );
     a.rotate(
         qA,
         NodeSpace.WORLD,
     );
+    a.worldPosition = pA;
 
     const qB = Quat.rotationTo(
         new Quat(),
@@ -370,6 +374,7 @@ export function solveTwoBoneIK(
         qB,
         NodeSpace.WORLD,
     );
+    b.worldPosition = bSolved;
 
     c.worldPosition = cSolved;
 
