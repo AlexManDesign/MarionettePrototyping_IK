@@ -33,6 +33,9 @@ export class SkeletonRenderer extends Component {
     @_decorator.property(Camera)
     public camera: Camera | null = null;
 
+    @_decorator.property
+    public filter = '';
+
     @_decorator.property({ type: BoneRenderMode })
     mode: BoneRenderMode = BoneRenderMode.octahedral;
 
@@ -146,9 +149,15 @@ export class SkeletonRenderer extends Component {
     private _dirtyJoints: Node[] = [];
 
     private _drawBoneRecursive(joint: Node) {
-        joint.on(Node.EventType.TRANSFORM_CHANGED, (flags: number) => {
-            return this._onJointTransformChanged(joint, flags);
-        }, this);
+        const excluded = !!(this.filter && new RegExp(this.filter).test(joint.name));
+        if (excluded) {
+            console.log(`Skip bone ${joint.name}`);
+        }
+        if (!excluded) {
+            joint.on(Node.EventType.TRANSFORM_CHANGED, (flags: number) => {
+                return this._onJointTransformChanged(joint, flags);
+            }, this);
+        }
 
         for (const child of joint.children) {
             if (!child.activeInHierarchy) {
