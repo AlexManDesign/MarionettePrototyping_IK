@@ -342,6 +342,7 @@ export function solveTwoBoneIK(
     const pA = Vec3.clone(a.worldPosition);
     const pB = Vec3.clone(b.worldPosition);
     const pC = Vec3.clone(c.worldPosition);
+    const qC = Quat.clone(c.worldRotation);
 
     const bSolved = new Vec3();
     const cSolved = new Vec3();
@@ -377,6 +378,10 @@ export function solveTwoBoneIK(
     b.worldPosition = bSolved;
 
     c.worldPosition = cSolved;
+
+    // End factor's rotation frame might be rotated in IK progress, revert it after all thing done.
+    // The reverting does not affect the IK result indeed.
+    c.worldRotation = qC;
 
     sanityChecker.check();
 }
@@ -462,7 +467,7 @@ class TwoBoneIKNodeSanityChecker {
         this._pA = Vec3.clone(pA);
         this._dAB = Vec3.distance(pA, pB);
         this._dBC = Vec3.distance(pB, pC);
-        this._rC = Quat.clone(_c.rotation);
+        this._rC = Quat.clone(_c.worldRotation);
     }
 
     public check() {
@@ -487,8 +492,8 @@ class TwoBoneIKNodeSanityChecker {
             debugger;
             return false;
         }
-        // End factor's rotation shall not change
-        if (!Quat.equals(_c.rotation, this._rC, CHECK_EPSILON)) {
+        // End factor's world rotation shall not change
+        if (!Quat.equals(_c.worldRotation, this._rC, CHECK_EPSILON)) {
             debugger;
             return false;
         }
