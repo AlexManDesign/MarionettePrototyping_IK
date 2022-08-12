@@ -11,37 +11,37 @@
     ],
     "_variables": {
       "QuickStop": {
-        "__id__": 64
-      },
-      "VelocityX": {
-        "__id__": 65
-      },
-      "CLF": {
-        "__id__": 66
-      },
-      "#FeetPosition": {
-        "__id__": 67
-      },
-      "PlayNStopL": {
-        "__id__": 68
-      },
-      "PlayNStopR": {
-        "__id__": 69
-      },
-      "Always": {
-        "__id__": 70
-      },
-      "Stride": {
-        "__id__": 71
-      },
-      "VelocityY": {
         "__id__": 72
       },
-      "WalkRun": {
+      "VelocityX": {
         "__id__": 73
       },
-      "ShouldMove": {
+      "CLF": {
         "__id__": 74
+      },
+      "#FeetPosition": {
+        "__id__": 75
+      },
+      "PlayNStopL": {
+        "__id__": 76
+      },
+      "PlayNStopR": {
+        "__id__": 77
+      },
+      "Always": {
+        "__id__": 78
+      },
+      "Stride": {
+        "__id__": 79
+      },
+      "VelocityY": {
+        "__id__": 80
+      },
+      "WalkRun": {
+        "__id__": 81
+      },
+      "ShouldMove": {
+        "__id__": 82
       }
     }
   },
@@ -59,8 +59,8 @@
     "__editorExtras__": {
       "viewport": {
         "scale": 0.7799999999999998,
-        "top": -220.60607058260337,
-        "left": -181.94585144294788
+        "top": -311.60607058260337,
+        "left": 72.05414855705212
       }
     },
     "_states": [
@@ -87,23 +87,32 @@
       },
       {
         "__id__": 43
+      },
+      {
+        "__id__": 55
       }
     ],
     "_transitions": [
       {
-        "__id__": 55
-      },
-      {
-        "__id__": 56
-      },
-      {
         "__id__": 57
       },
       {
-        "__id__": 60
+        "__id__": 58
       },
       {
-        "__id__": 61
+        "__id__": 59
+      },
+      {
+        "__id__": 62
+      },
+      {
+        "__id__": 63
+      },
+      {
+        "__id__": 66
+      },
+      {
+        "__id__": 69
       }
     ],
     "_entryState": {
@@ -783,6 +792,35 @@
     "relativeDestinationStart": false
   },
   {
+    "__type__": "cc.animation.Motion",
+    "__editorExtras__": {
+      "centerX": -184.9487805488784,
+      "centerY": 379.41025641025647,
+      "id": "16602921415890.45677508171263215"
+    },
+    "name": "ALS_CLF_Pose",
+    "_components": [],
+    "motion": {
+      "__id__": 56
+    },
+    "speed": 1,
+    "speedMultiplier": "",
+    "speedMultiplierEnabled": false
+  },
+  {
+    "__type__": "cc.animation.ClipMotion",
+    "__editorExtras__": {
+      "id": "16602921415850.6402867286669438",
+      "centerX": 0,
+      "centerY": 0,
+      "name": ""
+    },
+    "clip": {
+      "__uuid__": "77eb7048-154a-483b-b086-2c9e5a4b30b0@5146f",
+      "__expectedType__": "cc.AnimationClip"
+    }
+  },
+  {
     "__type__": "cc.animation.Transition",
     "from": {
       "__id__": 32
@@ -812,7 +850,7 @@
     },
     "conditions": [
       {
-        "__id__": 58
+        "__id__": 60
       }
     ],
     "duration": 0.3,
@@ -823,7 +861,7 @@
     "__type__": "cc.animation.UnaryCondition",
     "operator": 0,
     "operand": {
-      "__id__": 59
+      "__id__": 61
     }
   },
   {
@@ -851,7 +889,7 @@
     },
     "conditions": [
       {
-        "__id__": 62
+        "__id__": 64
       }
     ],
     "duration": 0.3,
@@ -862,12 +900,74 @@
     "__type__": "cc.animation.UnaryCondition",
     "operator": 1,
     "operand": {
-      "__id__": 63
+      "__id__": 65
     }
   },
   {
     "__type__": "cc.animation.BindableBoolean",
     "variable": "ShouldMove",
+    "value": false
+  },
+  {
+    "__type__": "cc.animation.AnimationTransition",
+    "from": {
+      "__id__": 55
+    },
+    "to": {
+      "__id__": 42
+    },
+    "conditions": [
+      {
+        "__id__": 67
+      }
+    ],
+    "duration": 0.3,
+    "relativeDuration": false,
+    "exitConditionEnabled": false,
+    "destinationStart": 0,
+    "relativeDestinationStart": false,
+    "interruptionSource": 0,
+    "_exitCondition": 1
+  },
+  {
+    "__type__": "cc.animation.UnaryCondition",
+    "operator": 1,
+    "operand": {
+      "__id__": 68
+    }
+  },
+  {
+    "__type__": "cc.animation.BindableBoolean",
+    "variable": "CLF",
+    "value": false
+  },
+  {
+    "__type__": "cc.animation.EmptyStateTransition",
+    "from": {
+      "__id__": 42
+    },
+    "to": {
+      "__id__": 55
+    },
+    "conditions": [
+      {
+        "__id__": 70
+      }
+    ],
+    "duration": 0.3,
+    "destinationStart": 0,
+    "relativeDestinationStart": false
+  },
+  {
+    "__type__": "cc.animation.UnaryCondition",
+    "operator": 0,
+    "operand": {
+      "__id__": 71
+    }
+  },
+  {
+    "__type__": "cc.animation.BindableBoolean",
+    "variable": "CLF",
     "value": false
   },
   {
