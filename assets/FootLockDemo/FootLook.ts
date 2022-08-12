@@ -47,6 +47,7 @@ export class FootLook extends Component {
 
         Vec3.copy(this._lastCharacterPos, this.node.getWorldPosition());
         Vec3.copy(this._lockingPosition, this.foot.worldPosition);
+        Quat.copy(this._lockingRotation, this.foot.worldRotation);
     }
 
     update () {
@@ -59,6 +60,7 @@ export class FootLook extends Component {
 
     private _lastCharacterPos = new Vec3();
     private _lockingPosition = new Vec3();
+    private _lockingRotation = new Quat();
     private _lastActualFootPos = new Vec3();
     private _forceLock = true;
     private declare _lastCharacterPosIndicator: Node | null;
@@ -84,6 +86,7 @@ export class FootLook extends Component {
         }
 
         const lockingPosition = this._lockingPosition;
+        const lockingRotation = this._lockingRotation;
 
         const animationController = this.node.getComponent(animation.AnimationController)!;
         const lockStrengthUnclamped = animationController.getNamedCurveValue(this.lockCurveName);
@@ -96,6 +99,7 @@ export class FootLook extends Component {
         const currentLockStrength = this._currentLockStrength;
         if (currentLockStrength >= 0.999) {
             Vec3.copy(lockingPosition, this.foot.worldPosition);
+            Quat.copy(lockingRotation, this.foot.worldRotation);
         }
     }
 
@@ -103,8 +107,11 @@ export class FootLook extends Component {
         const {
             foot,
             _lockingPosition: lockingPosition,
+            _lockingRotation: lockingRotation,
             _currentLockStrength: currentLockStrength,
         } = this;
+        const q = Quat.slerp(new Quat(), foot.worldRotation, lockingRotation, currentLockStrength);
+        foot.worldRotation = q;
         solveTwoBoneIKAlpha(
             foot,
             lockingPosition,
@@ -178,11 +185,6 @@ function solveTwoBoneIKAlpha(endFactorNode: Node, target: Vec3, alpha: number) {
         middleNodeCopy,
         endFactorNodeCopy,
         target,
-        {
-            node: new Node(),
-            debugLineMaterial: null,
-            renderer: null,
-        }
     );
     // const solver = new TwoBoneIK();
     // const g = solver.solveChain(
