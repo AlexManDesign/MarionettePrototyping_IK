@@ -9,11 +9,14 @@ export class TwoBoneIKSolver extends IKSolverBase {
     @property(Node)
     public endFactor: Node | null = null;
 
+    @property
+    public hint = new Vec3();
+
     public getEndFactorCount(): number {
         return 1;
     }
 
-    public getEndFactorPosition(index: number): Readonly<Vec3> {
+    public getEndFactorPosition(_index: number): Readonly<Vec3> {
         return this.endFactor?.worldPosition ?? Vec3.ZERO;
     }
 

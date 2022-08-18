@@ -16,6 +16,28 @@ export class FootLook extends Component {
     @property
     public debug = true;
 
+    @property({ visible: function(this: FootLook) { return this.debug; } })
+    public debugShowLockingPosition = false;
+
+    @property({ visible: function(this: FootLook) { return this.debug; } })
+    public debugShowPositionBeforeLock = false;
+
+    @property({ visible: function(this: FootLook) { return this.debug; } })
+    public debugShowResultPosition = false;
+
+    @property({ visible: function(this: FootLook) { return this.debug; } })
+    public debugShowKneeTargetTranslation = false;
+
+    @property({ visible: function(this: FootLook) { return this.debug; } })
+    public debugShowCharacterPosition = false;
+
+    /**
+     * The knee's translation, in knee's bone space,
+     * **added** to knee bone when foot participates (two bone)IK resolution.
+     */
+    @property
+    public kneeTargetTranslation = new Vec3();
+
     get forceLock() {
         return this._forceLock;
     }
@@ -32,17 +54,35 @@ export class FootLook extends Component {
 
     start() {
         if (this.debug) {
-            const lastPosIndicator = createIndicator(Color.YELLOW);
-            this.node.scene.addChild(lastPosIndicator);
-            this._lastPosIndicator = lastPosIndicator;
+            if (this.debugShowLockingPosition) {
+                const lockingPositionIndicator = createIndicator(Color.BLACK);
+                this.node.scene.addChild(lockingPositionIndicator);
+                this._lockingPositionIndicator = lockingPositionIndicator;
+            }
+
+            if (this.debugShowPositionBeforeLock) {
+                const positionBeforeLockIndicator = createIndicator(Color.WHITE);
+                this.node.scene.addChild(positionBeforeLockIndicator);
+                this._positionBeforeLockIndicator = positionBeforeLockIndicator;
+            }
     
-            const actualFootIndicator = createIndicator(Color.RED);
-            this.node.scene.addChild(actualFootIndicator);
-            this._actualFootIndicator = actualFootIndicator;
-    
-            const lastCharacterPosIndicator = createIndicator(Color.GRAY);
-            this.node.scene.addChild(lastCharacterPosIndicator);
-            this._lastCharacterPosIndicator = lastCharacterPosIndicator;
+            if (this.debugShowResultPosition) {
+                const resultPositionIndicator = createIndicator(Color.RED);
+                this.node.scene.addChild(resultPositionIndicator);
+                this._resultPositionIndicator = resultPositionIndicator;
+            }
+
+            if (this.debugShowCharacterPosition) {
+                const characterPositionIndicator = createIndicator(Color.GRAY);
+                this.node.scene.addChild(characterPositionIndicator);
+                this._characterPositionIndicator = characterPositionIndicator;   
+            }
+
+            if (this.debugShowKneeTargetTranslation) {
+                const kneeTargetPosIndicator = createIndicator(Color.YELLOW);
+                this.node.scene.addChild(kneeTargetPosIndicator);
+                this._kneeTargetPosIndicator = kneeTargetPosIndicator;
+            }
         }
 
         Vec3.copy(this._lastCharacterPos, this.node.getWorldPosition());
@@ -63,15 +103,16 @@ export class FootLook extends Component {
     private _lockingRotation = new Quat();
     private _lastActualFootPos = new Vec3();
     private _forceLock = true;
-    private declare _lastCharacterPosIndicator: Node | null;
-    private declare _lastPosIndicator: Node | null;
-    private declare _actualFootIndicator: Node | null;
+    private _characterPositionIndicator: Node | null = null;
+    private _kneeTargetPosIndicator: Node | null = null;
+    private _lockingPositionIndicator: Node | null = null;
+    private _positionBeforeLockIndicator: Node | null = null;
+    private _resultPositionIndicator: Node | null = null;
     private _currentLockStrength = 1.0;
 
     private _updateBeforeAnimation() {
         // console.log('-------');
-        this._lastPosIndicator?.setWorldPosition(this._lockingPosition);
-        this._actualFootIndicator?.setWorldPosition(this.foot.worldPosition);
+        this._lockingPositionIndicator?.setWorldPosition(this._lockingPosition);
         // console.log(`${this.foot.worldPosition}`);
 
         // const characterPosition = this.node.getWorldPosition();
@@ -110,22 +151,34 @@ export class FootLook extends Component {
             _lockingRotation: lockingRotation,
             _currentLockStrength: currentLockStrength,
         } = this;
+
+        this._positionBeforeLockIndicator?.setWorldPosition(foot.worldPosition);
+
+        // First, find the place where the knee should be placed.
+        // This corresponds to the "Modify Knee Targets" in ALS
+        const knee = foot.parent!;
+        const kneeTarget = Vec3.clone(knee.worldPosition);
+        const kneedTargetTranslationWorld = Vec3.transformMat4(new Vec3(), this.kneeTargetTranslation, knee.getWorldRS());
+        Vec3.add(kneeTarget, kneeTarget, kneedTargetTranslationWorld);
+        this._kneeTargetPosIndicator?.setWorldPosition(kneeTarget);
+
         const q = Quat.slerp(new Quat(), foot.worldRotation, lockingRotation, currentLockStrength);
         foot.worldRotation = q;
         solveTwoBoneIKAlpha(
             foot,
             lockingPosition,
             currentLockStrength,
+            kneeTarget,
         );
-        const d = Vec3.distance(lockingPosition, foot.worldPosition);
-        // console.debug(d);
+
+        this._resultPositionIndicator?.setWorldPosition(this.foot.worldPosition);
     }
 }
 
 function createIndicator(color = Color.WHITE) {
     const lastPosIndicator = new Node();
     const meshRenderer = lastPosIndicator.addComponent(MeshRenderer);
-    const indicatorScale = 0.1;
+    const indicatorScale = 0.05;
     meshRenderer.mesh = utils.MeshUtils.createMesh(primitives.box());
     const material = new Material();
     material.reset({
@@ -158,7 +211,7 @@ function cloneNodeWorldTransform(node: Node) {
     return nodeCopy;
 }
 
-function solveTwoBoneIKAlpha(endFactorNode: Node, target: Vec3, alpha: number) {
+function solveTwoBoneIKAlpha(endFactorNode: Node, target: Vec3, alpha: number, kneeTarget: Vec3) {
     // TODO:
     target = Vec3.clone(target);
 
@@ -185,6 +238,7 @@ function solveTwoBoneIKAlpha(endFactorNode: Node, target: Vec3, alpha: number) {
         middleNodeCopy,
         endFactorNodeCopy,
         target,
+        kneeTarget,
     );
     // const solver = new TwoBoneIK();
     // const g = solver.solveChain(

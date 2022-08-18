@@ -25,6 +25,10 @@ function getStopCaseFrames(stopCase: StopCase) {
     }
 }
 
+declare namespace globalThis {
+    export var __FIXED_FPS: number | undefined;
+}
+
 
 ccenum(StopCase);
 
@@ -45,7 +49,19 @@ export class FootLockDemo extends Component {
     @property
     actualMovement = true;
 
+    @property
+    get fixedFPS() {
+        return this._fixedFPS;
+    }
+
+    set fixedFPS(value) {
+        this._fixedFPS = value;
+        globalThis.__FIXED_FPS = value ? 60 : undefined;
+    }
+
     start() {
+        this.fixedFPS = this._fixedFPS;
+        
         // globalThis.slomo = 0.1;
         const setKey = (event: EventKeyboard, pressed: boolean) => {
             if (event.keyCode in this._keyPressed) {
@@ -69,6 +85,9 @@ export class FootLockDemo extends Component {
     }
 
     private _lastDebugVelocity = 0.0;
+
+    @property
+    private _fixedFPS = false;
 
     update (deltaTime: number) {
         // if (true) {

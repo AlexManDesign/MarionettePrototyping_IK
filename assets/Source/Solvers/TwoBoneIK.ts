@@ -336,8 +336,11 @@ export function solveTwoBoneIK(
     b: Node,
     c: Node,
     target: Vec3,
+    hint?: Vec3,
 ) {
     const sanityChecker = new TwoBoneIKNodeSanityChecker(a, b, c);
+
+    hint ??= Vec3.clone(b.worldPosition);
 
     const pA = Vec3.clone(a.worldPosition);
     const pB = Vec3.clone(b.worldPosition);
@@ -351,6 +354,7 @@ export function solveTwoBoneIK(
         pB,
         pC,
         target,
+        hint,
         bSolved,
         cSolved,
     );
@@ -391,6 +395,7 @@ function solveTwoBoneIKPositions(
     b: Readonly<Vec3>,
     c: Readonly<Vec3>,
     target: Readonly<Vec3>,
+    middleTarget: Readonly<Vec3>,
     bSolved: Vec3,
     cSolved: Vec3,
 ) {
@@ -424,17 +429,20 @@ function solveTwoBoneIKPositions(
     );
     // Then use basic trigonometry(instead of rotation) to solve Ḃ.
     // Let D the intersect point of the height line passing Ḃ.
-    const dirHeightLine = Vec3.multiplyScalar(
-        new Vec3(),
-        dirAT,
-        Vec3.dot(dirAT, Vec3.subtract(new Vec3(), b, a)),
-    );
-    Vec3.subtract(
-        dirHeightLine,
-        Vec3.subtract(new Vec3(), b, a),
-        dirHeightLine,
-    );
+    const dirAB = Vec3.subtract(new Vec3(), middleTarget, a);
+    const dirHeightLine = Vec3.projectOnPlane(new Vec3(), dirAB, dirAT);
     dirHeightLine.normalize();
+    // const dirHeightLine = Vec3.multiplyScalar(
+    //     new Vec3(),
+    //     dirAT,
+    //     Vec3.dot(dirAT, dirAB),
+    // );
+    // Vec3.subtract(
+    //     dirHeightLine,
+    //     dirAB,
+    //     dirHeightLine,
+    // );
+    // dirHeightLine.normalize();
     const dAD = dAB * cosḂAT;
     const hSqr = dAB * dAB - dAD * dAD;
     if (hSqr < 0) {
